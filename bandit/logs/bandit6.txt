@@ -1,0 +1,2163 @@
+Linux bandit.otw.local 5.4.8 x86_64 GNU/Linux
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to Steven or morla on
+irc.overthewire.org.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ and /proc/ is disabled
+  so that users can not snoop on eachother. Files and directories with
+  easily guessable or short names will be periodically deleted!
+
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few usefull tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /usr/local/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /usr/local/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /usr/local/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /usr/local/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+    * checksec.sh (http://www.trapkit.de/tools/checksec.html) in /usr/local/bin/checksec.sh
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us through IRC on
+  irc.overthewire.org #wargames.
+
+  Enjoy your stay!
+
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ fidn [K[K[Knd , [K[K,[K. -size 33c
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find . -size 33c[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kls
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ ls -a[Kla
+total 20
+drwxr-xr-x  2 root root 4096 May  7  2020 [0m[01;34m.[0m
+drwxr-xr-x 41 root root 4096 May  7  2020 [01;34m..[0m
+-rw-r--r--  1 root root  220 May 15  2017 .bash_logout
+-rw-r--r--  1 root root 3526 May 15  2017 .bashrc
+-rw-r--r--  1 root root  675 May 15  2017 .profile
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ ls -la[Kfind . -size 33c[1P[1@/
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+/home/bandit4/inhere/-file01
+/home/bandit4/inhere/-file00
+/home/bandit4/inhere/-file06
+/home/bandit4/inhere/-file03
+/home/bandit4/inhere/-file05
+/home/bandit4/inhere/-file08
+/home/bandit4/inhere/-file04
+/home/bandit4/inhere/-file07
+/home/bandit4/inhere/-file02
+/home/bandit4/inhere/-file09
+find: ‘/home/bandit30-git’: Permission denied
+/home/bandit0/readme
+find: ‘/home/bandit5/inhere’: Permission denied
+/home/bandit25/.bandit24.password
+/home/bandit15/.bandit14.password
+/home/bandit3/inhere/.hidden
+/home/bandit16/.bandit15.password
+/home/bandit2/spaces in this filename
+/home/bandit1/-
+find: ‘/home/bandit27-git’: Permission denied
+/home/bandit18/readme
+/home/bandit21/.prevpass
+/home/bandit17/.bandit16.password
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+/etc/apparmor/init/network-interface-security/usr.sbin.ntpd
+/etc/localtime
+/etc/systemd/system/multi-user.target.wants/rsync.service
+/etc/alternatives/from.1.gz
+/etc/alternatives/w.1.gz
+/etc/bandit_pass/bandit23
+/etc/bandit_pass/bandit19
+/etc/bandit_pass/bandit7
+/etc/bandit_pass/bandit4
+/etc/bandit_pass/bandit8
+/etc/bandit_pass/bandit29
+/etc/bandit_pass/bandit24
+/etc/bandit_pass/bandit27
+/etc/bandit_pass/bandit20
+/etc/bandit_pass/bandit32
+/etc/bandit_pass/bandit22
+/etc/bandit_pass/bandit30
+/etc/bandit_pass/bandit13
+/etc/bandit_pass/bandit33
+/etc/bandit_pass/bandit5
+/etc/bandit_pass/bandit28
+/etc/bandit_pass/bandit25
+/etc/bandit_pass/bandit12
+/etc/bandit_pass/bandit15
+/etc/bandit_pass/bandit9
+/etc/bandit_pass/bandit6
+/etc/bandit_pass/bandit10
+/etc/bandit_pass/bandit3
+/etc/bandit_pass/bandit16
+/etc/bandit_pass/bandit31
+/etc/bandit_pass/bandit11
+/etc/bandit_pass/bandit2
+/etc/bandit_pass/bandit1
+/etc/bandit_pass/bandit18
+/etc/bandit_pass/bandit21
+/etc/bandit_pass/bandit14
+/etc/bandit_pass/bandit26
+/etc/bandit_pass/bandit17
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/7012/task/7012/fd/6’: No such file or directory
+find: ‘/proc/7012/task/7012/fdinfo/6’: No such file or directory
+find: ‘/proc/7012/fd/5’: No such file or directory
+find: ‘/proc/7012/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+/usr/include/x86_64-linux-gnu/asm/termios.h
+/usr/include/x86_64-linux-gnu/asm/sockios.h
+/usr/include/sys/termios.h
+/usr/include/sys/inotify.h
+/usr/include/sys/syscall.h
+/usr/include/sys/sysinfo.h
+/usr/include/sys/eventfd.h
+/usr/include/sys/utsname.h
+/usr/include/sys/statvfs.h
+/usr/include/sys/bitypes.h
+/usr/include/sys/stropts.h
+/usr/include/sys/timerfd.h
+/usr/sbin/traceroute
+/usr/share/doc/python-pam/AUTHORS
+/usr/share/doc/git/contrib/subtree/COPYING
+/usr/share/doc/eject/AUTHORS
+/usr/share/cmake-3.7/Modules/Compiler/Cray-CXX.cmake
+/usr/share/cmake-3.7/Modules/Compiler/MIPSpro-CXX.cmake
+/usr/share/cmake-3.7/Modules/Platform/AIX-VisualAge-Fortran.cmake
+/usr/share/cmake-3.7/Modules/Platform/CYGWIN-Clang-CXX.cmake
+/usr/share/cmake-3.7/Modules/Platform/WindowsPhone-MSVC-C.cmake
+/usr/share/cmake-3.7/Modules/Platform/WindowsCE-MSVC-C.cmake
+/usr/share/cmake-3.7/Modules/Platform/WindowsStore-MSVC-C.cmake
+/usr/share/cmake-3.7/Modules/FortranCInterface/mysub.f
+/usr/share/man/man1/traceproto.1.gz
+/usr/share/man/man1/traceroute.1.gz
+/usr/share/man/man3/SSL_CTX_get_info_callback.3ssl.gz
+/usr/share/man/man3/SSL_get_info_callback.3ssl.gz
+/usr/share/man/man3/SSL_get_max_cert_list.3ssl.gz
+/usr/share/man/man3/SSL_set_max_cert_list.3ssl.gz
+/usr/share/man/man3/pthread_attr_getinheritsched.3.gz
+/usr/share/man/man3/pcre16_get_stringtable_entries.3.gz
+/usr/share/man/man3/X509_EXTENSION_create_by_NID.3ssl.gz
+/usr/share/man/man3/X509_EXTENSION_set_critical.3ssl.gz
+/usr/share/man/man3/X509_EXTENSION_set_data.3ssl.gz
+/usr/share/man/man3/SSL_CTX_get_max_cert_list.3ssl.gz
+/usr/share/man/man3/X509_EXTENSION_get_critical.3ssl.gz
+/usr/share/man/man3/X509_EXTENSION_get_object.3ssl.gz
+/usr/share/man/man3/SSL_set_info_callback.3ssl.gz
+/usr/share/man/man3/X509_EXTENSION_create_by_OBJ.3ssl.gz
+/usr/share/man/man3/X509_EXTENSION_get_data.3ssl.gz
+/usr/share/man/man3/pcre32_get_stringtable_entries.3.gz
+/usr/lib/x86_64-linux-gnu/libpam.so
+/usr/lib/x86_64-linux-gnu/libanl.so
+/usr/lib/x86_64-linux-gnu/libnsl.so
+/usr/lib/x86_64-linux-gnu/libbabeltrace-lttng-live.so.1
+/usr/lib/gcc/x86_64-linux-gnu/6/x32/libitm.so
+/usr/lib/gcc/x86_64-linux-gnu/6/32/libgomp.so
+/usr/lib/gcc/x86_64-linux-gnu/6/32/libasan.so
+/usr/lib/grub/i386-pc/video.lst
+/usr/lib/tmpfiles.d/man-db.conf
+/usr/lib/python2.7/dist-packages/PILcompat/PngImagePlugin.py
+/usr/lib/python2.7/dist-packages/PILcompat/ImageCrackCode.py
+/usr/bin/x86_64-linux-gnu-python3-config
+/usr/bin/python3.5-config
+/usr/bin/x86_64-linux-gnu-python-config
+/usr/bin/python2.7-config
+/usr/local/share/doc/radare2/lang-plugins
+/usr/local/share/doc/radare2/io-fixing.md
+/usr/local/share/doc/radare2/fortunes.fun
+/usr/local/share/doc/radare2/cows128.data
+/usr/local/share/doc/radare2/crosscompile
+/usr/local/share/doc/radare2/brainfuck.md
+/usr/local/share/radare2/4.5.0-git/format/elf64
+/usr/local/share/radare2/4.5.0-git/format/jni.h
+/usr/local/share/radare2/4.5.0-git/format/elf32
+/usr/local/share/radare2/4.5.0-git/format/macho
+/usr/local/share/radare2/4.5.0-git/format/dex.h
+/usr/local/share/radare2/4.5.0-git/cons/bold
+/usr/local/share/radare2/4.5.0-git/cons/lima
+/usr/local/share/radare2/4.5.0-git/cons/pink
+/usr/local/share/radare2/4.5.0-git/cons/dark
+/usr/local/lib/pkgconfig/r_cons.pc
+/usr/local/lib/pkgconfig/r_anal.pc
+/usr/local/lib/pkgconfig/r_lang.pc
+/usr/local/lib/pkgconfig/r_flag.pc
+/usr/local/lib/pkgconfig/r_hash.pc
+/usr/local/lib/pkgconfig/r_util.pc
+/usr/local/lib/pkgconfig/r_core.pc
+/usr/local/bin/ragg2
+/usr/local/bin/rasm2
+/usr/local/bin/r2-docker
+find: ‘/boot/lost+found’: Permission denied
+/boot/grub/i386-pc/video.lst
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+/run/lock/password26.txt.save
+/run/lock/password26.txt
+/run/lock/pass.txt
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+/var/lib/dbus/machine-id
+/var/lib/dpkg/info/libkrb5support0:amd64.shlibs
+/var/lib/dpkg/info/libcurl3-gnutls:amd64.shlibs
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user bandit7
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+/etc/bandit_pass/bandit7
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/7420/task/7420/fd/6’: No such file or directory
+find: ‘/proc/7420/task/7420/fdinfo/6’: No such file or directory
+find: ‘/proc/7420/fd/5’: No such file or directory
+find: ‘/proc/7420/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user bandit7 -group bandit6
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/7874/task/7874/fd/6’: No such file or directory
+find: ‘/proc/7874/task/7874/fdinfo/6’: No such file or directory
+find: ‘/proc/7874/fd/5’: No such file or directory
+find: ‘/proc/7874/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user bandit7 -group bandit6""bandit6"[1@"[C[C[1@"
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/7890/task/7890/fd/6’: No such file or directory
+find: ‘/proc/7890/task/7890/fdinfo/6’: No such file or directory
+find: ‘/proc/7890/fd/5’: No such file or directory
+find: ‘/proc/7890/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6"
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/8993/task/8993/fd/6’: No such file or directory
+find: ‘/proc/8993/task/8993/fdinfo/6’: No such file or directory
+find: ‘/proc/8993/fd/5’: No such file or directory
+find: ‘/proc/8993/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -v "permission deni ed"
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/9050/task/9050/fd/6’: No such file or directory
+find: ‘/proc/9050/task/9050/fdinfo/6’: No such file or directory
+find: ‘/proc/9050/fd/5’: No such file or directory
+find: ‘/proc/9050/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -v "permission denieed"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "permission denied[1P"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cv "permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/9066/task/9066/fd/6’: No such file or directory
+find: ‘/proc/9066/task/9066/fdinfo/6’: No such file or directory
+find: ‘/proc/9066/fd/5’: No such file or directory
+find: ‘/proc/9066/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -v "permission denieed"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "permission denied[1P"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CV "permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+grep (GNU grep) 2.27
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Mike Haertel and others, see <http://git.sv.gnu.org/cgit/grep.git/tree/AUTHORS>.
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/9079/task/9079/fd/6’: No such file or directory
+find: ‘/proc/9079/task/9079/fdinfo/6’: No such file or directory
+find: ‘/proc/9079/fd/5’: No such file or directory
+find: ‘/proc/9079/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -V "permission denieed"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "permission denied[1P"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CI "permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/9105/task/9105/fd/6’: No such file or directory
+find: ‘/proc/9105/task/9105/fdinfo/6’: No such file or directory
+find: ‘/proc/9105/fd/5’: No such file or directory
+find: ‘/proc/9105/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -I "permission denieed"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "permission denied[1P"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ci "permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/9115/task/9115/fd/6’: No such file or directory
+find: ‘/proc/9115/task/9115/fdinfo/6’: No such file or directory
+find: ‘/proc/9115/fd/5’: No such file or directory
+find: ‘/proc/9115/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -i "permission denieed"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "permission denied[1P"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ce "permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "permission denied[1P"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CL "permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/9160/task/9160/fd/6’: No such file or directory
+find: ‘/proc/9160/task/9160/fdinfo/6’: No such file or directory
+find: ‘/proc/9160/fd/5’: No such file or directory
+find: ‘/proc/9160/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+(standard input)
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -L "permission denieed"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ci "permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/10198/task/10198/fd/6’: No such file or directory
+find: ‘/proc/10198/task/10198/fdinfo/6’: No such file or directory
+find: ‘/proc/10198/fd/5’: No such file or directory
+find: ‘/proc/10198/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+(standard input)
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -Li "permission deniied"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cermission denie[1Pd"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CPermission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/10306/task/10306/fd/6’: No such file or directory
+find: ‘/proc/10306/task/10306/fdinfo/6’: No such file or directory
+find: ‘/proc/10306/fd/5’: No such file or directory
+find: ‘/proc/10306/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+(standard input)
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -Li "Permission deniied"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/10384/task/10384/fd/6’: No such file or directory
+find: ‘/proc/10384/task/10384/fdinfo/6’: No such file or directory
+find: ‘/proc/10384/fd/5’: No such file or directory
+find: ‘/proc/10384/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+(standard input)
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -Li "Permission deniied"[K[K"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "Permission denie[1P"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[C[C
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/10675/task/10675/fd/6’: No such file or directory
+find: ‘/proc/10675/task/10675/fdinfo/6’: No such file or directory
+find: ‘/proc/10675/fd/5’: No such file or directory
+find: ‘/proc/10675/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+(standard input)
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -L "Permission deniee"b[Kjjb[K[K[KM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ci "Permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "Permission denie[2P"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-"Permission denie"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cn"Permission denie"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ca"Permission denie"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cm"Permission denie"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ce"Permission denie"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "Permission denie"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+grep: invalid max count
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/11402/task/11402/fd/6’: No such file or directory
+find: ‘/proc/11402/task/11402/fdinfo/6’: No such file or directory
+find: ‘/proc/11402/fd/5’: No such file or directory
+find: ‘/proc/11402/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -L -name "Permissionn denie"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ciname "Permission denie"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+grep: invalid max count
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/11432/task/11432/fd/6’: No such file or directory
+find: ‘/proc/11432/task/11432/fdinfo/6’: No such file or directory
+find: ‘/proc/11432/fd/5’: No such file or directory
+find: ‘/proc/11432/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -L -iname "Permissioon denie"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[KM[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[KM[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/11492/task/11492/fd/6’: No such file or directory
+find: ‘/proc/11492/task/11492/fdinfo/6’: No such file or directory
+find: ‘/proc/11492/fd/5’: No such file or directory
+find: ‘/proc/11492/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -[K"permission denied" M
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/11528/task/11528/fd/6’: No such file or directory
+find: ‘/proc/11528/task/11528/fdinfo/6’: No such file or directory
+find: ‘/proc/11528/fd/5’: No such file or directory
+find: ‘/proc/11528/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep "permission denied" M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "permission denied""M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C- "permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CL "permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/11571/task/11571/fd/6’: No such file or directory
+find: ‘/proc/11571/task/11571/fdinfo/6’: No such file or directory
+find: ‘/proc/11571/fd/5’: No such file or directory
+find: ‘/proc/11571/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+(standard input)
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -L "permission denieed"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[C[C[C[1P"[1P"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C" [KM[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P"
+[KM[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"p"a"s"[1P"s"s"w"o"r"d"
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/11618/task/11618/fd/6’: No such file or directory
+find: ‘/proc/11618/task/11618/fdinfo/6’: No such file or directory
+find: ‘/proc/11618/fd/5’: No such file or directory
+find: ‘/proc/11618/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -L "password"[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/11768/task/11768/fd/6’: No such file or directory
+find: ‘/proc/11768/task/11768/fdinfo/6’: No such file or directory
+find: ‘/proc/11768/fd/5’: No such file or directory
+find: ‘/proc/11768/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | f[Kgrep "var"
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/11786/task/11786/fd/6’: No such file or directory
+find: ‘/proc/11786/task/11786/fdinfo/6’: No such file or directory
+find: ‘/proc/11786/fd/5’: No such file or directory
+find: ‘/proc/11786/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep "var"[K[K[K[K[K[K[K[K[K[K[K[K-exec grep {}[K[K"[K-l[KL ;\
+> ^C
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" -exec grep -L ;\{;\};\
+> ^C
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" -exec grep -L {};\"{};\p{};\e{};\r{};\m{};\i{};\s{};\s{};\ M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ci{};\\M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Co{};\M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cn{};\M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C {};\d{};\[Ce{};\[C[Cn{};\i{};\e{};\d{};\"{};\ {};\
+> ^C
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" -exec grep -L "permission ddenied" {};\M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C"permission de[1PM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C"permission den[1PM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C"permission deni[1PM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C"permission denie[1PM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+> ^C
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" -exec grep"permission denieed" {};\M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[C[C[C[C[C[C[C[C[K[K \;
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/12143/task/12143/fd/6’: No such file or directory
+find: ‘/proc/12143/task/12143/fdinfo/6’: No such file or directory
+find: ‘/proc/12143/fd/5’: No such file or directory
+find: ‘/proc/12143/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘greppermission denied’: No such file or directory
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" -exec grep"permission denieed" {} \;M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "permission deni[1@eM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-"permission den[1@iM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CL"permission de[1@nM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "permission d[1@eM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/12160/task/12160/fd/6’: No such file or directory
+find: ‘/proc/12160/task/12160/fdinfo/6’: No such file or directory
+find: ‘/proc/12160/fd/5’: No such file or directory
+find: ‘/proc/12160/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" -exec grep -L "permission ddenied" {} \;M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "permission [1@dM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C- "permission[1@ M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ci "permissio[1@nM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cn "permissi[1@oM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "permissio[1PM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C "permission[1PM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cn "permissio[1@nM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ca "permissi[1@oM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cm "permiss[1@iM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ce "permis[1@sM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/12512/task/12512/fd/6’: No such file or directory
+find: ‘/proc/12512/task/12512/fdinfo/6’: No such file or directory
+find: ‘/proc/12512/fd/5’: No such file or directory
+find: ‘/proc/12512/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+grep: invalid max count
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" -exec grep -L -name "permisssion denied" {} \;M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -name "permiss[1PM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -name "permissi[1PM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-name "permissio[1PM[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/12532/task/12532/fd/6’: No such file or directory
+find: ‘/proc/12532/task/12532/fdinfo/6’: No such file or directory
+find: ‘/proc/12532/fd/5’: No such file or directory
+find: ‘/proc/12532/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+grep: invalid max count
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" -exec grep -name "permissioon denied" {} \;[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[KM[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[KM[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K | grep find"[K[K[K[K[K"find"
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/12576/task/12576/fd/6’: No such file or directory
+find: ‘/proc/12576/task/12576/fdinfo/6’: No such file or directory
+find: ‘/proc/12576/fd/5’: No such file or directory
+find: ‘/proc/12576/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep "find"[K[K[K[K[K[K[K[K[K[K[K[K[K-print
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/12973/task/12973/fd/6’: No such file or directory
+find: ‘/proc/12973/task/12973/fdinfo/6’: No such file or directory
+find: ‘/proc/12973/fd/5’: No such file or directory
+find: ‘/proc/12973/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" -print \[K>[K2\[K\[K>¤[K&1
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/13250/task/13250/fd/6’: No such file or directory
+find: ‘/proc/13250/task/13250/fdinfo/6’: No such file or directory
+find: ‘/proc/13250/fd/5’: No such file or directory
+find: ‘/proc/13250/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" -print 2>&1[K[K[K[K[K[K[K[K[K[K[K| grtep[K[K[Kep -v 2per[K[K[K[K"permission deni ed"
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/13547/task/13547/fd/6’: No such file or directory
+find: ‘/proc/13547/task/13547/fdinfo/6’: No such file or directory
+find: ‘/proc/13547/fd/5’: No such file or directory
+find: ‘/proc/13547/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -v "permission denieed"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cermission denied[1P"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CÅermission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cermission denied[1P"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[COermission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cermission denied[1P"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CPermission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/13627/task/13627/fd/6’: No such file or directory
+find: ‘/proc/13627/task/13627/fdinfo/6’: No such file or directory
+find: ‘/proc/13627/fd/5’: No such file or directory
+find: ‘/proc/13627/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+find: ‘/var/log’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" | grep -v "Permission denieed"M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C2 | grep -v "Permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C | grep -v "Permission denie[1Pd"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C | grep -v "Permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C2 | grep -v "Permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C> | grep -v "Permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C& | grep -v "Permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C1 | grep -v "Permission denied"M[01;32mbandit6@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+find: ‘/proc/13736/task/13736/fd/6’: No such file or directory
+find: ‘/proc/13736/task/13736/fdinfo/6’: No such file or directory
+find: ‘/proc/13736/fd/5’: No such file or directory
+find: ‘/proc/13736/fdinfo/5’: No such file or directory
+/var/lib/dpkg/info/bandit7.password
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" 2>&1 | grep -v "Permission  denied"[K[K[K[K[K[K[K[KM[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[KM[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+find: ‘/root’: Permission denied
+find: ‘/home/bandit28-git’: Permission denied
+find: ‘/home/bandit30-git’: Permission denied
+find: ‘/home/bandit5/inhere’: Permission denied
+find: ‘/home/bandit27-git’: Permission denied
+find: ‘/home/bandit29-git’: Permission denied
+find: ‘/home/bandit31-git’: Permission denied
+find: ‘/lost+found’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/etc/polkit-1/localauthority’: Permission denied
+find: ‘/etc/lvm/archive’: Permission denied
+find: ‘/etc/lvm/backup’: Permission denied
+find: ‘/sys/fs/pstore’: Permission denied
+find: ‘/proc/tty/driver’: Permission denied
+find: ‘/proc/13775/task/13775/fd/6’: No such file or directory
+find: ‘/proc/13775/task/13775/fdinfo/6’: No such file or directory
+find: ‘/proc/13775/fd/5’: No such file or directory
+find: ‘/proc/13775/fdinfo/5’: No such file or directory
+find: ‘/cgroup2/csessions’: Permission denied
+find: ‘/boot/lost+found’: Permission denied
+find: ‘/tmp’: Permission denied
+find: ‘/run/lvm’: Permission denied
+find: ‘/run/screen/S-bandit12’: Permission denied
+find: ‘/run/screen/S-bandit5’: Permission denied
+find: ‘/run/screen/S-bandit7’: Permission denied
+find: ‘/run/screen/S-bandit16’: Permission denied
+find: ‘/run/screen/S-bandit26’: Permission denied
+find: ‘/run/screen/S-bandit8’: Permission denied
+find: ‘/run/screen/S-bandit15’: Permission denied
+find: ‘/run/screen/S-bandit20’: Permission denied
+find: ‘/run/screen/S-bandit4’: Permission denied
+find: ‘/run/screen/S-bandit3’: Permission denied
+find: ‘/run/screen/S-bandit19’: Permission denied
+find: ‘/run/screen/S-bandit31’: Permission denied
+find: ‘/run/screen/S-bandit17’: Permission denied
+find: ‘/run/screen/S-bandit2’: Permission denied
+find: ‘/run/screen/S-bandit22’: Permission denied
+find: ‘/run/screen/S-bandit21’: Permission denied
+find: ‘/run/screen/S-bandit14’: Permission denied
+find: ‘/run/screen/S-bandit13’: Permission denied
+find: ‘/run/screen/S-bandit0’: Permission denied
+find: ‘/run/screen/S-bandit25’: Permission denied
+find: ‘/run/screen/S-bandit24’: Permission denied
+find: ‘/run/screen/S-bandit23’: Permission denied
+find: ‘/run/shm’: Permission denied
+find: ‘/run/lock/lvm’: Permission denied
+find: ‘/var/spool/bandit24’: Permission denied
+find: ‘/var/spool/cron/crontabs’: Permission denied
+find: ‘/var/spool/rsyslog’: Permission denied
+find: ‘/var/tmp’: Permission denied
+find: ‘/var/lib/apt/lists/partial’: Permission denied
+find: ‘/var/lib/polkit-1’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+find: ‘/var/log’: Permission denied
+find: ‘/var/cache/apt/archives/partial’: Permission denied
+find: ‘/var/cache/ldconfig’: Permission denied
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ find / -size 33c -user "bandit7" -group "bandit6" 2>&1 [K[K[K/dev/null
+/var/lib/dpkg/info/bandit7.password
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ cat[K[K[Kfind / -size 33c -user "bandit7" -group "bandit6" 2>/dev/null -exec cat {} \ ;
+HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ is pw
+-bash: is: command not found
+[01;32mbandit6@bandit[00m:[01;34m~[00m$ exit
+logout

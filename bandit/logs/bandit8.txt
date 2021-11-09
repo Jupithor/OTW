@@ -1,0 +1,201 @@
+Linux bandit.otw.local 5.4.8 x86_64 GNU/Linux
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to Steven or morla on
+irc.overthewire.org.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ and /proc/ is disabled
+  so that users can not snoop on eachother. Files and directories with
+  easily guessable or short names will be periodically deleted!
+
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few usefull tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /usr/local/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /usr/local/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /usr/local/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /usr/local/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+    * checksec.sh (http://www.trapkit.de/tools/checksec.html) in /usr/local/bin/checksec.sh
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us through IRC on
+  irc.overthewire.org #wargames.
+
+  Enjoy your stay!
+
+[01;32mbandit8@bandit[00m:[01;34m~[00m$ sort data.txt | uni
+unicode_start  unicode_stop   uniq           unix2dos       unix2mac       
+[01;32mbandit8@bandit[00m:[01;34m~[00m$ sort data.txt | uni
+unicode_start  unicode_stop   uniq           unix2dos       unix2mac       
+[01;32mbandit8@bandit[00m:[01;34m~[00m$ sort data.txt | uniq 
+07KC3ukwX7kswl8Le9ebb3H3sOoNTsR2
+0efnqHY1ZTNRu4LsDX4D73DsxIQq7RuJ
+0N65ZPpNGkUJePzFxctCRZRXVrCbUGfm
+0Xo6DLyK5izRqEtBA7sW2SRmlAixWYSg
+10XitczY5Dz7UMoseKIeFWSzzwQrylfw
+1ETSsKgjfQj1cJeFzXLJWzKzza3iWcJa
+1T6qw9I32d71cS3TTvwmVp1WsxPFDJ9I
+2bFz9F0yRwxGzVCZ4Er04bk00qfUrzWb
+2CxmtCkpNL5ZjuoNzAtShkPXf5T43W7s
+337o85y4OymIh99WPUtotkb114evfAkC
+33xpPQhjt4Q2mqtX4sCVRwH2Zyh82E8R
+4SMqyZZztep75cte6xxKpVL49pKUkV8N
+5AdqWjoJOEdx5tJmZVBMo0K2e4arD3ZW
+5cO8XuoQWrzsyeOWDht8zgUIVWSRDaeC
+6PF22p6O8TphCTZot9ApZx8VfGuo8rd5
+7KaMzgnYMUeMISP9vuT3Dvsc06qfqa9u
+7uhj3nhe4AS0esnnEZHBAZN67fJ8BFjM
+8jtZmvqp9PTi8tp1oybBM663NQH3fhII
+8NtHZnWzCA8HswoJSCU7Ojg8nP3eKpsA
+aR2QhaBoDMncvJqPWkvLXMzEx9meBIbX
+BccauS9LeE8NUz4HVLXUwE8M1LWisPlG
+bRnktwNdxFy2RPZIshXJikswwEzJGvJ9
+cIPbot7oYveUPNxDMhv1hiri50CqpkTG
+cR6riSWC0ST7ALZ2i1e47r3gc0QxShGo
+CUqLkjIo0Jz9fNgrjPxiPa7PGGC1wpTQ
+dGnfD2LoqTiO1MBf2vmqw1KKEWSHfMKJ
+dqd5wTVO1cVPJoEY7GGkCdGxG6ZYqW98
+dqnvnNxL4QR3ALq95ckhZwEpl77cRgF4
+DqPqVp8YCjZ1vFsclwRTg13EuSc2D52X
+dV0aGGhk6mB4ZJX1aTTluAUIvLWToTYr
+DxxLvJl6cGHXLT7OW4xqS7Qrfny1K01l
+e5HFl4ur1rAxPPv2mHzg1uYKMuos4fwp
+Ef509iQpb5gQJsjz5dMXLxpeAfkbLOrw
+eTHlmI3pFZ4FQASs32Dm0ETVZWHlP0I1
+f0tri5KLH5eiTU0zQOqWvXTsrl1ekqnU
+f6ZuiZizTliaMOkVYXZMudtaReSYMnkP
+flyKxCbHB8uLTaIB5LXqQNuJj3yj00eh
+g1VkH2pk3cmr6aY4np1Dcpm0HF7G9IDT
+g9xRXSlVNiV4EhUAl1p6uPUWcyEewDK6
+gqyF9CW3NNIiGW27AtWVNPqp3i1fxTMY
+h2IsJoN6fe0ne0qrTQxeiu0P44hMWWbk
+hA6Ofhj75FPgqnCKEJ9g6pLSKapxxmGC
+Hq6uxRAkKPNLnH6eRSFDzXtvVt0CSsee
+I3fc578VLa7mOQ1t9zArPPOPY7aDVBcJ
+iIaOHQG7ZLdimomwMQaGIF7vib1RmXBh
+IkAAyqo1rCrxdY8qH0FfxXkRTTO2GNSf
+iKiMcQpNMn2ImOASX39XBUR8XfApdmsj
+InU7h0xhZh4SMMOMvlnsq03pz0k9J5FX
+iwE0KTeKQ8PWihqvjUnpu52YZeIO8Pqb
+J6Lzp6ZqTJsOuJRTXcvhwKfM0KK3Xtbl
+K9D1CLsVCdkodgvJJIt1oHIaiOY1h8hg
+KASHOxc1NxaM8caXUw5MHCkddANXOkCu
+khecG2RClunkhrgmq4UNB26N5F1yiUwL
+kJTBMD8k9OHyXwZ2aJMQkV23u0gyuoIO
+KLu6irnqFwhOKnVoTwuoT9e5t6oxYQwv
+KrDVVORXLPfRhfnRmmuP3OnVHWKDMSM8
+kUbOkhsIw6GSp0WI2YUo1Q3hDxFU0iQn
+l1I3Red7uSH9n30OylHP2hQDbOU0qGaq
+l2lECnJkQk8EBl6IO3gHUlnjoCTF1has
+LfrBHfAh0pP9bgGAZP4QrVkut3pysAYC
+Lg4vWWvEY7s0bG6BRiA35AHzo2gM6lHg
+mpgNGRH628hTQxajScbagkxaPKklUhjn
+mzOW32HQZi14kwrdeiquO1LCbyaOtbiT
+nJRb4MipHMdTmFylFc1NlqmywgxDSdoI
+NLWvtQvL7EaqBNx2x4eznRlQONULlCYZ
+NOdH1kFWibx4XnNaJoLFmghBn7oIs5hb
+ojGabNG5NJ9ppKUBXGr8lwMRRS5GuiA5
+OZ1wgx8bDI0vFOFxDQH32eMMcIPiIuPE
+PfbMe4Xb3mw5mJmabIbKAXKCU7zynDHl
+PQKOeIQwTw490Y8yobuxZAOL4cNmVo1D
+PSdVQSeUUBPRZD58WWP0OXLKxSgU3RxX
+ptb5ZW8TcgD3U6gOGCcN31xCDGIoQSEa
+qaWWAOOquC3yHnfJI4zvPWzCBdfHQ8wa
+RMiSPoAvF7WhgIcOdSQR2r6Zx0DNS5UW
+s1603Q2r4RPKqyoA8cspIRk0VdgEmFC3
+SA05uWMVCao2rzS8YRqUXh19SvnDpuOl
+SHMAMUEzQe4mV7SJpETTZFsyNRJsZE2k
+si952kS1y6pt4AFenmm0oIp8n7W5d3bd
+sYSokIATVvFUKU4sAHTtMarfjlZWWj5i
+SzwgS2ADSjP6ypOzp2bIvdqNyusRtrHj
+TKUtQbeYnEzzYIne7BinoBx2bHFLBXzG
+TThRArdF2ZEXMO47TIYkyPPLtvzzLcDf
+tVW9iY1Ml0uHPK4usZnN8oZXbjRt2ATY
+U0NYdD3wHZKpfEg9qGQOLJimAJy6qxhS
+UASW6CQwD6MRzftu6FAfyXBK0cVvnBLP
+UJiCNvDNfgb3fcCj8PjjnAXHqUM63Uyj
+UjsVbcqKeJqdCZQCDMkzv6A9X7hLbNE4
+UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+UVnZvhiVQECraz5jl8U14sMVZQhjuXia
+V2d9umHiuPLYLIDsuHj0frOEmreCZMaA
+v9zaxkVAOdIOlITZY2uoCtB1fX2gmly9
+VkBAEWyIibVkeURZV5mowiGg6i3m7Be0
+w4zUWFGTUrAAh8lNkS8gH3WK2zowBEkA
+WBqr9xvf6mYTT5kLcTGCG6jb3ex94xWr
+wjNwumEX58RUQTrufHMciWz5Yx10GtTC
+X1JHOUkrb4KgugMXIzMWWIWvRkeZleTI
+XyeJdbrUJyGtdGx8cXLQST0pwu5cvpcA
+yo0HbSe2GM0jJNhRQLxwoPp7ayYEmRKY
+ySvsTwlMgnUF0n86Fgmn2TNjkSOlrV72
+Z9OC6DQpppreChPhwRJJV9YYTtrxNVcO
+zdd2ctVveROGeiS2WE3TeLZMeL5jL7iM
+[01;32mbandit8@bandit[00m:[01;34m~[00m$ sort data.txt | uniq [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K^C
+[01;32mbandit8@bandit[00m:[01;34m~[00m$ sort data.txt | uni
+unicode_start  unicode_stop   uniq           unix2dos       unix2mac       
+[01;32mbandit8@bandit[00m:[01;34m~[00m$ sort data.txt | uniq -u
+UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+[01;32mbandit8@bandit[00m:[01;34m~[00m$ is pw
+-bash: is: command not found
+[01;32mbandit8@bandit[00m:[01;34m~[00m$ exit
+logout

@@ -84,10 +84,724 @@ irc.overthewire.org.
 
   Enjoy your stay!
 
-bandit4@bandit:~$ ls
+[01;32mbandit4@bandit[00m:[01;34m~[00m$ ls
 [0m[01;34minhere[0m
-bandit4@bandit:~$ cd is
--bash: cd: is: No such file or directory
-bandit4@bandit:~$ ls inhere/
+[01;32mbandit4@bandit[00m:[01;34m~[00m$ cd inhere/
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ ls
 -file00  -file01  -file02  -file03  -file04  -file05  -file06  -file07  -file08  -file09
-bandit4@bandit:~$ 
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file [K[K[K[K[Kman file
+[?1049h[?1h=FILE(1)                         BSD General Commands Manual                         FILE(1)[m
+[m
+[1mNAME[0m[m
+     [1mfile[0m — determine file type[m
+[m
+[1mSYNOPSIS[0m[m
+     [1mfile[0m [[1m-bcdEhiklLNnprsvzZ0[0m] [[1m--apple[0m] [[1m--extension[0m] [[1m--mime-encoding[0m] [[1m--mime-type[0m][m
+          [[1m-e[0m [4mtestname[24m] [[1m-F[0m [4mseparator[24m] [[1m-f[0m [4mnamefile[24m] [[1m-m[0m [4mmagicfiles[24m] [[1m-P[0m [4mname=value[24m][m
+          [4mfile[24m [4m...[24m[m
+     [1mfile[0m [1m-C[0m [[1m-m[0m [4mmagicfiles[24m][m
+     [1mfile[0m [[1m--help[0m][m
+[m
+[1mDESCRIPTION[0m[m
+     This manual page documents version 5.30 of the [1mfile[0m command.[m
+[m
+     [1mfile[0m tests each argument in an attempt to classify it.  There are three sets of tests,[m
+     performed in this order: filesystem tests, magic tests, and language tests.  The [4mfirst[24m[m
+     test that succeeds causes the file type to be printed.[m
+[m
+     The type printed will usually contain one of the words [4mtext[24m (the file contains only[m
+     printing characters and a few common control characters and is probably safe to read[m
+     on an ASCII terminal), [4mexecutable[24m (the file contains the result of compiling a program[m
+     in a form understandable to some UNIX kernel or another), or [4mdata[24m meaning anything[m
+     else (data is usually “binary” or non-printable).  Exceptions are well-known file for‐[m
+     mats (core files, tar archives) that are known to contain binary data.  When adding[m
+     local definitions to /etc/magic, make sure to [4mpreserve[24m [4mthese[24m [4mkeywords[24m.  Users depend[m
+     on knowing that all the readable files in a directory have the word “text” printed.[m
+     Don't do as Berkeley did and change “shell commands text” to “shell script”.[m
+[m
+     The filesystem tests are based on examining the return from a stat(2) system call.[m
+     The program checks to see if the file is empty, or if it's some sort of special file.[m
+     Any known file types appropriate to the system you are running on (sockets, symbolic[m
+     links, or named pipes (FIFOs) on those systems that implement them) are intuited if[m
+     they are defined in the system header file <[4msys/stat.h[24m>.[m
+[m
+     The magic tests are used to check for files with data in particular fixed formats.[m
+     The canonical example of this is a binary executable (compiled program) a.out file,[m
+     whose format is defined in <[4melf.h[24m>, <[4ma.out.h[24m> and possibly <[4mexec.h[24m> in the standard[m
+     include directory.  These files have a “magic number” stored in a particular place[m
+     near the beginning of the file that tells the UNIX operating system that the file is a[m
+     binary executable, and which of several types thereof.  The concept of a “magic” has[m
+     been applied by extension to data files.  Any file with some invariant identifier at a[m
+     small fixed offset into the file can usually be described in this way.  The informa‐[m
+     tion identifying these files is read from /etc/magic and the compiled magic file[m
+     [4m/usr/share/misc/magic.mgc[24m, or the files in the directory [4m/usr/share/misc/magic[24m if the[m
+     compiled file does not exist.  In addition, if [4m$HOME/.magic.mgc[24m or [4m$HOME/.magic[24m[m
+     exists, it will be used in preference to the system magic files.[m
+[m
+     If a file does not match any of the entries in the magic file, it is examined to see[m
+     if it seems to be a text file.  ASCII, ISO-8859-x, non-ISO 8-bit extended-ASCII char‐[m
+     acter sets (such as those used on Macintosh and IBM PC systems), UTF-8-encoded Uni‐[m
+     code, UTF-16-encoded Unicode, and EBCDIC character sets can be distinguished by the[m
+     different ranges and sequences of bytes that constitute printable text in each set.[m
+     If a file passes any of these tests, its character set is reported.  ASCII,[m
+     ISO-8859-x, UTF-8, and extended-ASCII files are identified as “text” because they will[m
+     be mostly readable on nearly any terminal; UTF-16 and EBCDIC are only “character data”[m
+     because, while they contain text, it is text that will require translation before it[m
+     can be read.  In addition, [1mfile[0m will attempt to determine other characteristics of[m
+     text-type files.  If the lines of a file are terminated by CR, CRLF, or NEL, instead[m
+     of the Unix-standard LF, this will be reported.  Files that contain embedded escape[m
+     sequences or overstriking will also be identified.[m
+[m
+     Once [1mfile[0m has determined the character set used in a text-type file, it will attempt[m
+     to determine in what language the file is written.  The language tests look for par‐[m
+     ticular strings (cf.  <[4mnames.h[24m>) that can appear anywhere in the first few blocks of a[m
+     file.  For example, the keyword [4m.br[24m indicates that the file is most likely a troff(1)[m
+     input file, just as the keyword [4mstruct[24m indicates a C program.  These tests are less[m
+     reliable than the previous two groups, so they are performed last.  The language test[m
+     routines also test for some miscellany (such as tar(1) archives).[m
+[m
+     Any file that cannot be identified as having been written in any of the character sets[m
+     listed above is simply said to be “data”.[m
+[m
+[7m Manual page file(1) line 1 (press h for help or q to quit)[27m[K[K/[Khh[Kuu[Kmm[Kaa[Knn[K[1;1HFILE(1)                         BSD General Commands Manual                         FILE(1)[m
+[2;1H[m
+[3;1H[1mNAME[0m[m
+[4;1H     [1mfile[0m — determine file type[m
+[5;1H[m
+[6;1H[1mSYNOPSIS[0m[m
+[7;1H     [1mfile[0m [[1m-bcdEhiklLNnprsvzZ0[0m] [[1m--apple[0m] [[1m--extension[0m] [[1m--mime-encoding[0m] [[1m--mime-type[0m][m
+[8;1H          [[1m-e[0m [4mtestname[24m] [[1m-F[0m [4mseparator[24m] [[1m-f[0m [4mnamefile[24m] [[1m-m[0m [4mmagicfiles[24m] [[1m-P[0m [4mname=value[24m][m
+[9;1H          [4mfile[24m [4m...[24m[m
+[10;1H     [1mfile[0m [1m-C[0m [[1m-m[0m [4mmagicfiles[24m][m
+[11;1H     [1mfile[0m [[1m--help[0m][m
+[12;1H[m
+[13;1H[1mDESCRIPTION[0m[m
+[14;1H     This manual page documents version 5.30 of the [1mfile[0m command.[m
+[15;1H[m
+[16;1H     [1mfile[0m tests each argument in an attempt to classify it.  There are three sets of tests,[m
+[17;1H     performed in this order: filesystem tests, magic tests, and language tests.  The [4mfirst[24m[m
+[18;1H     test that succeeds causes the file type to be printed.[m
+[19;1H[m
+[20;1H     The type printed will usually contain one of the words [4mtext[24m (the file contains only[m
+[21;1H     printing characters and a few common control characters and is probably safe to read[m
+[22;1H     on an ASCII terminal), [4mexecutable[24m (the file contains the result of compiling a program[m
+[23;1H     in a form understandable to some UNIX kernel or another), or [4mdata[24m meaning anything[m
+[24;1H     else (data is usually “binary” or non-printable).  Exceptions are well-known file for‐[m
+[25;1H     mats (core files, tar archives) that are known to contain binary data.  When adding[m
+[26;1H     local definitions to /etc/magic, make sure to [4mpreserve[24m [4mthese[24m [4mkeywords[24m.  Users depend[m
+[27;1H     on knowing that all the readable files in a directory have the word “text” printed.[m
+[28;1H     Don't do as Berkeley did and change “shell commands text” to “shell script”.[m
+[29;1H[m
+[30;1H     The filesystem tests are based on examining the return from a stat(2) system call.[m
+[31;1H     The program checks to see if the file is empty, or if it's some sort of special file.[m
+[32;1H     Any known file types appropriate to the system you are running on (sockets, symbolic[m
+[33;1H     links, or named pipes (FIFOs) on those systems that implement them) are intuited if[m
+[34;1H     they are defined in the system header file <[4msys/stat.h[24m>.[m
+[35;1H[m
+[36;1H     The magic tests are used to check for files with data in particular fixed formats.[m
+[37;1H     The canonical example of this is a binary executable (compiled program) a.out file,[m
+[38;1H     whose format is defined in <[4melf.h[24m>, <[4ma.out.h[24m> and possibly <[4mexec.h[24m> in the standard[m
+[39;1H     include directory.  These files have a “magic number” stored in a particular place[m
+[40;1H     near the beginning of the file that tells the UNIX operating system that the file is a[m
+[41;1H     binary executable, and which of several types thereof.  The concept of a “magic” has[m
+[42;1H     been applied by extension to data files.  Any file with some invariant identifier at a[m
+[43;1H     small fixed offset into the file can usually be described in this way.  The informa‐[m
+[44;1H     tion identifying these files is read from /etc/magic and the compiled magic file[m
+[45;1H     [4m/usr/share/misc/magic.mgc[24m, or the files in the directory [4m/usr/share/misc/magic[24m if the[m
+[46;1H     compiled file does not exist.  In addition, if [4m$HOME/.magic.mgc[24m or [4m$HOME/.magic[24m[m
+[47;1H     exists, it will be used in preference to the system magic files.[m
+[48;1H[m
+[49;1H     If a file does not match any of the entries in the magic file, it is examined to see[m
+[50;1H     if it seems to be a text file.  ASCII, ISO-8859-x, non-ISO 8-bit extended-ASCII char‐[m
+[51;1H     acter sets (such as those used on Macintosh and IBM PC systems), UTF-8-encoded Uni‐[m
+[52;1H     code, UTF-16-encoded Unicode, and EBCDIC character sets can be distinguished by the[m
+[53;1H     different ranges and sequences of bytes that constitute printable text in each set.[m
+[54;1H     If a file passes any of these tests, its character set is reported.  ASCII,[m
+[55;1H     ISO-8859-x, UTF-8, and extended-ASCII files are identified as “text” because they will[m
+[56;1H     be mostly readable on nearly any terminal; UTF-16 and EBCDIC are only “character data”[m
+[57;1H     because, while they contain text, it is text that will require translation before it[m
+[58;1H     can be read.  In addition, [1mfile[0m will attempt to determine other characteristics of[m
+[59;1H     text-type files.  If the lines of a file are terminated by CR, CRLF, or NEL, instead[m
+[60;1H     of the Unix-standard LF, this will be reported.  Files that contain embedded escape[m
+[61;1H     sequences or overstriking will also be identified.[m
+[62;1H[m
+[63;1H     Once [1mfile[0m has determined the character set used in a text-type file, it will attempt[m
+[64;1H     to determine in what language the file is written.  The language tests look for par‐[m
+[65;1H     ticular strings (cf.  <[4mnames.h[24m>) that can appear anywhere in the first few blocks of a[m
+[66;1H     file.  For example, the keyword [4m.br[24m indicates that the file is most likely a troff(1)[m
+[67;1H     input file, just as the keyword [4mstruct[24m indicates a C program.  These tests are less[m
+[68;1H     reliable than the previous two groups, so they are performed last.  The language test[m
+[69;1H     routines also test for some miscellany (such as tar(1) archives).[m
+[70;1H[m
+[71;1H     Any file that cannot be identified as having been written in any of the character sets[m
+[72;1H     listed above is simply said to be “data”.[m
+[73;1H[m
+[74;1H[1;1HFILE(1)                         BSD General Commands Manual                         FILE(1)[m
+[2;1H[m
+[3;1H[1mNAME[0m[m
+[4;1H     [1mfile[0m — determine file type[m
+[5;1H[m
+[6;1H[1mSYNOPSIS[0m[m
+[7;1H     [1mfile[0m [[1m-bcdEhiklLNnprsvzZ0[0m] [[1m--apple[0m] [[1m--extension[0m] [[1m--mime-encoding[0m] [[1m--mime-type[0m][m
+[8;1H          [[1m-e[0m [4mtestname[24m] [[1m-F[0m [4mseparator[24m] [[1m-f[0m [4mnamefile[24m] [[1m-m[0m [4mmagicfiles[24m] [[1m-P[0m [4mname=value[24m][m
+[9;1H          [4mfile[24m [4m...[24m[m
+[10;1H     [1mfile[0m [1m-C[0m [[1m-m[0m [4mmagicfiles[24m][m
+[11;1H     [1mfile[0m [[1m--help[0m][m
+[12;1H[m
+[13;1H[1mDESCRIPTION[0m[m
+[14;1H     This manual page documents version 5.30 of the [1mfile[0m command.[m
+[15;1H[m
+[16;1H     [1mfile[0m tests each argument in an attempt to classify it.  There are three sets of tests,[m
+[17;1H     performed in this order: filesystem tests, magic tests, and language tests.  The [4mfirst[24m[m
+[18;1H     test that succeeds causes the file type to be printed.[m
+[19;1H[m
+[20;1H     The type printed will usually contain one of the words [4mtext[24m (the file contains only[m
+[21;1H     printing characters and a few common control characters and is probably safe to read[m
+[22;1H     on an ASCII terminal), [4mexecutable[24m (the file contains the result of compiling a program[m
+[23;1H     in a form understandable to some UNIX kernel or another), or [4mdata[24m meaning anything[m
+[24;1H     else (data is usually “binary” or non-printable).  Exceptions are well-known file for‐[m
+[25;1H     mats (core files, tar archives) that are known to contain binary data.  When adding[m
+[26;1H     local definitions to /etc/magic, make sure to [4mpreserve[24m [4mthese[24m [4mkeywords[24m.  Users depend[m
+[27;1H     on knowing that all the readable files in a directory have the word “text” printed.[m
+[28;1H     Don't do as Berkeley did and change “shell commands text” to “shell script”.[m
+[29;1H[m
+[30;1H     The filesystem tests are based on examining the return from a stat(2) system call.[m
+[31;1H     The program checks to see if the file is empty, or if it's some sort of special file.[m
+[32;1H     Any known file types appropriate to the system you are running on (sockets, symbolic[m
+[33;1H     links, or named pipes (FIFOs) on those systems that implement them) are intuited if[m
+[34;1H     they are defined in the system header file <[4msys/stat.h[24m>.[m
+[35;1H[m
+[36;1H     The magic tests are used to check for files with data in particular fixed formats.[m
+[37;1H     The canonical example of this is a binary executable (compiled program) a.out file,[m
+[38;1H     whose format is defined in <[4melf.h[24m>, <[4ma.out.h[24m> and possibly <[4mexec.h[24m> in the standard[m
+[39;1H     include directory.  These files have a “magic number” stored in a particular place[m
+[40;1H     near the beginning of the file that tells the UNIX operating system that the file is a[m
+[41;1H     binary executable, and which of several types thereof.  The concept of a “magic” has[m
+[42;1H     been applied by extension to data files.  Any file with some invariant identifier at a[m
+[43;1H     small fixed offset into the file can usually be described in this way.  The informa‐[m
+[44;1H     tion identifying these files is read from /etc/magic and the compiled magic file[m
+[45;1H     [4m/usr/share/misc/magic.mgc[24m, or the files in the directory [4m/usr/share/misc/magic[24m if the[m
+[46;1H     compiled file does not exist.  In addition, if [4m$HOME/.magic.mgc[24m or [4m$HOME/.magic[24m[m
+[47;1H     exists, it will be used in preference to the system magic files.[m
+[48;1H[m
+[49;1H     If a file does not match any of the entries in the magic file, it is examined to see[m
+[50;1H     if it seems to be a text file.  ASCII, ISO-8859-x, non-ISO 8-bit extended-ASCII char‐[m
+[51;1H     acter sets (such as those used on Macintosh and IBM PC systems), UTF-8-encoded Uni‐[m
+[52;1H     code, UTF-16-encoded Unicode, and EBCDIC character sets can be distinguished by the[m
+[53;1H     different ranges and sequences of bytes that constitute printable text in each set.[m
+[54;1H     If a file passes any of these tests, its character set is reported.  ASCII,[m
+[55;1H     ISO-8859-x, UTF-8, and extended-ASCII files are identified as “text” because they will[m
+[56;1H     be mostly readable on nearly any terminal; UTF-16 and EBCDIC are only “character data”[m
+[57;1H     because, while they contain text, it is text that will require translation before it[m
+[58;1H     can be read.  In addition, [1mfile[0m will attempt to determine other characteristics of[m
+[59;1H     text-type files.  If the lines of a file are terminated by CR, CRLF, or NEL, instead[m
+[60;1H     of the Unix-standard LF, this will be reported.  Files that contain embedded escape[m
+[61;1H     sequences or overstriking will also be identified.[m
+[62;1H[m
+[63;1H     Once [1mfile[0m has determined the character set used in a text-type file, it will attempt[m
+[64;1H     to determine in what language the file is written.  The language tests look for par‐[m
+[65;1H     ticular strings (cf.  <[4mnames.h[24m>) that can appear anywhere in the first few blocks of a[m
+[66;1H     file.  For example, the keyword [4m.br[24m indicates that the file is most likely a troff(1)[m
+[67;1H     input file, just as the keyword [4mstruct[24m indicates a C program.  These tests are less[m
+[68;1H     reliable than the previous two groups, so they are performed last.  The language test[m
+[69;1H     routines also test for some miscellany (such as tar(1) archives).[m
+[70;1H[m
+[71;1H     Any file that cannot be identified as having been written in any of the character sets[m
+[72;1H     listed above is simply said to be “data”.[m
+[73;1H[m
+[74;1H...skipping...
+             ditional [7mhuman[27m readable ones.  Thus it may say ‘text/plain; charset=us-ascii’[m
+             rather than “ASCII text”.[m
+[m
+     [1m--mime-type[0m, [1m--mime-encoding[0m[m
+             Like [1m-i[0m, but print only the specified element(s).[m
+[m
+     [1m-k[0m, [1m--keep-going[0m[m
+             Don't stop at the first match, keep going.  Subsequent matches will be have[m
+             the string ‘\012- ’ prepended.  (If you want a newline, see the [1m-r[0m option.)[m
+             The magic pattern with the highest strength (see the [1m-l[0m option) comes first.[m
+[m
+     [1m-l[0m, [1m--list[0m[m
+             Shows a list of patterns and their strength sorted descending by magic(4)[m
+             strength which is used for the matching (see also the [1m-k[0m option).[m
+[m
+     [1m-L[0m, [1m--dereference[0m[m
+             option causes symlinks to be followed, as the like-named option in ls(1) (on[m
+             systems that support symbolic links).  This is the default if the environment[m
+             variable POSIXLY_CORRECT is defined.[m
+[m
+     [1m-m[0m, [1m--magic-file[0m [4mmagicfiles[24m[m
+             Specify an alternate list of files and directories containing magic.  This can[m
+             be a single item, or a colon-separated list.  If a compiled magic file is[m
+             found alongside a file or directory, it will be used instead.[m
+[m
+     [1m-N[0m, [1m--no-pad[0m[m
+             Don't pad filenames so that they align in the output.[m
+[m
+     [1m-n[0m, [1m--no-buffer[0m[m
+             Force stdout to be flushed after checking each file.  This is only useful if[m
+             checking a list of files.  It is intended to be used by programs that want[m
+             filetype output from a pipe.[m
+[m
+     [1m-p[0m, [1m--preserve-date[0m[m
+             On systems that support utime(3) or utimes(2), attempt to preserve the access[m
+             time of files analyzed, to pretend that [1mfile[0m never read them.[m
+[m
+     [1m-P[0m, [1m--parameter[0m [4mname=value[24m[m
+             Set various parameter limits.[m
+[m
+                   [1mName[0m         [1mDefault[0m    [1mExplanation[0m[m
+                   indir        15         recursion limit for indirect magic[m
+                   name         30         use count limit for name/use magic[m
+                   elf_notes    256        max ELF notes processed[m
+                   elf_phnum    128        max ELF program sections processed[m
+                   elf_shnum    32768      max ELF sections processed[m
+                   regex        8192       length limit for regex searches[m
+                   bytes        1048576    max number of bytes to read from file[m
+[m
+     [1m-r[0m, [1m--raw[0m[m
+             Don't translate unprintable characters to \ooo.  Normally [1mfile[0m translates[m
+             unprintable characters to their octal representation.[m
+[m
+     [1m-s[0m, [1m--special-files[0m[m
+             Normally, [1mfile[0m only attempts to read and determine the type of argument files[m
+             which stat(2) reports are ordinary files.  This prevents problems, because[m
+             reading special files may have peculiar consequences.  Specifying the [1m-s[0m[m
+             option causes [1mfile[0m to also read argument files which are block or character[m
+             special files.  This is useful for determining the filesystem types of the[m
+             data in raw disk partitions, which are block special files.  This option also[m
+             causes [1mfile[0m to disregard the file size as reported by stat(2) since on some[m
+             systems it reports a zero size for raw disk partitions.[m
+[m
+     [1m-v[0m, [1m--version[0m[m
+             Print the version of the program and exit.[m
+[m
+     [1m-z[0m, [1m--uncompress[0m[m
+             Try to look inside compressed files.[m
+[m
+     [1m-Z[0m, [1m--uncompress-noreport[0m[m
+             Try to look inside compressed files, but report information about the contents[m
+             only not the compression.[m
+[m
+[7m Manual page file(1) line 149 (press h for help or q to quit)[27m[K[K/[K[K[7mPattern not found  (press RETURN)[27m[74;1H[K[K/[K[K[7mPattern not found  (press RETURN)[27m[74;1H[K[K?[K[K[7mPattern not found  (press RETURN)[27m[74;1H[K[K/[Khh[Kuu[Kmm[Kaa[Knn[K[1;1H             ditional human readable ones.  Thus it may say ‘text/plain; charset=us-ascii’[m
+[2;1H             rather than “ASCII text”.[m
+[3;1H[m
+[4;1H     [1m--mime-type[0m, [1m--mime-encoding[0m[m
+[5;1H             Like [1m-i[0m, but print only the specified element(s).[m
+[6;1H[m
+[7;1H     [1m-k[0m, [1m--keep-going[0m[m
+[8;1H             Don't stop at the first match, keep going.  Subsequent matches will be have[m
+[9;1H             the string ‘\012- ’ prepended.  (If you want a newline, see the [1m-r[0m option.)[m
+[10;1H             The magic pattern with the highest strength (see the [1m-l[0m option) comes first.[m
+[11;1H[m
+[12;1H     [1m-l[0m, [1m--list[0m[m
+[13;1H             Shows a list of patterns and their strength sorted descending by magic(4)[m
+[14;1H             strength which is used for the matching (see also the [1m-k[0m option).[m
+[15;1H[m
+[16;1H     [1m-L[0m, [1m--dereference[0m[m
+[17;1H             option causes symlinks to be followed, as the like-named option in ls(1) (on[m
+[18;1H             systems that support symbolic links).  This is the default if the environment[m
+[19;1H             variable POSIXLY_CORRECT is defined.[m
+[20;1H[m
+[21;1H     [1m-m[0m, [1m--magic-file[0m [4mmagicfiles[24m[m
+[22;1H             Specify an alternate list of files and directories containing magic.  This can[m
+[23;1H             be a single item, or a colon-separated list.  If a compiled magic file is[m
+[24;1H             found alongside a file or directory, it will be used instead.[m
+[25;1H[m
+[26;1H     [1m-N[0m, [1m--no-pad[0m[m
+[27;1H             Don't pad filenames so that they align in the output.[m
+[28;1H[m
+[29;1H     [1m-n[0m, [1m--no-buffer[0m[m
+[30;1H             Force stdout to be flushed after checking each file.  This is only useful if[m
+[31;1H             checking a list of files.  It is intended to be used by programs that want[m
+[32;1H             filetype output from a pipe.[m
+[33;1H[m
+[34;1H     [1m-p[0m, [1m--preserve-date[0m[m
+[35;1H             On systems that support utime(3) or utimes(2), attempt to preserve the access[m
+[36;1H             time of files analyzed, to pretend that [1mfile[0m never read them.[m
+[37;1H[m
+[38;1H     [1m-P[0m, [1m--parameter[0m [4mname=value[24m[m
+[39;1H             Set various parameter limits.[m
+[40;1H[m
+[41;1H                   [1mName[0m         [1mDefault[0m    [1mExplanation[0m[m
+[42;1H                   indir        15         recursion limit for indirect magic[m
+[43;1H                   name         30         use count limit for name/use magic[m
+[44;1H                   elf_notes    256        max ELF notes processed[m
+[45;1H                   elf_phnum    128        max ELF program sections processed[m
+[46;1H                   elf_shnum    32768      max ELF sections processed[m
+[47;1H                   regex        8192       length limit for regex searches[m
+[48;1H                   bytes        1048576    max number of bytes to read from file[m
+[49;1H[m
+[50;1H     [1m-r[0m, [1m--raw[0m[m
+[51;1H             Don't translate unprintable characters to \ooo.  Normally [1mfile[0m translates[m
+[52;1H             unprintable characters to their octal representation.[m
+[53;1H[m
+[54;1H     [1m-s[0m, [1m--special-files[0m[m
+[55;1H             Normally, [1mfile[0m only attempts to read and determine the type of argument files[m
+[56;1H             which stat(2) reports are ordinary files.  This prevents problems, because[m
+[57;1H             reading special files may have peculiar consequences.  Specifying the [1m-s[0m[m
+[58;1H             option causes [1mfile[0m to also read argument files which are block or character[m
+[59;1H             special files.  This is useful for determining the filesystem types of the[m
+[60;1H             data in raw disk partitions, which are block special files.  This option also[m
+[61;1H             causes [1mfile[0m to disregard the file size as reported by stat(2) since on some[m
+[62;1H             systems it reports a zero size for raw disk partitions.[m
+[63;1H[m
+[64;1H     [1m-v[0m, [1m--version[0m[m
+[65;1H             Print the version of the program and exit.[m
+[66;1H[m
+[67;1H     [1m-z[0m, [1m--uncompress[0m[m
+[68;1H             Try to look inside compressed files.[m
+[69;1H[m
+[70;1H     [1m-Z[0m, [1m--uncompress-noreport[0m[m
+[71;1H             Try to look inside compressed files, but report information about the contents[m
+[72;1H             only not the compression.[m
+[73;1H[m
+[74;1H[1;1H             ditional [7mhuman[27m readable ones.  Thus it may say ‘text/plain; charset=us-ascii’[m
+[2;1H             rather than “ASCII text”.[m
+[3;1H[m
+[4;1H     [1m--mime-type[0m, [1m--mime-encoding[0m[m
+[5;1H             Like [1m-i[0m, but print only the specified element(s).[m
+[6;1H[m
+[7;1H     [1m-k[0m, [1m--keep-going[0m[m
+[8;1H             Don't stop at the first match, keep going.  Subsequent matches will be have[m
+[9;1H             the string ‘\012- ’ prepended.  (If you want a newline, see the [1m-r[0m option.)[m
+[10;1H             The magic pattern with the highest strength (see the [1m-l[0m option) comes first.[m
+[11;1H[m
+[12;1H     [1m-l[0m, [1m--list[0m[m
+[13;1H             Shows a list of patterns and their strength sorted descending by magic(4)[m
+[14;1H             strength which is used for the matching (see also the [1m-k[0m option).[m
+[15;1H[m
+[16;1H     [1m-L[0m, [1m--dereference[0m[m
+[17;1H             option causes symlinks to be followed, as the like-named option in ls(1) (on[m
+[18;1H             systems that support symbolic links).  This is the default if the environment[m
+[19;1H             variable POSIXLY_CORRECT is defined.[m
+[20;1H[m
+[21;1H     [1m-m[0m, [1m--magic-file[0m [4mmagicfiles[24m[m
+[22;1H             Specify an alternate list of files and directories containing magic.  This can[m
+[23;1H             be a single item, or a colon-separated list.  If a compiled magic file is[m
+[24;1H             found alongside a file or directory, it will be used instead.[m
+[25;1H[m
+[26;1H     [1m-N[0m, [1m--no-pad[0m[m
+[27;1H             Don't pad filenames so that they align in the output.[m
+[28;1H[m
+[29;1H     [1m-n[0m, [1m--no-buffer[0m[m
+[30;1H             Force stdout to be flushed after checking each file.  This is only useful if[m
+[31;1H             checking a list of files.  It is intended to be used by programs that want[m
+[32;1H             filetype output from a pipe.[m
+[33;1H[m
+[34;1H     [1m-p[0m, [1m--preserve-date[0m[m
+[35;1H             On systems that support utime(3) or utimes(2), attempt to preserve the access[m
+[36;1H             time of files analyzed, to pretend that [1mfile[0m never read them.[m
+[37;1H[m
+[38;1H     [1m-P[0m, [1m--parameter[0m [4mname=value[24m[m
+[39;1H             Set various parameter limits.[m
+[40;1H[m
+[41;1H                   [1mName[0m         [1mDefault[0m    [1mExplanation[0m[m
+[42;1H                   indir        15         recursion limit for indirect magic[m
+[43;1H                   name         30         use count limit for name/use magic[m
+[44;1H                   elf_notes    256        max ELF notes processed[m
+[45;1H                   elf_phnum    128        max ELF program sections processed[m
+[46;1H                   elf_shnum    32768      max ELF sections processed[m
+[47;1H                   regex        8192       length limit for regex searches[m
+[48;1H                   bytes        1048576    max number of bytes to read from file[m
+[49;1H[m
+[50;1H     [1m-r[0m, [1m--raw[0m[m
+[51;1H             Don't translate unprintable characters to \ooo.  Normally [1mfile[0m translates[m
+[52;1H             unprintable characters to their octal representation.[m
+[53;1H[m
+[54;1H     [1m-s[0m, [1m--special-files[0m[m
+[55;1H             Normally, [1mfile[0m only attempts to read and determine the type of argument files[m
+[56;1H             which stat(2) reports are ordinary files.  This prevents problems, because[m
+[57;1H             reading special files may have peculiar consequences.  Specifying the [1m-s[0m[m
+[58;1H             option causes [1mfile[0m to also read argument files which are block or character[m
+[59;1H             special files.  This is useful for determining the filesystem types of the[m
+[60;1H             data in raw disk partitions, which are block special files.  This option also[m
+[61;1H             causes [1mfile[0m to disregard the file size as reported by stat(2) since on some[m
+[62;1H             systems it reports a zero size for raw disk partitions.[m
+[63;1H[m
+[64;1H     [1m-v[0m, [1m--version[0m[m
+[65;1H             Print the version of the program and exit.[m
+[66;1H[m
+[67;1H     [1m-z[0m, [1m--uncompress[0m[m
+[68;1H             Try to look inside compressed files.[m
+[69;1H[m
+[70;1H     [1m-Z[0m, [1m--uncompress-noreport[0m[m
+[71;1H             Try to look inside compressed files, but report information about the contents[m
+[72;1H             only not the compression.[m
+[73;1H[m
+[74;1H[K[7m Manual page file(1) line 149/421 57% (press h for help or q to quit)[27m[K[K/[K[K[7mPattern not found  (press RETURN)[27m[74;1H[K[K/[K[K[7mPattern not found  (press RETURN)[27m[74;1H[K[K?[K[K[7mPattern not found  (press RETURN)[27m[74;1H[K[K[7m Manual page file(1) line 149/421 57% (press h for help or q to quit)[27m[K[K/[K[K[7mPattern not found  (press RETURN)[27m[74;1H[K[K[?1l>[?1049l	[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ reset
+c[?1000l[?25h[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ man file
+[?1049h[?1h=FILE(1)                         BSD General Commands Manual                         FILE(1)[m
+[m
+[1mNAME[0m[m
+     [1mfile[0m — determine file type[m
+[m
+[1mSYNOPSIS[0m[m
+     [1mfile[0m [[1m-bcdEhiklLNnprsvzZ0[0m] [[1m--apple[0m] [[1m--extension[0m] [[1m--mime-encoding[0m] [[1m--mime-type[0m][m
+          [[1m-e[0m [4mtestname[24m] [[1m-F[0m [4mseparator[24m] [[1m-f[0m [4mnamefile[24m] [[1m-m[0m [4mmagicfiles[24m] [[1m-P[0m [4mname=value[24m][m
+          [4mfile[24m [4m...[24m[m
+     [1mfile[0m [1m-C[0m [[1m-m[0m [4mmagicfiles[24m][m
+     [1mfile[0m [[1m--help[0m][m
+[m
+[1mDESCRIPTION[0m[m
+     This manual page documents version 5.30 of the [1mfile[0m command.[m
+[m
+     [1mfile[0m tests each argument in an attempt to classify it.  There are three sets of tests,[m
+     performed in this order: filesystem tests, magic tests, and language tests.  The [4mfirst[24m[m
+     test that succeeds causes the file type to be printed.[m
+[m
+     The type printed will usually contain one of the words [4mtext[24m (the file contains only[m
+     printing characters and a few common control characters and is probably safe to read[m
+     on an ASCII terminal), [4mexecutable[24m (the file contains the result of compiling a program[m
+     in a form understandable to some UNIX kernel or another), or [4mdata[24m meaning anything[m
+     else (data is usually “binary” or non-printable).  Exceptions are well-known file for‐[m
+     mats (core files, tar archives) that are known to contain binary data.  When adding[m
+     local definitions to /etc/magic, make sure to [4mpreserve[24m [4mthese[24m [4mkeywords[24m.  Users depend[m
+     on knowing that all the readable files in a directory have the word “text” printed.[m
+     Don't do as Berkeley did and change “shell commands text” to “shell script”.[m
+[m
+     The filesystem tests are based on examining the return from a stat(2) system call.[m
+     The program checks to see if the file is empty, or if it's some sort of special file.[m
+     Any known file types appropriate to the system you are running on (sockets, symbolic[m
+     links, or named pipes (FIFOs) on those systems that implement them) are intuited if[m
+     they are defined in the system header file <[4msys/stat.h[24m>.[m
+[m
+     The magic tests are used to check for files with data in particular fixed formats.[m
+     The canonical example of this is a binary executable (compiled program) a.out file,[m
+     whose format is defined in <[4melf.h[24m>, <[4ma.out.h[24m> and possibly <[4mexec.h[24m> in the standard[m
+     include directory.  These files have a “magic number” stored in a particular place[m
+     near the beginning of the file that tells the UNIX operating system that the file is a[m
+     binary executable, and which of several types thereof.  The concept of a “magic” has[m
+     been applied by extension to data files.  Any file with some invariant identifier at a[m
+     small fixed offset into the file can usually be described in this way.  The informa‐[m
+     tion identifying these files is read from /etc/magic and the compiled magic file[m
+     [4m/usr/share/misc/magic.mgc[24m, or the files in the directory [4m/usr/share/misc/magic[24m if the[m
+     compiled file does not exist.  In addition, if [4m$HOME/.magic.mgc[24m or [4m$HOME/.magic[24m[m
+     exists, it will be used in preference to the system magic files.[m
+[m
+     If a file does not match any of the entries in the magic file, it is examined to see[m
+     if it seems to be a text file.  ASCII, ISO-8859-x, non-ISO 8-bit extended-ASCII char‐[m
+     acter sets (such as those used on Macintosh and IBM PC systems), UTF-8-encoded Uni‐[m
+     code, UTF-16-encoded Unicode, and EBCDIC character sets can be distinguished by the[m
+     different ranges and sequences of bytes that constitute printable text in each set.[m
+     If a file passes any of these tests, its character set is reported.  ASCII,[m
+     ISO-8859-x, UTF-8, and extended-ASCII files are identified as “text” because they will[m
+     be mostly readable on nearly any terminal; UTF-16 and EBCDIC are only “character data”[m
+     because, while they contain text, it is text that will require translation before it[m
+     can be read.  In addition, [1mfile[0m will attempt to determine other characteristics of[m
+     text-type files.  If the lines of a file are terminated by CR, CRLF, or NEL, instead[m
+     of the Unix-standard LF, this will be reported.  Files that contain embedded escape[m
+     sequences or overstriking will also be identified.[m
+[m
+     Once [1mfile[0m has determined the character set used in a text-type file, it will attempt[m
+     to determine in what language the file is written.  The language tests look for par‐[m
+     ticular strings (cf.  <[4mnames.h[24m>) that can appear anywhere in the first few blocks of a[m
+     file.  For example, the keyword [4m.br[24m indicates that the file is most likely a troff(1)[m
+     input file, just as the keyword [4mstruct[24m indicates a C program.  These tests are less[m
+     reliable than the previous two groups, so they are performed last.  The language test[m
+     routines also test for some miscellany (such as tar(1) archives).[m
+[m
+     Any file that cannot be identified as having been written in any of the character sets[m
+     listed above is simply said to be “data”.[m
+[m
+[7m Manual page file(1) line 1 (press h for help or q to quit)[27m[K[K/[K[K[7mNo previous regular expression  (press RETURN)[27m[74;1H[K[K/[K[K[7mNo previous regular expression  (press RETURN)[27m[74;1H[K[K[?1l>[?1049l[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ [K[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ find -readable 
+.
+./-file01
+./-file00
+./-file06
+./-file03
+./-file05
+./-file08
+./-file04
+./-file07
+./-file02
+./-file09
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file -m
+file: option requires an argument -- 'm'
+Usage: file [-bcEhikLlNnprsvzZ0] [--apple] [--extension] [--mime-encoding] [--mime-type]
+            [-e testname] [-F separator] [-f namefile] [-m magicfiles] file ...
+       file -C [-m magicfiles]
+       file [--help]
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file -m *
+-file00, 1: Warning: offset `�/`2ғ}�%��rL~5�g��� ������' invalid
+file: could not find any valid magic files!
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file *
+file: Cannot open `ile00' (No such file or directory).
+file: Cannot open `ile01' (No such file or directory).
+file: Cannot open `ile02' (No such file or directory).
+file: Cannot open `ile03' (No such file or directory).
+file: Cannot open `ile04' (No such file or directory).
+file: Cannot open `ile05' (No such file or directory).
+file: Cannot open `ile06' (No such file or directory).
+file: Cannot open `ile07' (No such file or directory).
+file: Cannot open `ile08' (No such file or directory).
+file: Cannot open `ile09' (No such file or directory).
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file . *
+file: Cannot open `ile00' (No such file or directory).
+file: Cannot open `ile01' (No such file or directory).
+file: Cannot open `ile02' (No such file or directory).
+file: Cannot open `ile03' (No such file or directory).
+file: Cannot open `ile04' (No such file or directory).
+file: Cannot open `ile05' (No such file or directory).
+file: Cannot open `ile06' (No such file or directory).
+file: Cannot open `ile07' (No such file or directory).
+file: Cannot open `ile08' (No such file or directory).
+file: Cannot open `ile09' (No such file or directory).
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file . *[K[K[K[K[K[K[K[Kls
+-file00  -file01  -file02  -file03  -file04  -file05  -file06  -file07  -file08  -file09
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ lsfile . *[1P*[1P*[C[K-
+^[[A^C
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file
+Usage: file [-bcEhikLlNnprsvzZ0] [--apple] [--extension] [--mime-encoding] [--mime-type]
+            [-e testname] [-F separator] [-f namefile] [-m magicfiles] file ...
+       file -C [-m magicfiles]
+       file [--help]
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ fil e[K[Ke .
+.: directory
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file .[K*
+file: Cannot open `ile00' (No such file or directory).
+file: Cannot open `ile01' (No such file or directory).
+file: Cannot open `ile02' (No such file or directory).
+file: Cannot open `ile03' (No such file or directory).
+file: Cannot open `ile04' (No such file or directory).
+file: Cannot open `ile05' (No such file or directory).
+file: Cannot open `ile06' (No such file or directory).
+file: Cannot open `ile07' (No such file or directory).
+file: Cannot open `ile08' (No such file or directory).
+file: Cannot open `ile09' (No such file or directory).
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file *''*'
+*: cannot open `*' (No such file or directory)
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file '*'[K"[1P*"2*"
+> ^C
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file 2*"[1P*""*"
+*: cannot open `*' (No such file or directory)
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file "*"[K[K-*[C"
+file: invalid option -- '*'
+Usage: file [-bcEhikLlNnprsvzZ0] [--apple] [--extension] [--mime-encoding] [--mime-type]
+            [-e testname] [-F separator] [-f namefile] [-m magicfiles] file ...
+       file -C [-m magicfiles]
+       file [--help]
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file "-*"[K'[1P-*''-*'
+file: invalid option -- '*'
+Usage: file [-bcEhikLlNnprsvzZ0] [--apple] [--extension] [--mime-encoding] [--mime-type]
+            [-e testname] [-F separator] [-f namefile] [-m magicfiles] file ...
+       file -C [-m magicfiles]
+       file [--help]
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file '-*'[K[1P-*
+file: Cannot open `ile00' (No such file or directory).
+file: Cannot open `ile01' (No such file or directory).
+file: Cannot open `ile02' (No such file or directory).
+file: Cannot open `ile03' (No such file or directory).
+file: Cannot open `ile04' (No such file or directory).
+file: Cannot open `ile05' (No such file or directory).
+file: Cannot open `ile06' (No such file or directory).
+file: Cannot open `ile07' (No such file or directory).
+file: Cannot open `ile08' (No such file or directory).
+file: Cannot open `ile09' (No such file or directory).
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ ls
+-file00  -file01  -file02  -file03  -file04  -file05  -file06  -file07  -file08  -file09
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file --[K-[K[K-file000[K
+file: Cannot open `ile00' (No such file or directory).
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file -file00'-file00[C[C[C[C[C[C[C'
+file: Cannot open `ile00' (No such file or directory).
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file '-file00'\-file00'
+\-file00: cannot open `\-file00' (No such file or directory)
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file '\-file00'[1P\-file00'
+> file \-file00'^C
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file \-file00'[K
+file: Cannot open `ile00' (No such file or directory).
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file \-file00[C[C[C[C^C
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ cd ..
+[01;32mbandit4@bandit[00m:[01;34m~[00m$ file inhere/
+inhere/: directory
+[01;32mbandit4@bandit[00m:[01;34m~[00m$ file inhere/[K
+inhere: directory
+[01;32mbandit4@bandit[00m:[01;34m~[00m$ file inhere{[K\[K/*
+inhere/-file00: data
+inhere/-file01: data
+inhere/-file02: data
+inhere/-file03: data
+inhere/-file04: data
+inhere/-file05: data
+inhere/-file06: data
+inhere/-file07: ASCII text
+inhere/-file08: data
+inhere/-file09: data
+[01;32mbandit4@bandit[00m:[01;34m~[00m$ cd inhere/
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file -- *
+-file00: data
+-file01: data
+-file02: data
+-file03: data
+-file04: data
+-file05: data
+-file06: data
+-file07: ASCII text
+-file08: data
+-file09: data
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file -- *[1P*
+file: unrecognized option '--*'
+Usage: file [-bcEhikLlNnprsvzZ0] [--apple] [--extension] [--mime-encoding] [--mime-type]
+            [-e testname] [-F separator] [-f namefile] [-m magicfiles] file ...
+       file -C [-m magicfiles]
+       file [--help]
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file --*[1P*
+file: Cannot open `ile00' (No such file or directory).
+file: Cannot open `ile01' (No such file or directory).
+file: Cannot open `ile02' (No such file or directory).
+file: Cannot open `ile03' (No such file or directory).
+file: Cannot open `ile04' (No such file or directory).
+file: Cannot open `ile05' (No such file or directory).
+file: Cannot open `ile06' (No such file or directory).
+file: Cannot open `ile07' (No such file or directory).
+file: Cannot open `ile08' (No such file or directory).
+file: Cannot open `ile09' (No such file or directory).
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ file -*-* *
+-file00: data
+-file01: data
+-file02: data
+-file03: data
+-file04: data
+-file05: data
+-file06: data
+-file07: ASCII text
+-file08: data
+-file09: data
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ cat -file[K[K[K[K[K'f[Kf[K-file07' 
+cat: invalid option -- 'f'
+Try 'cat --help' for more information.
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ cat '-file07' [1P " [1P[1@"
+cat: invalid option -- 'f'
+Try 'cat --help' for more information.
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ cat "-file07" [K[K[1P-file07
+cat: invalid option -- 'f'
+Try 'cat --help' for more information.
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ cat -file07- -file07
+-bash: cat-: command not found
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ cat- -file07[C[1P-file07 --file07
+cat: unrecognized option '--file07'
+Try 'cat --help' for more information.
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ cat --file07\--file07[C[C[1Pfile07[C
+cat: invalid option -- 'f'
+Try 'cat --help' for more information.
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ cat \-file07[K[K[K[K[K[K[K[K[K -file07
+cat: invalid option -- 'f'
+Try 'cat --help' for more information.
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ cat -file07[K[K[K[K[K[K[Kfile07
+cat: file07: No such file or directory
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ cat file07-file07[K[K[K[K[K[K[K[K[K[K[Kcd ..
+[01;32mbandit4@bandit[00m:[01;34m~[00m$ cat inhere/-file07
+koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+[01;32mbandit4@bandit[00m:[01;34m~[00m$ cat inhere/-file07[1P-file07[1P-file07[1P-file07[1P-file07[1P-file07[1P-file07[1P-file07\-file07'\-file07[C[C[C[C[C[C[C[C'
+cat: '\-file07': No such file or directory
+[01;32mbandit4@bandit[00m:[01;34m~[00m$ cat '\-file07'[1P '\-file07'[1P '\-file07'[1P '\-file07'[C[C[C[CFile07'[C^C
+[01;32mbandit4@bandit[00m:[01;34m~[00m$ cd inhere/
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ cat '-file07' 
+cat: invalid option -- 'f'
+Try 'cat --help' for more information.
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ cat ./-file07
+koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ is pw
+-bash: is: command not found
+[01;32mbandit4@bandit[00m:[01;34m~/inhere[00m$ exit
+logout
