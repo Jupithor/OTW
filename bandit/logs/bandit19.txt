@@ -84,5 +84,4 @@ irc.overthewire.org.
 
   Enjoy your stay!
 
-]0;bandit16@bandit: ~[01;32mbandit16@bandit[00m:[01;34m~[00m$ exit
-logout
+]0;bandit19@bandit: ~[01;32mbandit19@bandit[00m:[01;34m~[00m$ 
