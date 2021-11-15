@@ -84,4 +84,149 @@ irc.overthewire.org.
 
   Enjoy your stay!
 
-]0;bandit19@bandit: ~[01;32mbandit19@bandit[00m:[01;34m~[00m$ 
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ .7gba[K[K[K[K/bandit20-do 
+Run a command as another user.
+  Example: ./bandit20-do id
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do bandit20
+env: ‘bandit20’: No such file or directory
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do bandit20.bandit20
+env: ‘.bandit20’: No such file or directory
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do .bandit20[1Pbandit20/bandit20.bandit20
+env: ‘/.bandit20’: No such file or directory
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do /.bandit20[1Pbandit20./bandit20
+env: ‘./bandit20’: No such file or directory
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do ./bandit20i./bandit20d./bandit20=./bandit20 ./bandit20[1P./bandit20b./bandit20a./bandit20n./bandit20d./bandit20i./bandit20t./bandit202./bandit200./bandit20
+LC_ALL=en_US.UTF-8
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+SSH_CONNECTION=93.178.185.218 35951 192.168.101.80 22
+LANG=en_US.UTF-8
+USER=bandit19
+PWD=/home/bandit19
+HOME=/home/bandit19
+SSH_CLIENT=93.178.185.218 35951 22
+SSH_TTY=/dev/pts/14
+MAIL=/var/mail/bandit19
+TERM=tmux-256color
+SHELL=/bin/bash
+TMOUT=1800
+SHLVL=1
+LOGNAME=bandit19
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+_=./bandit20-do
+id=bandit20./bandit20
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do id=bandit20./bandit20[K[K[K[K[K[K[K[K[K[K 
+LC_ALL=en_US.UTF-8
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+SSH_CONNECTION=93.178.185.218 35951 192.168.101.80 22
+LANG=en_US.UTF-8
+USER=bandit19
+PWD=/home/bandit19
+HOME=/home/bandit19
+SSH_CLIENT=93.178.185.218 35951 22
+SSH_TTY=/dev/pts/14
+MAIL=/var/mail/bandit19
+TERM=tmux-256color
+SHELL=/bin/bash
+TMOUT=1800
+SHLVL=1
+LOGNAME=bandit19
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+_=./bandit20-do
+id=bandit20
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ls l[K-la /etc/n[Kbandit_pass/
+total 144
+drwxr-xr-x  2 root     root     4096 May  7  2020 [0m[01;34m.[0m
+drwxr-xr-x 87 root     root     4096 May 14  2020 [01;34m..[0m
+-r--------  1 bandit0  bandit0     8 May  7  2020 bandit0
+-r--------  1 bandit1  bandit1    33 May  7  2020 bandit1
+-r--------  1 bandit10 bandit10   33 May  7  2020 bandit10
+-r--------  1 bandit11 bandit11   33 May  7  2020 bandit11
+-r--------  1 bandit12 bandit12   33 May  7  2020 bandit12
+-r--------  1 bandit13 bandit13   33 May  7  2020 bandit13
+-r--------  1 bandit14 bandit14   33 May  7  2020 bandit14
+-r--------  1 bandit15 bandit15   33 May  7  2020 bandit15
+-r--------  1 bandit16 bandit16   33 May  7  2020 bandit16
+-r--------  1 bandit17 bandit17   33 May  7  2020 bandit17
+-r--------  1 bandit18 bandit18   33 May  7  2020 bandit18
+-r--------  1 bandit19 bandit19   33 May  7  2020 bandit19
+-r--------  1 bandit2  bandit2    33 May  7  2020 bandit2
+-r--------  1 bandit20 bandit20   33 May  7  2020 bandit20
+-r--------  1 bandit21 bandit21   33 May  7  2020 bandit21
+-r--------  1 bandit22 bandit22   33 May  7  2020 bandit22
+-r--------  1 bandit23 bandit23   33 May  7  2020 bandit23
+-r--------  1 bandit24 bandit24   33 May  7  2020 bandit24
+-r--------  1 bandit25 bandit25   33 May  7  2020 bandit25
+-r--------  1 bandit26 bandit26   33 May  7  2020 bandit26
+-r--------  1 bandit27 bandit27   33 May  7  2020 bandit27
+-r--------  1 bandit28 bandit28   33 May  7  2020 bandit28
+-r--------  1 bandit29 bandit29   33 May  7  2020 bandit29
+-r--------  1 bandit3  bandit3    33 May  7  2020 bandit3
+-r--------  1 bandit30 bandit30   33 May  7  2020 bandit30
+-r--------  1 bandit31 bandit31   33 May  7  2020 bandit31
+-r--------  1 bandit32 bandit32   33 May  7  2020 bandit32
+-r--------  1 bandit33 bandit33   33 May  7  2020 bandit33
+-r--------  1 bandit4  bandit4    33 May  7  2020 bandit4
+-r--------  1 bandit5  bandit5    33 May  7  2020 bandit5
+-r--------  1 bandit6  bandit6    33 May  7  2020 bandit6
+-r--------  1 bandit7  bandit7    33 May  7  2020 bandit7
+-r--------  1 bandit8  bandit8    33 May  7  2020 bandit8
+-r--------  1 bandit9  bandit9    33 May  7  2020 bandit9
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ls -la /etc/bandit_pass/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./bandit20-do id=bandit20 ./bandit20-do 
+Run a command as another user.
+  Example: ./bandit20-do id
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do id=bandit20 ./bandit20-do [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K19
+LC_ALL=en_US.UTF-8
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+SSH_CONNECTION=93.178.185.218 35951 192.168.101.80 22
+LANG=en_US.UTF-8
+USER=bandit19
+PWD=/home/bandit19
+HOME=/home/bandit19
+SSH_CLIENT=93.178.185.218 35951 22
+SSH_TTY=/dev/pts/14
+MAIL=/var/mail/bandit19
+TERM=tmux-256color
+SHELL=/bin/bash
+TMOUT=1800
+SHLVL=1
+LOGNAME=bandit19
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+_=./bandit20-do
+id=bandit19
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do id=bandit19[K2[K[K20
+LC_ALL=en_US.UTF-8
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+SSH_CONNECTION=93.178.185.218 35951 192.168.101.80 22
+LANG=en_US.UTF-8
+USER=bandit19
+PWD=/home/bandit19
+HOME=/home/bandit19
+SSH_CLIENT=93.178.185.218 35951 22
+SSH_TTY=/dev/pts/14
+MAIL=/var/mail/bandit19
+TERM=tmux-256color
+SHELL=/bin/bash
+TMOUT=1800
+SHLVL=1
+LOGNAME=bandit19
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+_=./bandit20-do
+id=bandit20
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do id=bandit20[1Pbandit20[1Pbandit20[1Pbandit20
+env: ‘bandit20’: No such file or directory
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ bandit i[K[K[K[K[K[K[K[K./bandit20-do id
+uid=11019(bandit19) gid=11019(bandit19) euid=11020(bandit20) groups=11019(bandit19)
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do id[K[Kcat /etc/
+Display all 172 possibilities? (y or n)
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do cat /etc/bandit_pass/bandit20
+GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do cat /etc/bandit_pass/bandit20[K[K19
+cat: /etc/bandit_pass/bandit19: Permission denied
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do cat /etc/bandit_pass/bandit19[K[K21
+cat: /etc/bandit_pass/bandit21: Permission denied
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do cat /etc/bandit_pass/bandit21[K0
+GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ is pw
+-bash: is: command not found
+[01;32mbandit19@bandit[00m:[01;34m~[00m$ exit
+logout
