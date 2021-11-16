@@ -39,9 +39,9 @@ else
 	level=$(awk -v len="$len" '{print substr($1,len+1)}' $vault | tail -n 1)
 	SSHPASS=$(awk '{print $2}' $vault | tail -n 1) 
 fi
-echo $wargame
-echo $level
-echo $SSHPASS
+echo "playing $wargame"
+echo "Currently at level: $level"
+echo "Password for current level: $SSHPASS"
 
 host='@bandit.labs.overthewire.org'
 port='2220'
