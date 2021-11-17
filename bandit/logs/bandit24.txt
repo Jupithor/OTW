@@ -84,22 +84,5 @@ irc.overthewire.org.
 
   Enjoy your stay!
 
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ cat /etc/ro[K[Kcron.d
-cat: /etc/cron.d: Is a directory
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ cat /etc/cron.d
-cron.d/     cron.daily/ 
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ cat /etc/cron.d/
-cronjob_bandit15_root  cronjob_bandit17_root  cronjob_bandit22       cronjob_bandit23       cronjob_bandit24       cronjob_bandit25_root  .placeholder           
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ cat /etc/cron.d/co[Kronjob_bandit22 
-@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
-* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ cat /usr/bin/corelist [K[K[K[K[K[K[K[Kronjob_bandit_[K22.sh .[K[K
-#!/bin/bash
-chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
-cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ cat /tmp/t706ls[Kds[K[K[K[K[K[K[Kt7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
-Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ is pw
--bash: is: command not found
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ exit
+[01;32mbandit24@bandit[00m:[01;34m~[00m$ exit
 logout

@@ -84,22 +84,35 @@ irc.overthewire.org.
 
   Enjoy your stay!
 
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ cat /etc/ro[K[Kcron.d
-cat: /etc/cron.d: Is a directory
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ cat /etc/cron.d
+[01;32mbandit22@bandit[00m:[01;34m~[00m$ cat /etc/cronj[K[K[K[K
+ca-certificates/      calendar/             cron.d/               cron.hourly/          crontab               
+ca-certificates.conf  console-setup/        cron.daily/           cron.monthly/         cron.weekly/          
+[01;32mbandit22@bandit[00m:[01;34m~[00m$ cat /etc/con[K[Kron.d
 cron.d/     cron.daily/ 
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ cat /etc/cron.d/
+[01;32mbandit22@bandit[00m:[01;34m~[00m$ cat /etc/cron.d
+cron.d/     cron.daily/ 
+[01;32mbandit22@bandit[00m:[01;34m~[00m$ cat /etc/cron.d/
 cronjob_bandit15_root  cronjob_bandit17_root  cronjob_bandit22       cronjob_bandit23       cronjob_bandit24       cronjob_bandit25_root  .placeholder           
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ cat /etc/cron.d/co[Kronjob_bandit22 
-@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
-* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ cat /usr/bin/corelist [K[K[K[K[K[K[K[Kronjob_bandit_[K22.sh .[K[K
+[01;32mbandit22@bandit[00m:[01;34m~[00m$ cat /etc/cron.d/con[K[Kronjob_bandit23 
+@reboot bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+* * * * * bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+[01;32mbandit22@bandit[00m:[01;34m~[00m$ cat /usr/bin/cronjob_bandit23.sh 
 #!/bin/bash
-chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
-cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ cat /tmp/t706ls[Kds[K[K[K[K[K[K[Kt7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
-Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ is pw
+
+myname=$(whoami)
+mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+
+echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+
+cat /etc/bandit_pass/$myname > /tmp/$mytarget
+[01;32mbandit22@bandit[00m:[01;34m~[00m$ mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+[01;32mbandit22@bandit[00m:[01;34m~[00m$ mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+[01;32mbandit22@bandit[00m:[01;34m~[00m$ mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[1P[1P[1P[1@b[1@a[1@n[1@d[1@i[1@t[1@2[1@3
+[01;32mbandit22@bandit[00m:[01;34m~[00m$ echo $mytarget 
+8ca319486bfbbc3663ea0fbe81326349
+[01;32mbandit22@bandit[00m:[01;34m~[00m$ cat /etc/[K[K[K[Ktmp/ze7?y&GGyp3Py#fH[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K8ca319486bfbbc3663ea0fbe81326349
+jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
+[01;32mbandit22@bandit[00m:[01;34m~[00m$ is pw
 -bash: is: command not found
-[01;32mbandit21@bandit[00m:[01;34m~[00m$ exit
+[01;32mbandit22@bandit[00m:[01;34m~[00m$ exit
 logout
