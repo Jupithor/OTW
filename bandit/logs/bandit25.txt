@@ -1,0 +1,844 @@
+Linux bandit.otw.local 5.4.8 x86_64 GNU/Linux
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to Steven or morla on
+irc.overthewire.org.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ and /proc/ is disabled
+  so that users can not snoop on eachother. Files and directories with
+  easily guessable or short names will be periodically deleted!
+
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few usefull tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /usr/local/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /usr/local/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /usr/local/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /usr/local/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+    * checksec.sh (http://www.trapkit.de/tools/checksec.html) in /usr/local/bin/checksec.sh
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us through IRC on
+  irc.overthewire.org #wargames.
+
+  Enjoy your stay!
+
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ m[Kman more
+[?1049h[?1h=MORE(1)                                 User Commands                                MORE(1)[m
+[m
+[1mNAME[0m[m
+       more - file perusal filter for crt viewing[m
+[m
+[1mSYNOPSIS[0m[m
+       [1mmore[0m [options] [4mfile[24m...[m
+[m
+[1mDESCRIPTION[0m[m
+       [1mmore[0m  is  a  filter for paging through text one screenful at a time.  This version is[m
+       especially primitive.  Users should realize that [1mless[0m(1) provides  [1mmore[0m(1)  emulation[m
+       plus extensive enhancements.[m
+[m
+[1mOPTIONS[0m[m
+       Options  are also taken from the environment variable [1mMORE[0m (make sure to precede them[m
+       with a dash ([1m-[0m)) but command-line options will override those.[m
+[m
+       [1m-d[0m     Prompt with "[Press space to continue, 'q' to quit.]", and display "[Press 'h'[m
+              for  instructions.]"  instead  of  ringing  the  bell  when  an illegal key is[m
+              pressed.[m
+[m
+       [1m-l[0m     Do not pause after any line containing a [1m^L[0m (form feed).[m
+[m
+       [1m-f[0m     Count logical lines, rather than  screen  lines  (i.e.,  long  lines  are  not[m
+              folded).[m
+[m
+       [1m-p[0m     Do  not  scroll.   Instead,  clear the whole screen and then display the text.[m
+              Notice that this option is switched on  automatically  if  the  executable  is[m
+              named [1mpage[0m.[m
+[m
+       [1m-c[0m     Do  not scroll.  Instead, paint each screen from the top, clearing the remain‐[m
+              der of each line as it is displayed.[m
+[m
+       [1m-s[0m     Squeeze multiple blank lines into one.[m
+[m
+       [1m-u[0m     Suppress underlining.[m
+[m
+       [1m-[0m[4mnumber[24m[m
+              The screen size to use, in [4mnumber[24m of lines.[m
+[m
+       [1m+[0m[4mnumber[24m[m
+              Start displaying each file at line [4mnumber[24m.[m
+[m
+       [1m+/[0m[4mstring[24m[m
+              The [4mstring[24m to be searched in each file before starting to display it.[m
+[m
+[1mCOMMANDS[0m[m
+       Interactive commands for [1mmore[0m are based on [1mvi[0m(1).  Some commands may be preceded by a[m
+       decimal  number,  called k in the descriptions below.  In the following descriptions,[m
+       [1m^X[0m means [1mcontrol-X[0m.[m
+[m
+              [1mh[0m or [1m?[0m    Help; display a summary of these commands.  If you forget all  other[m
+                        commands, remember this one.[m
+[m
+              [1mSPACE[0m     Display next k lines of text.  Defaults to current screen size.[m
+[m
+              [1mz[0m         Display  next  k  lines  of  text.  Defaults to current screen size.[m
+                        Argument becomes new default.[m
+[m
+              [1mRETURN[0m    Display next k lines of text.  Defaults to 1.  Argument becomes  new[m
+                        default.[m
+[m
+              [1md[0m or [1m^D[0m   Scroll  k  lines.   Default  is  current  scroll size, initially 11.[m
+                        Argument becomes new default.[m
+[m
+              [1mq[0m or [1mQ[0m or [1mINTERRUPT[0m[m
+                        Exit.[m
+[m
+              [1ms[0m         Skip forward k lines of text.  Defaults to 1.[m
+[m
+              [1mf[0m         Skip forward k screenfuls of text.  Defaults to 1.[m
+[m
+              [1mb[0m or [1m^B[0m   Skip backwards k screenfuls of text.  Defaults  to  1.   Only  works[m
+[7m Manual page more(1) line 1 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[01;32mbandit25@bandit[00m:[01;34m~[00m$ ls /bin/
+Display all 122 possibilities? (y or n)
+bash            df              lesskey         pidof           tempfile
+bunzip2         dir             lesspipe        ping            touch
+busybox         dmesg           ln              ping4           true
+bzcat           dnsdomainname   loadkeys        ping6           udevadm
+bzcmp           domainname      login           ps              umount
+bzdiff          dumpkeys        ls              pwd             uname
+bzegrep         echo            lsblk           rbash           uncompress
+bzexe           egrep           lsmod           readlink        unicode_start
+bzfgrep         false           mkdir           rm              vdir
+bzgrep          fgconsole       mknod           rmdir           wdctl
+bzip2           fgrep           mktemp          rnano           which
+bzip2recover    findmnt         more            run-parts       ypdomainname
+bzless          getfacl         mount           sed             zcat
+bzmore          grep            mountpoint      setfacl         zcmp
+cat             gunzip          mt              setfont         zdiff
+chacl           gzexe           mt-gnu          setupcon        zegrep
+chgrp           gzip            mv              sh              zfgrep
+chmod           hostname        nano            sh.distrib      zforce
+chown           ip              nc              sleep           zgrep
+chvt            kbd_mode        nc.traditional  ss              zless
+cp              kill            netcat          stty            zmore
+cpio            kmod            netstat         su              znew
+dash            less            nisdomainname   sync            
+date            lessecho        open            tailf           
+dd              lessfile        openvt          tar             
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ ls /bin/[K[K[K[K[K[K[K[Kls
+bandit26.sshkey
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ cat bandit26.sshkey 
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpQIBAAKCAQEApis2AuoooEqeYWamtwX2k5z9uU1Afl2F8VyXQqbv/LTrIwdW
+pTfaeRHXzr0Y0a5Oe3GB/+W2+PReif+bPZlzTY1XFwpk+DiHk1kmL0moEW8HJuT9
+/5XbnpjSzn0eEAfFax2OcopjrzVqdBJQerkj0puv3UXY07AskgkyD5XepwGAlJOG
+xZsMq1oZqQ0W29aBtfykuGie2bxroRjuAPrYM4o3MMmtlNE5fC4G9Ihq0eq73MDi
+1ze6d2jIGce873qxn308BA2qhRPJNEbnPev5gI+5tU+UxebW8KLbk0EhoXB953Ix
+3lgOIrT9Y6skRjsMSFmC6WN/O7ovu8QzGqxdywIDAQABAoIBAAaXoETtVT9GtpHW
+qLaKHgYtLEO1tOFOhInWyolyZgL4inuRRva3CIvVEWK6TcnDyIlNL4MfcerehwGi
+il4fQFvLR7E6UFcopvhJiSJHIcvPQ9FfNFR3dYcNOQ/IFvE73bEqMwSISPwiel6w
+e1DjF3C7jHaS1s9PJfWFN982aublL/yLbJP+ou3ifdljS7QzjWZA8NRiMwmBGPIh
+Yq8weR3jIVQl3ndEYxO7Cr/wXXebZwlP6CPZb67rBy0jg+366mxQbDZIwZYEaUME
+zY5izFclr/kKj4s7NTRkC76Yx+rTNP5+BX+JT+rgz5aoQq8ghMw43NYwxjXym/MX
+c8X8g0ECgYEA1crBUAR1gSkM+5mGjjoFLJKrFP+IhUHFh25qGI4Dcxxh1f3M53le
+wF1rkp5SJnHRFm9IW3gM1JoF0PQxI5aXHRGHphwPeKnsQ/xQBRWCeYpqTme9amJV
+tD3aDHkpIhYxkNxqol5gDCAt6tdFSxqPaNfdfsfaAOXiKGrQESUjIBcCgYEAxvmI
+2ROJsBXaiM4Iyg9hUpjZIn8TW2UlH76pojFG6/KBd1NcnW3fu0ZUU790wAu7QbbU
+i7pieeqCqSYcZsmkhnOvbdx54A6NNCR2btc+si6pDOe1jdsGdXISDRHFb9QxjZCj
+6xzWMNvb5n1yUb9w9nfN1PZzATfUsOV+Fy8CbG0CgYEAifkTLwfhqZyLk2huTSWm
+pzB0ltWfDpj22MNqVzR3h3d+sHLeJVjPzIe9396rF8KGdNsWsGlWpnJMZKDjgZsz
+JQBmMc6UMYRARVP1dIKANN4eY0FSHfEebHcqXLho0mXOUTXe37DWfZza5V9Oify3
+JquBd8uUptW1Ue41H4t/ErsCgYEArc5FYtF1QXIlfcDz3oUGz16itUZpgzlb71nd
+1cbTm8EupCwWR5I1j+IEQU+JTUQyI1nwWcnKwZI+5kBbKNJUu/mLsRyY/UXYxEZh
+ibrNklm94373kV1US/0DlZUDcQba7jz9Yp/C3dT/RlwoIw5mP3UxQCizFspNKOSe
+euPeaxUCgYEAntklXwBbokgdDup/u/3ms5Lb/bm22zDOCg2HrlWQCqKEkWkAO6R5
+/Wwyqhp/wTl8VXjxWo+W+DmewGdPHGQQ5fFdqgpuQpGUq24YZS8m66v5ANBwd76t
+IZdtF5HXs2S5CADTwniUS5mX1HO9l5gUkk+h0cH5JnPtsMCnAUM+BRY=
+-----END RSA PRIVATE KEY-----
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ ssh -i bandit26@bandit.overthewire.[K[K[K[K[K[K[K[K[K[K[K[Klabs.overthewire.org
+Warning: Identity file bandit26@bandit.labs.overthewire.org not accessible: No such file or directory.
+usage: ssh [-1246AaCfGgKkMNnqsTtVvXxYy] [-b bind_address] [-c cipher_spec]
+           [-D [bind_address:]port] [-E log_file] [-e escape_char]
+           [-F configfile] [-I pkcs11] [-i identity_file]
+           [-J [user@]host[:port]] [-L address] [-l login_name] [-m mac_spec]
+           [-O ctl_cmd] [-o option] [-p port] [-Q query_option] [-R address]
+           [-S ctl_path] [-W host:port] [-w local_tun[:remote_tun]]
+           [user@]hostname [command]
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ ssh -i bandit26@bandit.labs.overthewire.org[C[C bandit26@bandit.labs.overthewire.orgb bandit26@bandit.labs.overthewire.orga bandit26@bandit.labs.overthewire.orgn bandit26@bandit.labs.overthewire.orgd bandit26@bandit.labs.overthewire.orgit26.sshkey bandit26@bandit.labs.overthewire.org[C[C[C[C[C[C[C[C[C
+^C
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ ssh -i bandit26.sshkey bandit26@bandit.labs.overthewire.org[C[C[C[C[1@ [1@-[1@p[C[1@ [1@2[1@2[1@2[1@0
+^C
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ ssh -p 2220 -i bandit26.sshkey bandit26@bandit.labs.overthewire.org[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1Pbandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1Pbandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1Pbandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1P bandit26@bandit.labs.overthewire.org[1Pbandit26@bandit.labs.overthewire.org[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -p22[K[K[Kp 20[K220 -i bandit26.sshkey 
+q ^C
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ ls /etc/
+adduser.conf            group            [0m[01;34mlvm[0m             reportbug.conf
+adjtime                 group-           magic           resolv.conf
+[01;34malternatives[0m            [01;34mgrub.d[0m           magic.mime      [01;32mrmt[0m
+[01;34mapache2[0m                 gshadow          mailcap         rpc
+[01;34mapm[0m                     gshadow-         mailcap.order   rsyslog.conf
+[01;34mapparmor[0m                [01;34mgss[0m              manpath.config  [01;34mrsyslog.d[0m
+[01;34mapparmor.d[0m              hdparm.conf      mime.types      screenrc
+[01;34mapt[0m                     host.conf        mke2fs.conf     securetty
+[01;34mbandit_pass[0m             hostname         [01;34mmodprobe.d[0m      [01;34msecurity[0m
+bash.bashrc             hosts            modules         [01;34mselinux[0m
+bash_completion         hosts.allow      motd            services
+[01;34mbash_completion.d[0m       hosts.deny       [01;36mmtab[0m            [01;34msgml[0m
+bindresvport.blacklist  identd.conf      nanorc          shadow
+[01;34mca-certificates[0m         identd.key       [01;34mnetwork[0m         shadow-
+ca-certificates.conf    inetd.conf       [01;34mNetworkManager[0m  shells
+[01;34mcalendar[0m                [01;34minetd.d[0m          networks        [01;34mskel[0m
+[01;34mConsoleKit[0m              [01;34minit[0m             [01;34mnewt[0m            [01;34mssh[0m
+[01;34mconsole-setup[0m           [01;34minit.d[0m           nsswitch.conf   [01;34mssl[0m
+[01;34mcron.d[0m                  [01;34minitramfs-tools[0m  ntp.conf        staff-group-for-usr-local
+[01;34mcron.daily[0m              inittab          [01;34mopt[0m             subgid
+[01;34mcron.hourly[0m             inputrc          [01;36mos-release[0m      subgid-
+[01;34mcron.monthly[0m            [01;34minsserv[0m          pam.conf        subuid
+crontab                 insserv.conf     [01;34mpam.d[0m           subuid-
+[01;34mcron.weekly[0m             [01;34minsserv.conf.d[0m   passwd          sudoers
+[01;34mdbus-1[0m                  [01;34miproute2[0m         passwd-         [01;34msudoers.d[0m
+debconf.conf            issue            [01;34mperl[0m            [01;34msupervisor[0m
+debian_version          issue.net        [01;34mpolkit-1[0m        sysctl.conf
+[01;34mdefault[0m                 [01;34mkernel[0m           profile         [01;34msysctl.d[0m
+deluser.conf            kernel-img.conf  [01;34mprofile.d[0m       [01;34msystemd[0m
+devuan_version          [01;34mldap[0m             protocols       [01;34mterminfo[0m
+[01;34mdhcp[0m                    ld.so.cache      [01;34mpython[0m          timezone
+[01;34mdictionaries-common[0m     ld.so.conf       [01;34mpython2.7[0m       [01;34mtmpfiles.d[0m
+[01;34mdiscover.conf.d[0m         [01;34mld.so.conf.d[0m     [01;34mpython3[0m         ucf.conf
+discover-modprobe.conf  libaudit.conf    [01;34mpython3.5[0m       [01;34mudev[0m
+[01;34mdpkg[0m                    [01;34mlighttpd[0m         [01;34mrc0.d[0m           [01;34mufw[0m
+[01;34melogind[0m                 locale.alias     [01;34mrc1.d[0m           [01;34mupdate-motd.d[0m
+[01;34memacs[0m                   locale.gen       [01;34mrc2.d[0m           [01;34mvim[0m
+environment             [01;36mlocaltime[0m        [01;34mrc3.d[0m           wgetrc
+[01;34mfirewall[0m                [01;34mlogcheck[0m         [01;34mrc4.d[0m           [01;34mX11[0m
+fstab                   login.defs       [01;34mrc5.d[0m           [01;34mxdg[0m
+gai.conf                logrotate.conf   [01;34mrc6.d[0m           [01;34mxml[0m
+[01;34mgdb[0m                     [01;34mlogrotate.d[0m      [01;32mrc.local[0m
+[01;34mgroff[0m                   ltrace.conf      [01;34mrcS.d[0m
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ ls /etc/passwd
+/etc/passwd
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ ls /etc/passwd/
+ls: cannot access '/etc/passwd/': Not a directory
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ ls /etc/passwd/[K[C[C[1P /etc/passwd[1P /etc/passwdc /etc/passwda /etc/passwdt /etc/passwd[C /etc/passwd[1P/etc/passwd[C[C[C[C[C[C[C[C[C[C[C[C | grep bandit26
+bandit26:x:11026:11026:bandit level 26:/home/bandit26:/usr/bin/showtext
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ cat /etc/passwd | grep bandit26[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/bin/false
+messagebus:x:101:104::/var/run/dbus:/bin/false
+sshd:x:102:65534::/run/sshd:/usr/sbin/nologin
+identd:x:103:65534::/var/run/identd:/bin/false
+ntp:x:104:107::/home/ntp:/bin/false
+bandit0:x:11000:11000:bandit level 0:/home/bandit0:/bin/bash
+bandit1:x:11001:11001:bandit level 1:/home/bandit1:/bin/bash
+bandit10:x:11010:11010:bandit level 10:/home/bandit10:/bin/bash
+bandit11:x:11011:11011:bandit level 11:/home/bandit11:/bin/bash
+bandit12:x:11012:11012:bandit level 12:/home/bandit12:/bin/bash
+bandit13:x:11013:11013:bandit level 13:/home/bandit13:/bin/bash
+bandit14:x:11014:11014:bandit level 14:/home/bandit14:/bin/bash
+bandit15:x:11015:11015:bandit level 15:/home/bandit15:/bin/bash
+bandit16:x:11016:11016:bandit level 16:/home/bandit16:/bin/bash
+bandit17:x:11017:11017:bandit level 17:/home/bandit17:/bin/bash
+bandit18:x:11018:11018:bandit level 18:/home/bandit18:/bin/bash
+bandit19:x:11019:11019:bandit level 19:/home/bandit19:/bin/bash
+bandit2:x:11002:11002:bandit level 2:/home/bandit2:/bin/bash
+bandit20:x:11020:11020:bandit level 20:/home/bandit20:/bin/bash
+bandit21:x:11021:11021:bandit level 21:/home/bandit21:/bin/bash
+bandit22:x:11022:11022:bandit level 22:/home/bandit22:/bin/bash
+bandit23:x:11023:11023:bandit level 23:/home/bandit23:/bin/bash
+bandit24:x:11024:11024:bandit level 24:/home/bandit24:/bin/bash
+bandit25:x:11025:11025:bandit level 25:/home/bandit25:/bin/bash
+bandit26:x:11026:11026:bandit level 26:/home/bandit26:/usr/bin/showtext
+bandit27:x:11027:11027:bandit level 27:/home/bandit27:/bin/bash
+bandit28:x:11028:11028:bandit level 28:/home/bandit28:/bin/bash
+bandit29:x:11029:11029:bandit level 29:/home/bandit29:/bin/bash
+bandit3:x:11003:11003:bandit level 3:/home/bandit3:/bin/bash
+bandit30:x:11030:11030:bandit level 30:/home/bandit30:/bin/bash
+bandit31:x:11031:11031:bandit level 31:/home/bandit31:/bin/bash
+bandit32:x:11032:11032:bandit level 32:/home/bandit32:/home/bandit32/uppershell
+bandit33:x:11033:11033:bandit level 33:/home/bandit33:/bin/bash
+bandit4:x:11004:11004:bandit level 4:/home/bandit4:/bin/bash
+bandit5:x:11005:11005:bandit level 5:/home/bandit5:/bin/bash
+bandit6:x:11006:11006:bandit level 6:/home/bandit6:/bin/bash
+bandit7:x:11007:11007:bandit level 7:/home/bandit7:/bin/bash
+bandit8:x:11008:11008:bandit level 8:/home/bandit8:/bin/bash
+bandit9:x:11009:11009:bandit level 9:/home/bandit9:/bin/bash
+bandit27-git:x:11527:11527::/home/bandit27-git:/usr/bin/git-shell
+bandit28-git:x:11528:11528::/home/bandit28-git:/usr/bin/git-shell
+bandit29-git:x:11529:11529::/home/bandit29-git:/usr/bin/git-shell
+bandit30-git:x:11530:11530::/home/bandit30-git:/usr/bin/git-shell
+bandit31-git:x:11531:11531::/home/bandit31-git:/usr/bin/git-shell
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ cat /etc/passwd [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcat /usr/bin/showtext 
+#!/bin/sh
+
+export TERM=linux
+
+more ~/text.txt
+exit 0
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ man more
+[?1049h[?1h=MORE(1)                                 User Commands                                MORE(1)[m
+[m
+[1mNAME[0m[m
+       more - file perusal filter for crt viewing[m
+[m
+[1mSYNOPSIS[0m[m
+       [1mmore[0m [options] [4mfile[24m...[m
+[m
+[1mDESCRIPTION[0m[m
+       [1mmore[0m  is  a  filter for paging through text one screenful at a time.  This version is[m
+       especially primitive.  Users should realize that [1mless[0m(1) provides  [1mmore[0m(1)  emulation[m
+       plus extensive enhancements.[m
+[m
+[1mOPTIONS[0m[m
+       Options  are also taken from the environment variable [1mMORE[0m (make sure to precede them[m
+       with a dash ([1m-[0m)) but command-line options will override those.[m
+[m
+       [1m-d[0m     Prompt with "[Press space to continue, 'q' to quit.]", and display "[Press 'h'[m
+              for  instructions.]"  instead  of  ringing  the  bell  when  an illegal key is[m
+              pressed.[m
+[m
+       [1m-l[0m     Do not pause after any line containing a [1m^L[0m (form feed).[m
+[m
+       [1m-f[0m     Count logical lines, rather than  screen  lines  (i.e.,  long  lines  are  not[m
+              folded).[m
+[m
+       [1m-p[0m     Do  not  scroll.   Instead,  clear the whole screen and then display the text.[m
+              Notice that this option is switched on  automatically  if  the  executable  is[m
+              named [1mpage[0m.[m
+[m
+       [1m-c[0m     Do  not scroll.  Instead, paint each screen from the top, clearing the remain‐[m
+              der of each line as it is displayed.[m
+[m
+       [1m-s[0m     Squeeze multiple blank lines into one.[m
+[m
+       [1m-u[0m     Suppress underlining.[m
+[m
+       [1m-[0m[4mnumber[24m[m
+              The screen size to use, in [4mnumber[24m of lines.[m
+[m
+       [1m+[0m[4mnumber[24m[m
+              Start displaying each file at line [4mnumber[24m.[m
+[m
+       [1m+/[0m[4mstring[24m[m
+              The [4mstring[24m to be searched in each file before starting to display it.[m
+[m
+[1mCOMMANDS[0m[m
+       Interactive commands for [1mmore[0m are based on [1mvi[0m(1).  Some commands may be preceded by a[m
+       decimal  number,  called k in the descriptions below.  In the following descriptions,[m
+       [1m^X[0m means [1mcontrol-X[0m.[m
+[m
+              [1mh[0m or [1m?[0m    Help; display a summary of these commands.  If you forget all  other[m
+                        commands, remember this one.[m
+[m
+              [1mSPACE[0m     Display next k lines of text.  Defaults to current screen size.[m
+[m
+              [1mz[0m         Display  next  k  lines  of  text.  Defaults to current screen size.[m
+                        Argument becomes new default.[m
+[m
+              [1mRETURN[0m    Display next k lines of text.  Defaults to 1.  Argument becomes  new[m
+                        default.[m
+[m
+              [1md[0m or [1m^D[0m   Scroll  k  lines.   Default  is  current  scroll size, initially 11.[m
+                        Argument becomes new default.[m
+[m
+              [1mq[0m or [1mQ[0m or [1mINTERRUPT[0m[m
+                        Exit.[m
+[m
+              [1ms[0m         Skip forward k lines of text.  Defaults to 1.[m
+[m
+              [1mf[0m         Skip forward k screenfuls of text.  Defaults to 1.[m
+[m
+              [1mb[0m or [1m^B[0m   Skip backwards k screenfuls of text.  Defaults  to  1.   Only  works[m
+[7m Manual page more(1) line 1 (press h for help or q to quit)[27m[K[K[7m Manual page more(1) line 1 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[01;32mbandit25@bandit[00m:[01;34m~[00m$ more 
+.bandit24.password  .bash_logout        .pin                
+bandit26.sshkey     .bashrc             .profile            
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ more bandit26.sshkey 
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpQIBAAKCAQEApis2AuoooEqeYWamtwX2k5z9uU1Afl2F8VyXQqbv/LTrIwdW
+pTfaeRHXzr0Y0a5Oe3GB/+W2+PReif+bPZlzTY1XFwpk+DiHk1kmL0moEW8HJuT9
+/5XbnpjSzn0eEAfFax2OcopjrzVqdBJQerkj0puv3UXY07AskgkyD5XepwGAlJOG
+xZsMq1oZqQ0W29aBtfykuGie2bxroRjuAPrYM4o3MMmtlNE5fC4G9Ihq0eq73MDi
+1ze6d2jIGce873qxn308BA2qhRPJNEbnPev5gI+5tU+UxebW8KLbk0EhoXB953Ix
+3lgOIrT9Y6skRjsMSFmC6WN/O7ovu8QzGqxdywIDAQABAoIBAAaXoETtVT9GtpHW
+qLaKHgYtLEO1tOFOhInWyolyZgL4inuRRva3CIvVEWK6TcnDyIlNL4MfcerehwGi
+il4fQFvLR7E6UFcopvhJiSJHIcvPQ9FfNFR3dYcNOQ/IFvE73bEqMwSISPwiel6w
+e1DjF3C7jHaS1s9PJfWFN982aublL/yLbJP+ou3ifdljS7QzjWZA8NRiMwmBGPIh
+Yq8weR3jIVQl3ndEYxO7Cr/wXXebZwlP6CPZb67rBy0jg+366mxQbDZIwZYEaUME
+zY5izFclr/kKj4s7NTRkC76Yx+rTNP5+BX+JT+rgz5aoQq8ghMw43NYwxjXym/MX
+c8X8g0ECgYEA1crBUAR1gSkM+5mGjjoFLJKrFP+IhUHFh25qGI4Dcxxh1f3M53le
+wF1rkp5SJnHRFm9IW3gM1JoF0PQxI5aXHRGHphwPeKnsQ/xQBRWCeYpqTme9amJV
+tD3aDHkpIhYxkNxqol5gDCAt6tdFSxqPaNfdfsfaAOXiKGrQESUjIBcCgYEAxvmI
+2ROJsBXaiM4Iyg9hUpjZIn8TW2UlH76pojFG6/KBd1NcnW3fu0ZUU790wAu7QbbU
+i7pieeqCqSYcZsmkhnOvbdx54A6NNCR2btc+si6pDOe1jdsGdXISDRHFb9QxjZCj
+6xzWMNvb5n1yUb9w9nfN1PZzATfUsOV+Fy8CbG0CgYEAifkTLwfhqZyLk2huTSWm
+pzB0ltWfDpj22MNqVzR3h3d+sHLeJVjPzIe9396rF8KGdNsWsGlWpnJMZKDjgZsz
+JQBmMc6UMYRARVP1dIKANN4eY0FSHfEebHcqXLho0mXOUTXe37DWfZza5V9Oify3
+JquBd8uUptW1Ue41H4t/ErsCgYEArc5FYtF1QXIlfcDz3oUGz16itUZpgzlb71nd
+1cbTm8EupCwWR5I1j+IEQU+JTUQyI1nwWcnKwZI+5kBbKNJUu/mLsRyY/UXYxEZh
+ibrNklm94373kV1US/0DlZUDcQba7jz9Yp/C3dT/RlwoIw5mP3UxQCizFspNKOSe
+euPeaxUCgYEAntklXwBbokgdDup/u/3ms5Lb/bm22zDOCg2HrlWQCqKEkWkAO6R5
+/Wwyqhp/wTl8VXjxWo+W+DmewGdPHGQQ5fFdqgpuQpGUq24YZS8m66v5ANBwd76t
+IZdtF5HXs2S5CADTwniUS5mX1HO9l5gUkk+h0cH5JnPtsMCnAUM+BRY=
+-----END RSA PRIVATE KEY-----
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ cat /home/bandit26\[K/text.txt 
+cat: /home/bandit26/text.txt: Permission denied
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ cat /home/bandit26/text.txt [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kmore bandit26.sshkey [13Pan morecat /usr/bin/showtext [6Petc/passwd[C| grep bandit26[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[16Pls /etc/passwd/[K[Kssh bandit26@bandit.labs.overthewire.org -p 2220 -i bandit26.sshkey [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P-p 2220 -i bandit26.sshkey bandit26@bandit.labs.overthewire.org[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cbandit26@bandit.labs.overthewire.org -p 2220 -i bandit26.sshkey [1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1@l[1@o[1@c[1@a[1@l[1@h[1@o[1@s[1@t
+ssh: connect to host localhost port 2220: Connection refused
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ ssh bandit26@localhost -p 2220 -i bandit26.sshkey [1P[1P[1P[1P[1P[1P[1P[1P
+Could not create directory '/home/bandit25/.ssh'.
+The authenticity of host 'localhost (127.0.0.1)' can't be established.
+ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+Are you sure you want to continue connecting (yes/no)? yes
+Failed to add the host to the list of known hosts (/home/bandit25/.ssh/known_hosts).
+This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
+
+Linux bandit.otw.local 5.4.8 x86_64 GNU/Linux
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to Steven or morla on
+irc.overthewire.org.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ and /proc/ is disabled
+  so that users can not snoop on eachother. Files and directories with
+  easily guessable or short names will be periodically deleted!
+
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few usefull tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /usr/local/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /usr/local/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /usr/local/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /usr/local/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+    * checksec.sh (http://www.trapkit.de/tools/checksec.html) in /usr/local/bin/checksec.sh
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us through IRC on
+  irc.overthewire.org #wargames.
+
+  Enjoy your stay!
+
+  _                     _ _ _   ___   __  
+ | |                   | (_) | |__ \ / /  
+ | |__   __ _ _ __   __| |_| |_   ) / /_  
+ | '_ \ / _` | '_ \ / _` | | __| / / '_ \ 
+ | |_) | (_| | | | | (_| | | |_ / /| (_) |
+ |_.__/ \__,_|_| |_|\__,_|_|\__|____\___/ 
+Connection to localhost closed.
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ ssh bandit26@localhost -i bandit26.sshkey [K[01;32mbandit25@bandit[00m:[01;34m~[00m$ ssh bandit26@localhost -i bandit26.sshkey [K[01;32mbandit25@bandit[00m:[01;34m~[00m$ ssh bandit26@localhost -i bandit26.sshkey [K[01;32mbandit25@bandit[00m:[01;34m~[00m$ ssh bandit26@localhost -ii bandit26.sshkey [KM[01;32mbandit25@bandit[00m:[01;34m~[00m$ ssh bandit26@localhost -i baandit26.sshkey [KM[01;32mbandit25@bandit[00m:[01;34m~[00m$ ssh bandit26@localhost -i baandit26.sshkey [KM[01;32mbandit25@bandit[00m:[01;34m~[00m$ ssh bandit26@localhost -i baandit26.sshkey 
+Could not create directory '/home/bandit25/.ssh'.
+The authenticity of host 'localhost (127.0.0.1)' can't be established.
+ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+Are you sure you want to continue connecting (yes/no)? yes
+Failed to add the host to the list of known hosts (/home/bandit25/.ssh/known_hosts).
+This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
+
+Linux bandit.otw.local 5.4.8 x86_64 GNU/Linux
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to Steven or morla on
+irc.overthewire.org.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ and /proc/ is disabled
+  so that users can not snoop on eachother. Files and directories with
+  easily guessable or short names will be periodically deleted!
+
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few usefull tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /usr/local/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /usr/local/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /usr/local/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /usr/local/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+    * checksec.sh (http://www.trapkit.de/tools/checksec.html) in /usr/local/bin/checksec.sh
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us through IRC on
+  irc.overthewire.org #wargames.
+
+  Enjoy your stay!
+
+  _                     _ _ _   ___   __  
+[7m--More--(16%)[27m[Kvi -c 1 /home/bandit26/text.txt[2;1H▽[6n[2;1H  [1;1H[1;62r[?25h[?8c[?25h[?0c[27m[24m[m[H[J[?25l[?1c[62;1H"~/text.txt" [readonly] 6L, 258C[1;1H[1m[33m  1 [m[48m  _                     _ _ _   ___   __                                                                               [m[2;1H[1m[33m  2 [m |[48m [m|[19C| (_) | |__ \ / /
+[1m[33m  3 [m |[48m [m|__   __ _ _ __   __| |_| |_   ) / /_
+[1m[33m  4 [m |[48m [m'_ \ / _` | '_ \ / _` | | __| / / '_ \
+[1m[33m  5 [m |[48m [m|_) | (_| | | | | (_| | | |_ / /| (_) |
+[1m[33m  6 [m |[48m_[m.__/ \__,_|_| |_|\__,_|_|\__|____\___/
+[1m[34m~                                                                                                                          [8;1H~                                                                                                                          [9;1H~                                                                                                                          [10;1H~                                                                                                                          [11;1H~                                                                                                                          [12;1H~                                                                                                                          [13;1H~                                                                                                                          [14;1H~                                                                                                                          [15;1H~                                                                                                                          [16;1H~                                                                                                                          [17;1H~                                                                                                                          [18;1H~                                                                                                                          [19;1H~                                                                                                                          [20;1H~                                                                                                                          [21;1H~                                                                                                                          [22;1H~                                                                                                                          [23;1H~                                                                                                                          [24;1H~                                                                                                                          [25;1H~                                                                                                                          [26;1H~                                                                                                                          [27;1H~                                                                                                                          [28;1H~                                                                                                                          [29;1H~                                                                                                                          [30;1H~                                                                                                                          [31;1H~                                                                                                                          [32;1H~                                                                                                                          [33;1H~                                                                                                                          [34;1H~                                                                                                                          [35;1H~                                                                                                                          [36;1H~                                                                                                                          [37;1H~                                                                                                                          [38;1H~                                                                                                                          [39;1H~                                                                                                                          [40;1H~                                                                                                                          [41;1H~                                                                                                                          [42;1H~                                                                                                                          [43;1H~                                                                                                                          [44;1H~                                                                                                                          [45;1H~                                                                                                                          [46;1H~                                                                                                                          [47;1H~                                                                                                                          [48;1H~                                                                                                                          [49;1H~                                                                                                                          [50;1H~                                                                                                                          [51;1H~                                                                                                                          [52;1H~                                                                                                                          [53;1H~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~                                                                                                                          [59;1H~                                                                                                                          [60;1H~                                                                                                                          [m[61;1H[1m[7m~/text.txt[RO] [dec= 95] [hex=5F] [pos=0001:0003][16% of 6]                                                                [1;7H[?25h[?0c[?25l[?1c[m[62;113H:[1;7H[62;1H[K[62;1H:[?25h[?0c [?25l[?1c[1;7H[?25h[?0c[?25l[?1c[62;113H:[1;7H[62;113H[K[62;1H:[?25h[?0c![?25l[?1c[?25h[?0cl[?25l[?1c[?25h[?0cs[?25l[?1c[?25h[?0c[?25l[?1c:!ls[?25h[?0c[62;1H
+  _                     _ _ _   ___   __  
+ | |                   | (_) | |__ \ / /  
+ | |__   __ _ _ __   __| |_| |_   ) / /_  
+ | '_ \ / _` | '_ \ / _` | | __| / / '_ \ 
+ | |_) | (_| | | | | (_| | | |_ / /| (_) |
+ |_.__/ \__,_|_| |_|\__,_|_|\__|____\___/ 
+[62;1H
+[1m[32mPress ENTER or type command to continue[?25l[?1c[1;7H[27m[24m[m[H[J[1;1H[1m[33m  1 [m[48m  _                     _ _ _   ___   __                                                                               [m[2;1H[1m[33m  2 [m |[48m [m|[19C| (_) | |__ \ / /
+[1m[33m  3 [m |[48m [m|__   __ _ _ __   __| |_| |_   ) / /_
+[1m[33m  4 [m |[48m [m'_ \ / _` | '_ \ / _` | | __| / / '_ \
+[1m[33m  5 [m |[48m [m|_) | (_| | | | | (_| | | |_ / /| (_) |
+[1m[33m  6 [m |[48m_[m.__/ \__,_|_| |_|\__,_|_|\__|____\___/
+[1m[34m~                                                                                                                          [8;1H~                                                                                                                          [9;1H~                                                                                                                          [10;1H~                                                                                                                          [11;1H~                                                                                                                          [12;1H~                                                                                                                          [13;1H~                                                                                                                          [14;1H~                                                                                                                          [15;1H~                                                                                                                          [16;1H~                                                                                                                          [17;1H~                                                                                                                          [18;1H~                                                                                                                          [19;1H~                                                                                                                          [20;1H~                                                                                                                          [21;1H~                                                                                                                          [22;1H~                                                                                                                          [23;1H~                                                                                                                          [24;1H~                                                                                                                          [25;1H~                                                                                                                          [26;1H~                                                                                                                          [27;1H~                                                                                                                          [28;1H~                                                                                                                          [29;1H~                                                                                                                          [30;1H~                                                                                                                          [31;1H~                                                                                                                          [32;1H~                                                                                                                          [33;1H~                                                                                                                          [34;1H~                                                                                                                          [35;1H~                                                                                                                          [36;1H~                                                                                                                          [37;1H~                                                                                                                          [38;1H~                                                                                                                          [39;1H~                                                                                                                          [40;1H~                                                                                                                          [41;1H~                                                                                                                          [42;1H~                                                                                                                          [43;1H~                                                                                                                          [44;1H~                                                                                                                          [45;1H~                                                                                                                          [46;1H~                                                                                                                          [47;1H~                                                                                                                          [48;1H~                                                                                                                          [49;1H~                                                                                                                          [50;1H~                                                                                                                          [51;1H~                                                                                                                          [52;1H~                                                                                                                          [53;1H~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~                                                                                                                          [59;1H~                                                                                                                          [60;1H~                                                                                                                          [m[61;1H[1m[7m~/text.txt[RO] [dec= 95] [hex=5F] [pos=0001:0003][16% of 6]                                                                [1;7H[?25h[?0c[?25l[?1c[m[62;113H:[1;7H[62;113H[K[62;1H:[?25h[?0c![?25l[?1c[?25h[?0cl[?25l[?1c[?25h[?0cs[?25l[?1c[?25h[?0c[?25l[?1c:!ls[?25h[?0c[62;1H
+  _                     _ _ _   ___   __  
+ | |                   | (_) | |__ \ / /  
+ | |__   __ _ _ __   __| |_| |_   ) / /_  
+ | '_ \ / _` | '_ \ / _` | | __| / / '_ \ 
+ | |_) | (_| | | | | (_| | | |_ / /| (_) |
+ |_.__/ \__,_|_| |_|\__,_|_|\__|____\___/ 
+[62;1H
+[1m[32mPress ENTER or type command to continue[?25l[?1c[1;7H[27m[24m[m[H[J[1;1H[1m[33m  1 [m[48m  _                     _ _ _   ___   __                                                                               [m[2;1H[1m[33m  2 [m |[48m [m|[19C| (_) | |__ \ / /
+[1m[33m  3 [m |[48m [m|__   __ _ _ __   __| |_| |_   ) / /_
+[1m[33m  4 [m |[48m [m'_ \ / _` | '_ \ / _` | | __| / / '_ \
+[1m[33m  5 [m |[48m [m|_) | (_| | | | | (_| | | |_ / /| (_) |
+[1m[33m  6 [m |[48m_[m.__/ \__,_|_| |_|\__,_|_|\__|____\___/
+[1m[34m~                                                                                                                          [8;1H~                                                                                                                          [9;1H~                                                                                                                          [10;1H~                                                                                                                          [11;1H~                                                                                                                          [12;1H~                                                                                                                          [13;1H~                                                                                                                          [14;1H~                                                                                                                          [15;1H~                                                                                                                          [16;1H~                                                                                                                          [17;1H~                                                                                                                          [18;1H~                                                                                                                          [19;1H~                                                                                                                          [20;1H~                                                                                                                          [21;1H~                                                                                                                          [22;1H~                                                                                                                          [23;1H~                                                                                                                          [24;1H~                                                                                                                          [25;1H~                                                                                                                          [26;1H~                                                                                                                          [27;1H~                                                                                                                          [28;1H~                                                                                                                          [29;1H~                                                                                                                          [30;1H~                                                                                                                          [31;1H~                                                                                                                          [32;1H~                                                                                                                          [33;1H~                                                                                                                          [34;1H~                                                                                                                          [35;1H~                                                                                                                          [36;1H~                                                                                                                          [37;1H~                                                                                                                          [38;1H~                                                                                                                          [39;1H~                                                                                                                          [40;1H~                                                                                                                          [41;1H~                                                                                                                          [42;1H~                                                                                                                          [43;1H~                                                                                                                          [44;1H~                                                                                                                          [45;1H~                                                                                                                          [46;1H~                                                                                                                          [47;1H~                                                                                                                          [48;1H~                                                                                                                          [49;1H~                                                                                                                          [50;1H~                                                                                                                          [51;1H~                                                                                                                          [52;1H~                                                                                                                          [53;1H~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~                                                                                                                          [59;1H~                                                                                                                          [60;1H~                                                                                                                          [m[61;1H[1m[7m~/text.txt[RO] [dec= 95] [hex=5F] [pos=0001:0003][16% of 6]                                                                [1;7H[?25h[?0c[?25l[?1c[m[62;113Hl[1;7H[62;113H [1;8H[2;7H [48m|[m[3;7H [48m|[m[4;7H [48m'[m[5;7H [48m|[m[6;7H_[48m.[m[61;22H[1m[7m32[7C20[15C4[1;8H[?25h[?0c[?25l[?1c[m[62;113Hs[1;8H[62;113H [1;8H[62;113Hcl[1;8H[62;1H[1m[31mW10: Warning: Changing a readonly file[m[62;113H[K[62;1H
+[1m[37m[41mE325: ATTENTION[m
+Found a swap file by the name "/tmp/text.txt.swp"
+[10Cowned by: bandit26   dated: Tue Nov 16 02:19:50 2021
+[9Cfile name: ~bandit26/text.txt
+[10Cmodified: YES
+[9Cuser name: bandit26   host name: bandit.otw.local
+[8Cprocess ID: 30001
+While opening file "text.txt"
+[13Cdated: Thu May  7 20:14:45 2020
+
+(1) Another program may be editing the same file.  If this is the case,
+    be careful not to end up with two different instances of the same
+    file when making changes.  Quit, or continue with caution.
+(2) An edit session for this file crashed.
+    If this is the case, use ":recover" or "vim -r text.txt"
+    to recover the changes (see ":help recovery").
+    If you did this already, delete the swap file "/tmp/text.txt.swp"
+    to avoid this message.
+
+[1m[32mPress ENTER or type command to continue[?25h[?0c[?25l[?1c[1;8H[m[62;1H[1m-- INSERT --[m[62;13H[K[27m[24m[m[H[J[1;1H[1m[33m  1 [m[48m_:                    _ _ _   ___   __                                                                                 [m[2;1H[1m[33m  2 [m |[48m [m|[19C| (_) | |__ \ / /
+[1m[33m  3 [m |[48m [m|__   __ _ _ __   __| |_| |_   ) / /_
+[1m[33m  4 [m |[48m [m'_ \ / _` | '_ \ / _` | | __| / / '_ \
+[1m[33m  5 [m |[48m [m|_) | (_| | | | | (_| | | |_ / /| (_) |
+[1m[33m  6 [m |[48m_[m.__/ \__,_|_| |_|\__,_|_|\__|____\___/
+[1m[34m~                                                                                                                          [8;1H~                                                                                                                          [9;1H~                                                                                                                          [10;1H~                                                                                                                          [11;1H~                                                                                                                          [12;1H~                                                                                                                          [13;1H~                                                                                                                          [14;1H~                                                                                                                          [15;1H~                                                                                                                          [16;1H~                                                                                                                          [17;1H~                                                                                                                          [18;1H~                                                                                                                          [19;1H~                                                                                                                          [20;1H~                                                                                                                          [21;1H~                                                                                                                          [22;1H~                                                                                                                          [23;1H~                                                                                                                          [24;1H~                                                                                                                          [25;1H~                                                                                                                          [26;1H~                                                                                                                          [27;1H~                                                                                                                          [28;1H~                                                                                                                          [29;1H~                                                                                                                          [30;1H~                                                                                                                          [31;1H~                                                                                                                          [32;1H~                                                                                                                          [33;1H~                                                                                                                          [34;1H~                                                                                                                          [35;1H~                                                                                                                          [36;1H~                                                                                                                          [37;1H~                                                                                                                          [38;1H~                                                                                                                          [39;1H~                                                                                                                          [40;1H~                                                                                                                          [41;1H~                                                                                                                          [42;1H~                                                                                                                          [43;1H~                                                                                                                          [44;1H~                                                                                                                          [45;1H~                                                                                                                          [46;1H~                                                                                                                          [47;1H~                                                                                                                          [48;1H~                                                                                                                          [49;1H~                                                                                                                          [50;1H~                                                                                                                          [51;1H~                                                                                                                          [52;1H~                                                                                                                          [53;1H~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~                                                                                                                          [59;1H~                                                                                                                          [60;1H~                                                                                                                          [m[61;1H[1m[7m~/text.txt[+][RO] [dec= 32] [hex=20] [pos=0001:0003][16% of 6]                                                             [m[62;1H[1m-- INSERT --[1;7H[?25h[?0c[?25l[?1c[m[48m [19C_ _ _   ___   __ [2;6H|[m [3;6H[48m|[m [4;6H[48m|[m [5;6H[48m|[m [6;6H[48m|[m_[61;51H[1m[7m2[1;6H[?25h[?0c[?25l[?1c[m[48m [19C_ _ _   ___   __ [2;5H [m|[3;5H[48m [m|[4;5H[48m [m|[5;5H[48m [m|[6;5H[48m [m|[61;51H[1m[7m1[1;5H[?25h[?0c[?25l[?1c[m[20C[48m _ _ _   ___   __[m[2;5H [48m|[m[3;5H [48m|[m[4;5H [48m|[m[5;5H [48m|[m[6;5H [48m|[m[61;51H[1m[7m2[1;6H[?25h[?0c[?25l[?1c[m[20C[48m _ _ _   ___   __[m[2;6H|[48m [m[3;6H|[48m [m[4;6H|[48m [m[5;6H|[48m [m[6;6H|[48m_[m[61;51H[1m[7m3[1;7H[?25h[?0c[?25l[?1c[m[20C[48m _ _ _   ___   __[m[2;7H [48m|[m[3;7H [48m|[m[4;7H [48m'[m[5;7H [48m|[m[6;7H_[48m.[m[61;51H[1m[7m4[1;8H[?25h[?0c[?25l[?1c[m[20C[48m _ _ _   ___   __[m[2;8H|[48m [m[3;8H|[48m_[m[4;8H'[48m_[m[5;8H|[48m_[m[6;8H.[48m_[m[61;51H[1m[7m5[1;9H[?25h[?0c[m[62;1H[K[?25l[?1c[62;113H^[[1;8H[?25h[?0c[?25l[?1c[62;113H  [1;9H[2;8H[48m|[m [3;8H[48m|[m_[4;8H[48m'[m_[5;8H[48m|[m_[6;8H[48m.[m_[61;51H[1m[7m4[1;9H[?25h[?0c[?25l[?1c[m[62;113H:[1;9H[62;113H[K[62;1H:[?25h[?0cs[?25l[?1c[?25h[?0ch[?25l[?1c[?25h[?0ce[?25l[?1c[?25h[?0cl[?25l[?1c[?25h[?0cl[?25l[?1c[?25h[?0c[?25l[?1c[?25h[?0c[62;1H
+[No write since last change]
+  _                     _ _ _   ___   __  
+ | |                   | (_) | |__ \ / /  
+ | |__   __ _ _ __   __| |_| |_   ) / /_  
+ | '_ \ / _` | '_ \ / _` | | __| / / '_ \ 
+ | |_) | (_| | | | | (_| | | |_ / /| (_) |
+ |_.__/ \__,_|_| |_|\__,_|_|\__|____\___/ 
+[?25l[?1c[1;9H[27m[24m[m[H[J[1;1H[1m[33m  1 [m[48m                        _ _ _   ___   __                                                                               [m[2;1H[1m[33m  2 [m | [48m|[m[19C| (_) | |__ \ / /
+[1m[33m  3 [m | [48m|[m__   __ _ _ __   __| |_| |_   ) / /_
+[1m[33m  4 [m | [48m'[m_ \ / _` | '_ \ / _` | | __| / / '_ \
+[1m[33m  5 [m | [48m|[m_) | (_| | | | | (_| | | |_ / /| (_) |
+[1m[33m  6 [m |_[48m.[m__/ \__,_|_| |_|\__,_|_|\__|____\___/
+[1m[34m~                                                                                                                          [8;1H~                                                                                                                          [9;1H~                                                                                                                          [10;1H~                                                                                                                          [11;1H~                                                                                                                          [12;1H~                                                                                                                          [13;1H~                                                                                                                          [14;1H~                                                                                                                          [15;1H~                                                                                                                          [16;1H~                                                                                                                          [17;1H~                                                                                                                          [18;1H~                                                                                                                          [19;1H~                                                                                                                          [20;1H~                                                                                                                          [21;1H~                                                                                                                          [22;1H~                                                                                                                          [23;1H~                                                                                                                          [24;1H~                                                                                                                          [25;1H~                                                                                                                          [26;1H~                                                                                                                          [27;1H~                                                                                                                          [28;1H~                                                                                                                          [29;1H~                                                                                                                          [30;1H~                                                                                                                          [31;1H~                                                                                                                          [32;1H~                                                                                                                          [33;1H~                                                                                                                          [34;1H~                                                                                                                          [35;1H~                                                                                                                          [36;1H~                                                                                                                          [37;1H~                                                                                                                          [38;1H~                                                                                                                          [39;1H~                                                                                                                          [40;1H~                                                                                                                          [41;1H~                                                                                                                          [42;1H~                                                                                                                          [43;1H~                                                                                                                          [44;1H~                                                                                                                          [45;1H~                                                                                                                          [46;1H~                                                                                                                          [47;1H~                                                                                                                          [48;1H~                                                                                                                          [49;1H~                                                                                                                          [50;1H~                                                                                                                          [51;1H~                                                                                                                          [52;1H~                                                                                                                          [53;1H~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~                                                                                                                          [59;1H~                                                                                                                          [60;1H~                                                                                                                          [m[61;1H[1m[7m~/text.txt[+][RO] [dec= 32] [hex=20] [pos=0001:0004][16% of 6]                                                             [1;9H[?25h[?0c[?25l[?1c[m[62;113H:[1;9H[62;113H[K[62;1H:[?25h[?0c![?25l[?1c[?25h[?0c[?25l[?1c[62;2H[K[62;2H[?25h[?0cr[?25l[?1c[?25h[?0c![?25l[?1c[?25h[?0c[?25l[?1c [?25h[?0cl[?25l[?1c[?25h[?0cs[?25l[?1c[?25h[?0c[?25l[?1c[?25h[?0c  _                     _ _ _   ___   __  
+ | |                   | (_) | |__ \ / /  
+ | |__   __ _ _ __   __| |_| |_   ) / /_  
+ | '_ \ / _` | '_ \ / _` | | __| / / '_ \ 
+ | |_) | (_| | | | | (_| | | |_ / /| (_) |
+ |_.__/ \__,_|_| |_|\__,_|_|\__|____\___/ 
+[24m[m
+[?25l[?1c[1m[37m[41mE485: Can't read file /tmp/v26WVEh/0[m
+[1m[32mPress ENTER or type command to continue[?25h[?0c[?25l[?1c[1;8H[27m[24m[m[H[J[1;1H[1m[33m  1 [m[48m                        _ _ _   ___   __                                                                               [m[2;1H[1m[33m  2 [m | [48m|[m[19C| (_) | |__ \ / /
+[1m[33m  3 [m | [48m|[m__   __ _ _ __   __| |_| |_   ) / /_
+[1m[33m  4 [m | [48m'[m_ \ / _` | '_ \ / _` | | __| / / '_ \
+[1m[33m  5 [m | [48m|[m_) | (_| | | | | (_| | | |_ / /| (_) |
+[1m[33m  6 [m |_[48m.[m__/ \__,_|_| |_|\__,_|_|\__|____\___/
+[1m[34m~                                                                                                                          [8;1H~                                                                                                                          [9;1H~                                                                                                                          [10;1H~                                                                                                                          [11;1H~                                                                                                                          [12;1H~                                                                                                                          [13;1H~                                                                                                                          [14;1H~                                                                                                                          [15;1H~                                                                                                                          [16;1H~                                                                                                                          [17;1H~                                                                                                                          [18;1H~                                                                                                                          [19;1H~                                                                                                                          [20;1H~                                                                                                                          [21;1H~                                                                                                                          [22;1H~                                                                                                                          [23;1H~                                                                                                                          [24;1H~                                                                                                                          [25;1H~                                                                                                                          [26;1H~                                                                                                                          [27;1H~                                                                                                                          [28;1H~                                                                                                                          [29;1H~                                                                                                                          [30;1H~                                                                                                                          [31;1H~                                                                                                                          [32;1H~                                                                                                                          [33;1H~                                                                                                                          [34;1H~                                                                                                                          [35;1H~                                                                                                                          [36;1H~                                                                                                                          [37;1H~                                                                                                                          [38;1H~                                                                                                                          [39;1H~                                                                                                                          [40;1H~                                                                                                                          [41;1H~                                                                                                                          [42;1H~                                                                                                                          [43;1H~                                                                                                                          [44;1H~                                                                                                                          [45;1H~                                                                                                                          [46;1H~                                                                                                                          [47;1H~                                                                                                                          [48;1H~                                                                                                                          [49;1H~                                                                                                                          [50;1H~                                                                                                                          [51;1H~                                                                                                                          [52;1H~                                                                                                                          [53;1H~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~                                                                                                                          [59;1H~                                                                                                                          [60;1H~                                                                                                                          [m[61;1H[1m[7m~/text.txt[+][RO] [dec= 32] [hex=20] [pos=0001:0004][16% of 6]                                                             [1;8H[?25h[?0c[?25l[?1c[m[62;113Hq[1;8H[?25h[?0c[?25l[?1c[62;114H:[1;8H[62;113H  [1;8H[62;1H:[53;1H[7m~/text.txt[+][RO] [dec= 32] [hex=20] [pos=0001:0004][16% of 6]                                                             [m[54;1H[1m[34m:[m[1m[33m  1 [m[48m![m[1m[33mls[m[54;9H[K[55;1H[1m[34m:[m[1m[33m  2 [m[1m[33m[48ms[m[1m[33mhell[m[55;11H[K[56;1H[1m[34m:[m[1m[33m  3 [m[1m[33m[48mr[m! [1m[33mls[m[56;11H[K[57;1H[1m[34m:[m[1m[33m  4 [m[48m                                                                                                                      [m[58;1H[1m[34m:
+:
+:[58;2H~
+:~
+:~[m
+[1m[7m[Command Line] [dec=  0] [hex=00] [pos=0004:0001][100% of 4]  [57;6H[?25h[?0c[?25l[?1c[m[62;113H:q[57;6H[?25h[?0c[?25l[?1c[62;115Hq[57;6H[62;1H[1mrecording @q[m[62;113H[K[57;6H[?25h[?0c[?25l[?1c[62;113Hq[57;6H[62;1H[K[57;6H[?25h[?0c[?25l[?1c[62;113H:[57;6H[62;113H[K[62;1H:[?25h[?0cq[?25l[?1c[?25h[?0c[?25l[?1c[57;6H[62;1H[K[53;1H[1m[34m~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~ 
+~ 
+~ [m
+[1m[7m~/text.txt[+][RO] [dec= 32] [hex=20] [pos=0001:0004][16% of 6][1;8H[?25h[?0c[?25l[?1c[m[62;113H:[1;8H[62;113H[K[62;1H:[?25h[?0c![?25l[?1c[?25h[?0cs[?25l[?1c[?25h[?0ch[?25l[?1c[?25h[?0ce[?25l[?1c[?25h[?0cl[?25l[?1c[?25h[?0cl[?25l[?1c[?25h[?0c[?25l[?1c[7C[?25h[?0c[62;1H
+[No write since last change]
+  _                     _ _ _   ___   __  
+ | |                   | (_) | |__ \ / /  
+ | |__   __ _ _ __   __| |_| |_   ) / /_  
+ | '_ \ / _` | '_ \ / _` | | __| / / '_ \ 
+ | |_) | (_| | | | | (_| | | |_ / /| (_) |
+ |_.__/ \__,_|_| |_|\__,_|_|\__|____\___/ 
+[62;1H
+[1m[32mPress ENTER or type command to continue[?25l[?1c[1;8H[27m[24m[m[H[J[1;1H[1m[33m  1 [m[48m                        _ _ _   ___   __                                                                               [m[2;1H[1m[33m  2 [m | [48m|[m[19C| (_) | |__ \ / /
+[1m[33m  3 [m | [48m|[m__   __ _ _ __   __| |_| |_   ) / /_
+[1m[33m  4 [m | [48m'[m_ \ / _` | '_ \ / _` | | __| / / '_ \
+[1m[33m  5 [m | [48m|[m_) | (_| | | | | (_| | | |_ / /| (_) |
+[1m[33m  6 [m |_[48m.[m__/ \__,_|_| |_|\__,_|_|\__|____\___/
+[1m[34m~                                                                                                                          [8;1H~                                                                                                                          [9;1H~                                                                                                                          [10;1H~                                                                                                                          [11;1H~                                                                                                                          [12;1H~                                                                                                                          [13;1H~                                                                                                                          [14;1H~                                                                                                                          [15;1H~                                                                                                                          [16;1H~                                                                                                                          [17;1H~                                                                                                                          [18;1H~                                                                                                                          [19;1H~                                                                                                                          [20;1H~                                                                                                                          [21;1H~                                                                                                                          [22;1H~                                                                                                                          [23;1H~                                                                                                                          [24;1H~                                                                                                                          [25;1H~                                                                                                                          [26;1H~                                                                                                                          [27;1H~                                                                                                                          [28;1H~                                                                                                                          [29;1H~                                                                                                                          [30;1H~                                                                                                                          [31;1H~                                                                                                                          [32;1H~                                                                                                                          [33;1H~                                                                                                                          [34;1H~                                                                                                                          [35;1H~                                                                                                                          [36;1H~                                                                                                                          [37;1H~                                                                                                                          [38;1H~                                                                                                                          [39;1H~                                                                                                                          [40;1H~                                                                                                                          [41;1H~                                                                                                                          [42;1H~                                                                                                                          [43;1H~                                                                                                                          [44;1H~                                                                                                                          [45;1H~                                                                                                                          [46;1H~                                                                                                                          [47;1H~                                                                                                                          [48;1H~                                                                                                                          [49;1H~                                                                                                                          [50;1H~                                                                                                                          [51;1H~                                                                                                                          [52;1H~                                                                                                                          [53;1H~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~                                                                                                                          [59;1H~                                                                                                                          [60;1H~                                                                                                                          [m[61;1H[1m[7m~/text.txt[+][RO] [dec= 32] [hex=20] [pos=0001:0004][16% of 6]                                                             [1;8H[?25h[?0c[?25l[?1c[m[62;113Hh[1;8H[62;113H [1;7H[2;7H[48m [m|[3;7H[48m [m|[4;7H[48m [m'[5;7H[48m [m|[6;7H[48m_[m.[61;51H[1m[7m3[1;7H[?25h[?0c[?25l[?1c[m[62;113He[1;7H[62;113H [1;29H[2;7H [21C[48m [m[3;7H [21C[48m [m[4;7H [21C[48m [m[5;7H [21C[48m [m[6;7H_[21C[48m_[m[61;25H[1m[7m95[7C5F[14C25[1;29H[?25h[?0c[?25l[?1c[m[62;113Hl[1;29H[62;113H [1;30H[2;29H [48m([m[3;29H [48m|[m[4;29H [48m|[m[5;29H [48m|[m[6;29H_[48m|[m[61;25H[1m[7m32[7C20[15C6[1;30H[?25h[?0c[?25l[?1c[m[62;113Hl[1;30H[62;113H [1;31H[2;30H([48m_[m[3;30H|[48m_[m[4;30H|[48m [m[5;30H|[48m [m[6;30H|[48m_[m[61;25H[1m[7m95[7C5F[15C7[1;31H[?25h[?0c[?25l[?1c[m[62;113Ho[1;31H[62;113H [2;29H[62;1H[1m-- INSERT --[m[1;5H                        [1C _ _   ___   __  [1;47H[K[2;5H[48m                                                                                                                       [m[3;9H                   |[48m [m(_) | |__ \ / /[4;8H|__   __ _ _ __   __|[48m [m|_| |_   ) / /_ [5;8H'_ \ / _` | '_ \ / _`[48m [m| | __| / / '_ \ [6;7H |_) | (_| | | | | (_|[48m [m| | |_ / /| (_) |
+[1m[33m  7 [m |_.__/ \__,_|_| |_|\__,[48m_[m|_|\__|____\___/ [7;47H[K[61;25H[1m[7m 0[7C00[10C2:0025][28% of 7[2;29H[?25h[?0c[m[62;1H[K[?25l[?1c[1;5H[48m [m[23C_[3;5H[48m [m[23C [4;5H[48m [m[23C [5;5H[48m [m[23C [6;5H[48m [m[23C [7;5H[48m [m[23C_[61;50H[1m[7m01[2;5H[?25h[?0c[?25l[?1c[m[62;113H^[[2;5H[?25h[?0c[?25l[?1c[62;113H  [2;5H[?25h[?0c[?25l[?1c[62;113H:[2;5H[62;113H[K[62;1H:[?25h[?0cs[?25l[?1c[?25h[?0ch[?25l[?1c[?25h[?0c[?25l[?1c[?25h[?0c[62;1H
+[No write since last change]
+  _                     _ _ _   ___   __  
+ | |                   | (_) | |__ \ / /  
+ | |__   __ _ _ __   __| |_| |_   ) / /_  
+ | '_ \ / _` | '_ \ / _` | | __| / / '_ \ 
+ | |_) | (_| | | | | (_| | | |_ / /| (_) |
+ |_.__/ \__,_|_| |_|\__,_|_|\__|____\___/ 
+[?25l[?1c[2;5H[27m[24m[m[H[J[1;1H[1m[33m  1 [m[48m [m[23C_ _ _   ___   __
+[1m[33m  2 [m[48m                                                                                                                       [m[3;1H[1m[33m  3 [m[48m [m| |[19C| (_) | |__ \ / /
+[1m[33m  4 [m[48m [m| |__   __ _ _ __   __| |_| |_   ) / /_
+[1m[33m  5 [m[48m [m| '_ \ / _` | '_ \ / _` | | __| / / '_ \
+[1m[33m  6 [m[48m [m| |_) | (_| | | | | (_| | | |_ / /| (_) |
+[1m[33m  7 [m[48m [m|_.__/ \__,_|_| |_|\__,_|_|\__|____\___/
+[1m[34m~                                                                                                                          [9;1H~                                                                                                                          [10;1H~                                                                                                                          [11;1H~                                                                                                                          [12;1H~                                                                                                                          [13;1H~                                                                                                                          [14;1H~                                                                                                                          [15;1H~                                                                                                                          [16;1H~                                                                                                                          [17;1H~                                                                                                                          [18;1H~                                                                                                                          [19;1H~                                                                                                                          [20;1H~                                                                                                                          [21;1H~                                                                                                                          [22;1H~                                                                                                                          [23;1H~                                                                                                                          [24;1H~                                                                                                                          [25;1H~                                                                                                                          [26;1H~                                                                                                                          [27;1H~                                                                                                                          [28;1H~                                                                                                                          [29;1H~                                                                                                                          [30;1H~                                                                                                                          [31;1H~                                                                                                                          [32;1H~                                                                                                                          [33;1H~                                                                                                                          [34;1H~                                                                                                                          [35;1H~                                                                                                                          [36;1H~                                                                                                                          [37;1H~                                                                                                                          [38;1H~                                                                                                                          [39;1H~                                                                                                                          [40;1H~                                                                                                                          [41;1H~                                                                                                                          [42;1H~                                                                                                                          [43;1H~                                                                                                                          [44;1H~                                                                                                                          [45;1H~                                                                                                                          [46;1H~                                                                                                                          [47;1H~                                                                                                                          [48;1H~                                                                                                                          [49;1H~                                                                                                                          [50;1H~                                                                                                                          [51;1H~                                                                                                                          [52;1H~                                                                                                                          [53;1H~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~                                                                                                                          [59;1H~                                                                                                                          [60;1H~                                                                                                                          [m[61;1H[1m[7m~/text.txt[+][RO] [dec=  0] [hex=00] [pos=0002:0001][28% of 7]                                                             [2;5H[?25h[?0c[?25l[?1c[m[62;113H:[2;5H[62;113H[K[62;1H:[?25h[?0cs[?25l[?1c[?25h[?0ch[?25l[?1c[?25h[?0c[?25l[?1c[?25h[?0c[62;1H
+[No write since last change]
+  _                     _ _ _   ___   __  
+ | |                   | (_) | |__ \ / /  
+ | |__   __ _ _ __   __| |_| |_   ) / /_  
+ | '_ \ / _` | '_ \ / _` | | __| / / '_ \ 
+ | |_) | (_| | | | | (_| | | |_ / /| (_) |
+ |_.__/ \__,_|_| |_|\__,_|_|\__|____\___/ 
+[?25l[?1c[2;5H[27m[24m[m[H[J[1;1H[1m[33m  1 [m[48m [m[23C_ _ _   ___   __
+[1m[33m  2 [m[48m                                                                                                                       [m[3;1H[1m[33m  3 [m[48m [m| |[19C| (_) | |__ \ / /
+[1m[33m  4 [m[48m [m| |__   __ _ _ __   __| |_| |_   ) / /_
+[1m[33m  5 [m[48m [m| '_ \ / _` | '_ \ / _` | | __| / / '_ \
+[1m[33m  6 [m[48m [m| |_) | (_| | | | | (_| | | |_ / /| (_) |
+[1m[33m  7 [m[48m [m|_.__/ \__,_|_| |_|\__,_|_|\__|____\___/
+[1m[34m~                                                                                                                          [9;1H~                                                                                                                          [10;1H~                                                                                                                          [11;1H~                                                                                                                          [12;1H~                                                                                                                          [13;1H~                                                                                                                          [14;1H~                                                                                                                          [15;1H~                                                                                                                          [16;1H~                                                                                                                          [17;1H~                                                                                                                          [18;1H~                                                                                                                          [19;1H~                                                                                                                          [20;1H~                                                                                                                          [21;1H~                                                                                                                          [22;1H~                                                                                                                          [23;1H~                                                                                                                          [24;1H~                                                                                                                          [25;1H~                                                                                                                          [26;1H~                                                                                                                          [27;1H~                                                                                                                          [28;1H~                                                                                                                          [29;1H~                                                                                                                          [30;1H~                                                                                                                          [31;1H~                                                                                                                          [32;1H~                                                                                                                          [33;1H~                                                                                                                          [34;1H~                                                                                                                          [35;1H~                                                                                                                          [36;1H~                                                                                                                          [37;1H~                                                                                                                          [38;1H~                                                                                                                          [39;1H~                                                                                                                          [40;1H~                                                                                                                          [41;1H~                                                                                                                          [42;1H~                                                                                                                          [43;1H~                                                                                                                          [44;1H~                                                                                                                          [45;1H~                                                                                                                          [46;1H~                                                                                                                          [47;1H~                                                                                                                          [48;1H~                                                                                                                          [49;1H~                                                                                                                          [50;1H~                                                                                                                          [51;1H~                                                                                                                          [52;1H~                                                                                                                          [53;1H~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~                                                                                                                          [59;1H~                                                                                                                          [60;1H~                                                                                                                          [m[61;1H[1m[7m~/text.txt[+][RO] [dec=  0] [hex=00] [pos=0002:0001][28% of 7]                                                             [2;5H[?25h[?0c[?25l[?1c[m[62;113H:[2;5H[62;113H[K[62;1H:[?25h[?0cr[?25l[?1c[?25h[?0c![?25l[?1c[?25h[?0cc[?25l[?1c[?25h[?0ca[?25l[?1c[?25h[?0ct[?25l[?1c[?25h[?0c[?25l[?1c [?25h[?0c/[?25l[?1c[?25h[?0ce[?25l[?1c[?25h[?0ct[?25l[?1c[?25h[?0cc[?25l[?1c[?25h[?0c/[?25l[?1c[?25h[?0cb[?25l[?1c[?25h[?0ca[?25l[?1c[?25h[?0cn[?25l[?1c[?25h[?0cd[?25l[?1c[?25h[?0ci[?25l[?1c[?25h[?0ct[?25l[?1c[?25h[?0c...[?25l[?1c_pass/[?25h[?0cb[?25l[?1c[?25h[?0ca[?25l[?1c[?25h[?0cn[?25l[?1c[?25h[?0cd[?25l[?1c[?25h[?0c...[?25l[?1cit0...[62;29H[K[62;29H[61;1H[1m[7mbandit0  bandit1  bandit10  bandit11  bandit12  bandit13  bandit14  bandit15  bandit16  bandit17  bandit18  bandit19  >[m[30m[43mbandit0[m[62;29H...[61;1H[1m[7mbandit0[m[30m[43mbandit0[m[62;29Hit0[?25h[?0c[61;1H[1m[7m~/text.txt[+][RO] [dec=  0] [hex=00] [pos=0002:0001][28% of 7]                                                         [?25l[?1c[m[62;31H[K[62;31H[?25h[?0c2[?25l[?1c[?25h[?0c6[?25l[?1c[?25h[?0c[?25l[?1c[?25h[?0c  _                     _ _ _   ___   __  
+ | |                   | (_) | |__ \ / /  
+ | |__   __ _ _ __   __| |_| |_   ) / /_  
+ | '_ \ / _` | '_ \ / _` | | __| / / '_ \ 
+ | |_) | (_| | | | | (_| | | |_ / /| (_) |
+ |_.__/ \__,_|_| |_|\__,_|_|\__|____\___/ 
+[24m[m
+[?25l[?1c[1m[37m[41mE485: Can't read file /tmp/v26WVEh/1[m
+[1m[32mPress ENTER or type command to continue[?25h[?0c[?25l[?1c[2;5H[27m[24m[m[H[J[1;1H[1m[33m  1 [m[48m [m[23C_ _ _   ___   __
+[1m[33m  2 [m[48m                                                                                                                       [m[3;1H[1m[33m  3 [m[48m [m| |[19C| (_) | |__ \ / /
+[1m[33m  4 [m[48m [m| |__   __ _ _ __   __| |_| |_   ) / /_
+[1m[33m  5 [m[48m [m| '_ \ / _` | '_ \ / _` | | __| / / '_ \
+[1m[33m  6 [m[48m [m| |_) | (_| | | | | (_| | | |_ / /| (_) |
+[1m[33m  7 [m[48m [m|_.__/ \__,_|_| |_|\__,_|_|\__|____\___/
+[1m[34m~                                                                                                                          [9;1H~                                                                                                                          [10;1H~                                                                                                                          [11;1H~                                                                                                                          [12;1H~                                                                                                                          [13;1H~                                                                                                                          [14;1H~                                                                                                                          [15;1H~                                                                                                                          [16;1H~                                                                                                                          [17;1H~                                                                                                                          [18;1H~                                                                                                                          [19;1H~                                                                                                                          [20;1H~                                                                                                                          [21;1H~                                                                                                                          [22;1H~                                                                                                                          [23;1H~                                                                                                                          [24;1H~                                                                                                                          [25;1H~                                                                                                                          [26;1H~                                                                                                                          [27;1H~                                                                                                                          [28;1H~                                                                                                                          [29;1H~                                                                                                                          [30;1H~                                                                                                                          [31;1H~                                                                                                                          [32;1H~                                                                                                                          [33;1H~                                                                                                                          [34;1H~                                                                                                                          [35;1H~                                                                                                                          [36;1H~                                                                                                                          [37;1H~                                                                                                                          [38;1H~                                                                                                                          [39;1H~                                                                                                                          [40;1H~                                                                                                                          [41;1H~                                                                                                                          [42;1H~                                                                                                                          [43;1H~                                                                                                                          [44;1H~                                                                                                                          [45;1H~                                                                                                                          [46;1H~                                                                                                                          [47;1H~                                                                                                                          [48;1H~                                                                                                                          [49;1H~                                                                                                                          [50;1H~                                                                                                                          [51;1H~                                                                                                                          [52;1H~                                                                                                                          [53;1H~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~                                                                                                                          [59;1H~                                                                                                                          [60;1H~                                                                                                                          [m[61;1H[1m[7m~/text.txt[+][RO] [dec=  0] [hex=00] [pos=0002:0001][28% of 7]                                                             [2;5H[?25h[?0c[?25l[?1c[m[62;113H:[2;5H[62;113H[K[62;1H:[?25h[?0cs[?25l[?1c[?25h[?0ce[?25l[?1c[?25h[?0ct[?25l[?1c[?25h[?0c[?25l[?1c [?25h[?0cs[?25l[?1c[?25h[?0cgh[?25l[?1c[?25h[?0c[?25l[?1c[62;8H[K[62;8H[?25h[?0c[?25l[?1c[62;7H[K[62;7H[?25h[?0ch[?25l[?1c[?25h[?0ce[?25l[?1c[?25h[?0cl[?25l[?1c[?25h[?0cl[?25l[?1c[?25h[?0c=[?25l[?1c[?25h[?0c/[?25l[?1c[?25h[?0cb[?25l[?1c[?25h[?0ci[?25l[?1c[?25h[?0cn[?25l[?1c[?25h[?0c/[?25l[?1c[?25h[?0cb[?25l[?1c[?25h[?0ca[?25l[?1c[?25h[?0cs[?25l[?1c[?25h[?0ch[?25l[?1c[?25h[?0c[?25l[?1c[2;5H[?25h[?0c[?25l[?1c[62;113H:[2;5H[62;1H[K[62;1H:[?25h[?0cs[?25l[?1c[?25h[?0ch[?25l[?1c[?25h[?0ce[?25l[?1c[?25h[?0cl[?25l[?1c[?25h[?0cl[?25l[?1c[?25h[?0c[?25l[?1c[?25h[?0c[62;1H
+[No write since last change]
+bandit26@bandit:~$ cat /band[K[K[Ka[K[Ketc/bandit_pass/bandit26
+5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z
+bandit26@bandit:~$ is pw
+bash: is: command not found
+bandit26@bandit:~$ exit
+exit
+
+shell returned 127
+[?25l[?1c[2;5H[27m[24m[m[H[J[1;1H[1m[33m  1 [m[48m [m[23C_ _ _   ___   __
+[1m[33m  2 [m[48m                                                                                                                       [m[3;1H[1m[33m  3 [m[48m [m| |[19C| (_) | |__ \ / /
+[1m[33m  4 [m[48m [m| |__   __ _ _ __   __| |_| |_   ) / /_
+[1m[33m  5 [m[48m [m| '_ \ / _` | '_ \ / _` | | __| / / '_ \
+[1m[33m  6 [m[48m [m| |_) | (_| | | | | (_| | | |_ / /| (_) |
+[1m[33m  7 [m[48m [m|_.__/ \__,_|_| |_|\__,_|_|\__|____\___/
+[1m[34m~                                                                                                                          [9;1H~                                                                                                                          [10;1H~                                                                                                                          [11;1H~                                                                                                                          [12;1H~                                                                                                                          [13;1H~                                                                                                                          [14;1H~                                                                                                                          [15;1H~                                                                                                                          [16;1H~                                                                                                                          [17;1H~                                                                                                                          [18;1H~                                                                                                                          [19;1H~                                                                                                                          [20;1H~                                                                                                                          [21;1H~                                                                                                                          [22;1H~                                                                                                                          [23;1H~                                                                                                                          [24;1H~                                                                                                                          [25;1H~                                                                                                                          [26;1H~                                                                                                                          [27;1H~                                                                                                                          [28;1H~                                                                                                                          [29;1H~                                                                                                                          [30;1H~                                                                                                                          [31;1H~                                                                                                                          [32;1H~                                                                                                                          [33;1H~                                                                                                                          [34;1H~                                                                                                                          [35;1H~                                                                                                                          [36;1H~                                                                                                                          [37;1H~                                                                                                                          [38;1H~                                                                                                                          [39;1H~                                                                                                                          [40;1H~                                                                                                                          [41;1H~                                                                                                                          [42;1H~                                                                                                                          [43;1H~                                                                                                                          [44;1H~                                                                                                                          [45;1H~                                                                                                                          [46;1H~                                                                                                                          [47;1H~                                                                                                                          [48;1H~                                                                                                                          [49;1H~                                                                                                                          [50;1H~                                                                                                                          [51;1H~                                                                                                                          [52;1H~                                                                                                                          [53;1H~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~                                                                                                                          [59;1H~                                                                                                                          [60;1H~                                                                                                                          [m[61;1H[1m[7m~/text.txt[+][RO] [dec=  0] [hex=00] [pos=0002:0001][28% of 7]                                                             [2;5H[?25h[?0c[?25l[?1c[m[62;113He[2;5H[62;113H [3;6H[1;5H [48m [m[2;5H [2;7H[K[3;6H[48m| |                   | (_) | |__ \ / /                                                                               [m[4;5H [48m|[m[5;5H [48m|[m[6;5H [48m|[m[7;5H [48m|[m[61;24H[1m[7m124[7C7C[10C3:0002][42[3;6H[?25h[?0c[?25l[?1c[m[62;113H~@k[3;6H[62;113H   [2;5H[1;5H[48m [m [2;5H[48m                                                                                                                       [m[3;6H| |                   | (_) | |__ \ / /  [3;47H[K[4;5H[48m [m|[5;5H[48m [m|[6;5H[48m [m|[7;5H[48m [m|[61;24H[1m[7m  0[7C00[10C2:0001][28[2;5H[?25h[?0c[?25l[?1c[m[62;113H:[2;5H[62;113H[K[62;1H:[?25h[?0cs[?25l[?1c[?25h[?0ch[?25l[?1c[?25h[?0ce[?25l[?1c[?25h[?0cl[?25l[?1c[?25h[?0cl[?25l[?1c[?25h[?0c[?25l[?1c[?25h[?0c[62;1H
+[No write since last change]
+bandit26@bandit:~$ cat /bandi[K[K[K[K[Ketc/b[Kpasswd[K[K[K[K[K[Kbandit_pass/bandit26 
+5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z
+bandit26@bandit:~$ clear
+[3J[H[Jbandit26@bandit:~$ ls
+[0m[37;41mbandit27-do[0m  text.txt
+bandit26@bandit:~$ bandi[K[K[K[K[K./bandit27-do cat/[K /[K[K[K[K[K
+Run a command as another user.
+  Example: ./bandit27-do id
+bandit26@bandit:~$ ./bandit27-do cat /etc/bandit_pass/bandit27
+3ba3118a22e93127a4ed485be72ef5ea
+bandit26@bandit:~$ exit
+exit
+[?25l[?1c[2;5H[27m[24m[m[H[J[1;1H[1m[33m  1 [m[48m [m[23C_ _ _   ___   __
+[1m[33m  2 [m[48m                                                                                                                       [m[3;1H[1m[33m  3 [m[48m [m| |[19C| (_) | |__ \ / /
+[1m[33m  4 [m[48m [m| |__   __ _ _ __   __| |_| |_   ) / /_
+[1m[33m  5 [m[48m [m| '_ \ / _` | '_ \ / _` | | __| / / '_ \
+[1m[33m  6 [m[48m [m| |_) | (_| | | | | (_| | | |_ / /| (_) |
+[1m[33m  7 [m[48m [m|_.__/ \__,_|_| |_|\__,_|_|\__|____\___/
+[1m[34m~                                                                                                                          [9;1H~                                                                                                                          [10;1H~                                                                                                                          [11;1H~                                                                                                                          [12;1H~                                                                                                                          [13;1H~                                                                                                                          [14;1H~                                                                                                                          [15;1H~                                                                                                                          [16;1H~                                                                                                                          [17;1H~                                                                                                                          [18;1H~                                                                                                                          [19;1H~                                                                                                                          [20;1H~                                                                                                                          [21;1H~                                                                                                                          [22;1H~                                                                                                                          [23;1H~                                                                                                                          [24;1H~                                                                                                                          [25;1H~                                                                                                                          [26;1H~                                                                                                                          [27;1H~                                                                                                                          [28;1H~                                                                                                                          [29;1H~                                                                                                                          [30;1H~                                                                                                                          [31;1H~                                                                                                                          [32;1H~                                                                                                                          [33;1H~                                                                                                                          [34;1H~                                                                                                                          [35;1H~                                                                                                                          [36;1H~                                                                                                                          [37;1H~                                                                                                                          [38;1H~                                                                                                                          [39;1H~                                                                                                                          [40;1H~                                                                                                                          [41;1H~                                                                                                                          [42;1H~                                                                                                                          [43;1H~                                                                                                                          [44;1H~                                                                                                                          [45;1H~                                                                                                                          [46;1H~                                                                                                                          [47;1H~                                                                                                                          [48;1H~                                                                                                                          [49;1H~                                                                                                                          [50;1H~                                                                                                                          [51;1H~                                                                                                                          [52;1H~                                                                                                                          [53;1H~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~                                                                                                                          [59;1H~                                                                                                                          [60;1H~                                                                                                                          [m[61;1H[1m[7m~/text.txt[+][RO] [dec=  0] [hex=00] [pos=0002:0001][28% of 7]                                                             [2;5H[?25h[?0c[?25l[?1c[m[62;113He[2;5H[62;113H [3;6H[1;5H [48m [m[2;5H [2;7H[K[3;6H[48m| |                   | (_) | |__ \ / /                                                                               [m[4;5H [48m|[m[5;5H [48m|[m[6;5H [48m|[m[7;5H [48m|[m[61;24H[1m[7m124[7C7C[10C3:0002][42[3;6H[?25h[?0c[?25l[?1c[m[62;113Hq[3;6H[?25h[?0c[?25l[?1c[62;114Hq[3;6H[62;1H[1mrecording @q[m[62;113H[K[3;6H[?25h[?0c[?25l[?1c[62;113Hq[3;6H[62;1H[K[3;6H[?25h[?0c[?25l[?1c[62;113Hq[3;6H[?25h[?0c[?25l[?1c[62;114H:[3;6H[62;113H  [3;6H[62;1H:[53;1H[7m~/text.txt[+][RO] [dec=124] [hex=7C] [pos=0003:0002][42% of 7]                                                             [m[54;1H[1m[34m:[m[1m[33m  3 [m[1m[33m[48mq[m[54;7H[K[55;1H[1m[34m:[m[1m[33m  4 [m[48m![m[1m[33mshell[m[55;12H[K[56;1H[1m[34m:[m[1m[33m  5 [m[1m[33m[48ms[m[1m[33mh[m[56;8H[K[57;1H[1m[34m:[m[1m[33m  6 [m[1m[33m[48mr[m![1m[33mcat[m /etc/bandit_pass/bandit26[57;37H[K[58;1H[1m[34m:[m[1m[33m  7 [m[1m[33m[48ms[m[1m[33met[m [1m[34mshell[m=/bin/bash[58;25H[K[59;1H[1m[34m:[m[1m[33m  8 [m[1m[33m[48ms[m[1m[33mhell[m[59;11H[K[60;1H[1m[34m:[m[1m[33m  9 [m[48m                                                                                                                      [m[61;1H[1m[7m[Command Line] [dec=  0] [hex=00] [pos=0009:0001][100% of 9]  [60;6H[?25h[?0c[?25l[?1c[m[62;113H:q[60;6H[?25h[?0c[?25l[?1c[62;115H:[60;6H[62;113H   [60;6H[62;1H[K[62;1H:[?25h[?0cq[?25l[?1c[?25h[?0c[?25l[?1c[62;1H[K[53;1H[1m[34m~                                                                                                                          [54;1H~                                                                                                                          [55;1H~                                                                                                                          [56;1H~                                                                                                                          [57;1H~                                                                                                                          [58;1H~                                                                                                                          [59;1H~                                                                                                                          [60;1H~                                                                                                                          [m[61;1H[1m[7m~/text.txt[+][RO] [dec=124] [hex=7C] [pos=0003:0002][42% of 7][3;6H[?25h[?0c[?25l[?1c[m[62;113H:[3;6H[62;113H[K[62;1H:[?25h[?0cq[?25l[?1c[?25h[?0c![?25l[?1c[?25h[?0c[?25l[?1c[?25h[?0c[62;1H[K[62;1H------------------------
+[7m--More--(16%)[27m[KConnection to localhost closed.
+[01;32mbandit25@bandit[00m:[01;34m~[00m$ exit
+logout
