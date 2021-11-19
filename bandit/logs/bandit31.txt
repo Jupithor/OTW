@@ -1,0 +1,255 @@
+Linux bandit.otw.local 5.4.8 x86_64 GNU/Linux
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to Steven or morla on
+irc.overthewire.org.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ and /proc/ is disabled
+  so that users can not snoop on eachother. Files and directories with
+  easily guessable or short names will be periodically deleted!
+
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few usefull tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /usr/local/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /usr/local/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /usr/local/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /usr/local/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+    * checksec.sh (http://www.trapkit.de/tools/checksec.html) in /usr/local/bin/checksec.sh
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us through IRC on
+  irc.overthewire.org #wargames.
+
+  Enjoy your stay!
+
+[01;32mbandit31@bandit[00m:[01;34m~[00m$ mkdir /tmp/repo4
+[01;32mbandit31@bandit[00m:[01;34m~[00m$ cd /tmp/repo4
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4[00m$ git clone ssh://bandit31-git@localhost/home/bandit31-git/repo
+Cloning into 'repo'...
+Could not create directory '/home/bandit31/.ssh'.
+The authenticity of host 'localhost (127.0.0.1)' can't be established.
+ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+Are you sure you want to continue connecting (yes/no)? yes
+Failed to add the host to the list of known hosts (/home/bandit31/.ssh/known_hosts).
+This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
+
+bandit31-git@localhost's password: 
+remote: Counting objects: 4, done.[K
+remote: Compressing objects:  33% (1/3)   [Kremote: Compressing objects:  66% (2/3)   [Kremote: Compressing objects: 100% (3/3)   [Kremote: Compressing objects: 100% (3/3), done.[K
+remote: Total 4 (delta 0), reused 0 (delta 0)[K
+Receiving objects:  25% (1/4)   Receiving objects:  50% (2/4)   Receiving objects:  75% (3/4)   Receiving objects: 100% (4/4)   Receiving objects: 100% (4/4), done.
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4[00m$ ls
+[0m[01;34mrepo[0m
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4[00m$ cd repo/
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ ls
+README.md
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ cat r[KREADME.md 
+This time your task is to push a file to the remote repository.
+
+Details:
+    File name: key.txt
+    Content: 'May I come in?'
+    Branch: master
+
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ vim key.txt
+[?1049h[?1h=[1;62r[34l[34h[?25h[27m[24m[23m[0m[H[J[?25l[62;1H"key.txt" [New File][1;1H[93m  1 [0m[100m                                                                                                     [0m[2;1H[94m~                                                                                                        [3;1H~                                                                                                        [4;1H~                                                                                                        [5;1H~                                                                                                        [6;1H~                                                                                                        [7;1H~                                                                                                        [8;1H~                                                                                                        [9;1H~                                                                                                        [10;1H~                                                                                                        [11;1H~                                                                                                        [12;1H~                                                                                                        [13;1H~                                                                                                        [14;1H~                                                                                                        [15;1H~                                                                                                        [16;1H~                                                                                                        [17;1H~                                                                                                        [18;1H~                                                                                                        [19;1H~                                                                                                        [20;1H~                                                                                                        [21;1H~                                                                                                        [22;1H~                                                                                                        [23;1H~                                                                                                        [24;1H~                                                                                                        [25;1H~                                                                                                        [26;1H~                                                                                                        [27;1H~                                                                                                        [28;1H~                                                                                                        [29;1H~                                                                                                        [30;1H~                                                                                                        [31;1H~                                                                                                        [32;1H~                                                                                                        [33;1H~                                                                                                        [34;1H~                                                                                                        [35;1H~                                                                                                        [36;1H~                                                                                                        [37;1H~                                                                                                        [38;1H~                                                                                                        [39;1H~                                                                                                        [40;1H~                                                                                                        [41;1H~                                                                                                        [42;1H~                                                                                                        [43;1H~                                                                                                        [44;1H~                                                                                                        [45;1H~                                                                                                        [46;1H~                                                                                                        [47;1H~                                                                                                        [48;1H~                                                                                                        [49;1H~                                                                                                        [50;1H~                                                                                                        [51;1H~                                                                                                        [52;1H~                                                                                                        [53;1H~                                                                                                        [54;1H~                                                                                                        [55;1H~                                                                                                        [56;1H~                                                                                                        [57;1H~                                                                                                        [58;1H~                                                                                                        [59;1H~                                                                                                        [60;1H~                                                                                                        [0m[61;1H[1m[7m/tmp/repo4/repo/key.txt [dec=  0] [hex=00] [pos=0000:0001][100% of 1]                                    [1;5H[34h[?25h[?25l[0m[62;95HM[1;5H[62;95H [1;5H[34h[?25h[?25l[62;95Hi[1;5H[62;95H [1;5H[62;1H[1m-- INSERT --[0m[62;13H[K[1;5H[34h[?25h[?25l[100mM[0m[61;24H[1m[7m[+] [dec=  0] [hex=00] [pos=0001:0002][100% of 1][1;6H[34h[?25h[?25l[0m[100ma[0m[61;60H[1m[7m3[1;7H[34h[?25h[?25l[0m[100my[0m[61;60H[1m[7m4[1;8H[34h[?25h[?25l[61;60H5[1;9H[34h[?25h[?25l[0m[100mI[0m[61;60H[1m[7m6[1;10H[34h[?25h[?25l[61;60H7[1;11H[34h[?25h[?25l[0m[100mc[0m[61;60H[1m[7m8[1;12H[34h[?25h[?25l[0m[100mo[0m[61;60H[1m[7m9[1;13H[34h[?25h[?25l[0m[100mm[0m[61;59H[1m[7m10[1;14H[34h[?25h[?25l[0m[100me[0m[61;60H[1m[7m1[1;15H[34h[?25h[?25l[0m[100mI[0m[61;60H[1m[7m2[1;16H[34h[?25h[?25l[0m[100m [0m[61;60H[1m[7m1[1;15H[34h[?25h[?25l[61;60H2[1;16H[34h[?25h[?25l[0m[100mi[0m[61;60H[1m[7m3[1;17H[34h[?25h[?25l[0m[100mn[0m[61;60H[1m[7m4[1;18H[34h[?25h[?25l[0m[100m?[0m[61;60H[1m[7m5[1;19H[34h[?25h[?25l[0m[100m:[0m[61;60H[1m[7m6[1;20H[34h[?25h[?25l[0m[100m [0m[61;60H[1m[7m5[1;19H[34h[?25h[?25l[0m[100mj[0m[61;60H[1m[7m6[1;20H[34h[?25h[?25l[0m[100mj[0m[61;60H[1m[7m7[1;21H[34h[?25h[?25l[0m[100m [0m[61;60H[1m[7m6[1;20H[34h[?25h[?25l[0m[100m [0m[61;60H[1m[7m5[1;19H[34h[?25h[0m[62;1H[K[?25l[61;34H[1m[7m63[7C3F[15C4[1;18H[34h[?25h[?25l[0m[62;95H:[1;18H[62;95H[K[62;1H:[34h[?25hw[?25l[34h[?25hq[?25l[34h[?25h[?25l"key.txt" [New] 1L, 15C written
+[?1l>[34h[?25h[?1049l[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ git add -A
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ git commit -m[K[K
+On branch master
+Your branch is up-to-date with 'origin/master'.
+nothing to commit, working tree clean
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ ls
+key.txt  README.md
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ git commit -m "key.txt"
+On branch master
+Your branch is up-to-date with 'origin/master'.
+nothing to commit, working tree clean
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ git puys[K[Ksh
+Could not create directory '/home/bandit31/.ssh'.
+The authenticity of host 'localhost (127.0.0.1)' can't be established.
+ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+Are you sure you want to continue connecting (yes/no)? yes
+Failed to add the host to the list of known hosts (/home/bandit31/.ssh/known_hosts).
+This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
+
+bandit31-git@localhost's password: 
+Everything up-to-date
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ ls
+key.txt  README.md
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ giit [K[K[Kt add -A
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ git add -Als[Kgit pushcommit -m "key.txt"
+On branch master
+Your branch is up-to-date with 'origin/master'.
+nothing to commit, working tree clean
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ b[Kgit branch -A
+error: unknown switch `A'
+usage: git branch [<options>] [-r | -a] [--merged | --no-merged]
+   or: git branch [<options>] [-l] [-f] <branch-name> [<start-point>]
+   or: git branch [<options>] [-r] (-d | -D) <branch-name>...
+   or: git branch [<options>] (-m | -M) [<old-branch>] <new-branch>
+   or: git branch [<options>] [-r | -a] [--points-at]
+
+Generic options
+    -v, --verbose         show hash and subject, give twice for upstream branch
+    -q, --quiet           suppress informational messages
+    -t, --track           set up tracking mode (see git-pull(1))
+    --set-upstream        change upstream info
+    -u, --set-upstream-to <upstream>
+                          change the upstream info
+    --unset-upstream      Unset the upstream info
+    --color[=<when>]      use colored output
+    -r, --remotes         act on remote-tracking branches
+    --contains <commit>   print only branches that contain the commit
+    --abbrev[=<n>]        use <n> digits to display SHA-1s
+
+Specific git-branch actions:
+    -a, --all             list both remote-tracking and local branches
+    -d, --delete          delete fully merged branch
+    -D                    delete branch (even if not merged)
+    -m, --move            move/rename a branch and its reflog
+    -M                    move/rename a branch, even if target exists
+    --list                list branch names
+    -l, --create-reflog   create the branch's reflog
+    --edit-description    edit the description for the branch
+    -f, --force           force creation, move/rename, deletion
+    --merged <commit>     print only branches that are merged
+    --no-merged <commit>  print only branches that are not merged
+    --column[=<style>]    list branches in columns
+    --sort <key>          field name to sort on
+    --points-at <object>  print only branches of the object
+
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ git branch -A[K[K[K[K[K[K[K[K[Kcommit -m "key.txt"[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kbranch -a
+* [32mmaster[m
+  [31mremotes/origin/HEAD[m -> origin/master
+  [31mremotes/origin/master[m
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ cat j[Kkey.txt 
+May I come in?
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ cat[K[K[Kls
+key.txt  README.md
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$  cat README.md 
+This time your task is to push a file to the remote repository.
+
+Details:
+    File name: key.txt
+    Content: 'May I come in?'
+    Branch: master
+
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ git push
+Could not create directory '/home/bandit31/.ssh'.
+The authenticity of host 'localhost (127.0.0.1)' can't be established.
+ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+Are you sure you want to continue connecting (yes/no)? yes
+Failed to add the host to the list of known hosts (/home/bandit31/.ssh/known_hosts).
+This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
+
+bandit31-git@localhost's password: 
+Everything up-to-date
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ vim git[K[K[K.gitignore
+[?1049h[?1h=[1;62r[34l[34h[?25h[27m[24m[23m[0m[H[J[?25l[62;1H".gitignore" 1L, 6C[1;1H[93m  1 [0m[100m*.txt                                                                                                [0m[2;1H[94m~                                                                                                        [3;1H~                                                                                                        [4;1H~                                                                                                        [5;1H~                                                                                                        [6;1H~                                                                                                        [7;1H~                                                                                                        [8;1H~                                                                                                        [9;1H~                                                                                                        [10;1H~                                                                                                        [11;1H~                                                                                                        [12;1H~                                                                                                        [13;1H~                                                                                                        [14;1H~                                                                                                        [15;1H~                                                                                                        [16;1H~                                                                                                        [17;1H~                                                                                                        [18;1H~                                                                                                        [19;1H~                                                                                                        [20;1H~                                                                                                        [21;1H~                                                                                                        [22;1H~                                                                                                        [23;1H~                                                                                                        [24;1H~                                                                                                        [25;1H~                                                                                                        [26;1H~                                                                                                        [27;1H~                                                                                                        [28;1H~                                                                                                        [29;1H~                                                                                                        [30;1H~                                                                                                        [31;1H~                                                                                                        [32;1H~                                                                                                        [33;1H~                                                                                                        [34;1H~                                                                                                        [35;1H~                                                                                                        [36;1H~                                                                                                        [37;1H~                                                                                                        [38;1H~                                                                                                        [39;1H~                                                                                                        [40;1H~                                                                                                        [41;1H~                                                                                                        [42;1H~                                                                                                        [43;1H~                                                                                                        [44;1H~                                                                                                        [45;1H~                                                                                                        [46;1H~                                                                                                        [47;1H~                                                                                                        [48;1H~                                                                                                        [49;1H~                                                                                                        [50;1H~                                                                                                        [51;1H~                                                                                                        [52;1H~                                                                                                        [53;1H~                                                                                                        [54;1H~                                                                                                        [55;1H~                                                                                                        [56;1H~                                                                                                        [57;1H~                                                                                                        [58;1H~                                                                                                        [59;1H~                                                                                                        [60;1H~                                                                                                        [0m[61;1H[1m[7m/tmp/repo4/repo/.gitignore [dec= 42] [hex=2A] [pos=0001:0001][100% of 1]                                 [1;5H[34h[?25h[?25l[0m[62;95Hd[1;5H[34h[?25h[?25l[62;96Hd[1;5H[62;95H  [1;5H[100m     [0m[61;27H[1m[7m[+] [dec=  0] [hex=00] [pos=0000:0001][100% of 1][0m
+--No lines in buffer--[1;5H[34h[?25h[?25l[62;95H:[1;5H[62;1H[K[62;1H:[34h[?25hw[?25l[34h[?25hq[?25l[34h[?25h[?25l".gitignore" 0L, 0C written
+[?1l>[34h[?25h[?1049l[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ git add -A
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ git add -Avim .gitignore[6Pgit pushls[Kcat key.txt git branch -a[K[K[K[K[K[K[K[K[Kcommit
+Unable to create directory /home/bandit31/.nano: Permission denied
+It is required for saving/loading search history or cursor positions.
+
+Press Enter to continue
+
+(B)0[?1049h[1;62r[m[4l[?1h=[?1h=[?1h=[39;49m[?25l[39;49m[m[H[J[60;45H[0;7m[ Reading File ][m[60;51H[0;7m 10 lines ][m[H[39;49m[0;7m  GNU nano 2.7.4                   File: /tmp/repo4/repo/.git/COMMIT_EDITMSG                             [4;1H[m# Please enter the commit message for your changes. Lines starting[1B# with '#' will be ignored, and an empty message aborts the commit.[1B# On branch master[1B# Your branch is up-to-date with 'origin/master'.[1B#[1B# Changes to be committed:[1B#[7Cmodified:   .gitignore[1B#[7Cnew file:   key.txt[1B#[49B[0;7m^G[m Get Help    [0;7m^O[m Write Out   [0;7m^W[m Where Is    [0;7m^K[m Cut Text    [0;7m^J[m Justify     [0;7m^C[m Cur Pos     [0;7m^Y[m Prev Page[1B[0;7m^X[m Exit[62;16H[0;7m^R[m Read File   [0;7m^\[m Replace     [0;7m^U[m Uncut Text  [0;7m^T[m To Spell    [0;7m^_[m Go To Line  [0;7m^V[m Next PageMM[34h[?25h[57A[1;96H[0;7mModified[2B[m:[K[57B[0;7mSave modified buffer?  (Answering "No" will DISCARD changes.)                                            [61;1H Y[m Yes[K[1B[0;7m N[m No  [62;16H [0;7m^C[m Cancel[K[60;63H[J[62;105H[62;1H[?1049l[?1l>Aborting commit due to empty commit message.
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ git commit -m "key.txt"
+[master a4c0a34] key.txt
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+ create mode 100644 key.txt
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ git push
+Could not create directory '/home/bandit31/.ssh'.
+The authenticity of host 'localhost (127.0.0.1)' can't be established.
+ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+Are you sure you want to continue connecting (yes/no)? yes
+Failed to add the host to the list of known hosts (/home/bandit31/.ssh/known_hosts).
+This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
+
+bandit31-git@localhost's password: 
+Counting objects: 4, done.
+Delta compression using up to 2 threads.
+Compressing objects:  50% (1/2)   Compressing objects: 100% (2/2)   Compressing objects: 100% (2/2), done.
+Writing objects:  25% (1/4)   Writing objects:  50% (2/4)   Writing objects:  75% (3/4)   Writing objects: 100% (4/4)   Writing objects: 100% (4/4), 330 bytes | 0 bytes/s, done.
+Total 4 (delta 0), reused 0 (delta 0)
+remote: ### Attempting to validate files... ####[K
+remote: 
+remote: .oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.[K
+remote: 
+remote: Well done! Here is the password for the next level:[K
+remote: 56a9bf19c63d650ce78e6ec0354ee45e[K
+remote: 
+remote: .oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.[K
+remote: 
+To ssh://localhost/home/bandit31-git/repo
+ ! [remote rejected] master -> master (pre-receive hook declined)
+error: failed to push some refs to 'ssh://bandit31-git@localhost/home/bandit31-git/repo'
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ echo 56a9bf19c63d650ce78e6ec0354ee45e
+56a9bf19c63d650ce78e6ec0354ee45e
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ is pw
+-bash: is: command not found
+[01;32mbandit31@bandit[00m:[01;34m/tmp/repo4/repo[00m$ exit
+logout

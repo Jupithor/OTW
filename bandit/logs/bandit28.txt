@@ -1,0 +1,1337 @@
+Linux bandit.otw.local 5.4.8 x86_64 GNU/Linux
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to Steven or morla on
+irc.overthewire.org.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ and /proc/ is disabled
+  so that users can not snoop on eachother. Files and directories with
+  easily guessable or short names will be periodically deleted!
+
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few usefull tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /usr/local/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /usr/local/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /usr/local/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /usr/local/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+    * checksec.sh (http://www.trapkit.de/tools/checksec.html) in /usr/local/bin/checksec.sh
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us through IRC on
+  irc.overthewire.org #wargames.
+
+  Enjoy your stay!
+
+[01;32mbandit28@bandit[00m:[01;34m~[00m$ git clone ssh://bandit28-git@localhost/home/bandit28-git/repo.[K
+fatal: could not create work tree dir 'repo': Permission denied
+[01;32mbandit28@bandit[00m:[01;34m~[00m$ cd[K[Kcd /tmn[Kp/
+[01;32mbandit28@bandit[00m:[01;34m/tmp[00m$ mkdir repo
+[01;32mbandit28@bandit[00m:[01;34m/tmp[00m$ cd repo
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo[00m$ ssh://bandit28-git@localhost/home/bandit28-git/repo.[Kgssh://bandit28-git@localhost/home/bandit28-git/repoissh://bandit28-git@localhost/home/bandit28-git/repotssh://bandit28-git@localhost/home/bandit28-git/repo ssh://bandit28-git@localhost/home/bandit28-git/repocssh://bandit28-git@localhost/home/bandit28-git/repolssh://bandit28-git@localhost/home/bandit28-git/repoossh://bandit28-git@localhost/home/bandit28-git/reponssh://bandit28-git@localhost/home/bandit28-git/repoessh://bandit28-git@localhost/home/bandit28-git/repo ssh://bandit28-git@localhost/home/bandit28-git/repo
+Cloning into 'repo'...
+Could not create directory '/home/bandit28/.ssh'.
+The authenticity of host 'localhost (127.0.0.1)' can't be established.
+ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+Are you sure you want to continue connecting (yes/no)? yes
+Failed to add the host to the list of known hosts (/home/bandit28/.ssh/known_hosts).
+This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
+
+bandit28-git@localhost's password: 
+remote: Counting objects: 9, done.[K
+remote: Compressing objects:  16% (1/6)   [Kremote: Compressing objects:  33% (2/6)   [Kremote: Compressing objects:  50% (3/6)   [Kremote: Compressing objects:  66% (4/6)   [Kremote: Compressing objects:  83% (5/6)   [Kremote: Compressing objects: 100% (6/6)   [Kremote: Compressing objects: 100% (6/6), done.[K
+remote: Total 9 (delta 2), reused 0 (delta 0)[K
+Receiving objects:  11% (1/9)   Receiving objects:  22% (2/9)   Receiving objects:  33% (3/9)   Receiving objects:  44% (4/9)   Receiving objects:  55% (5/9)   Receiving objects:  66% (6/9)   Receiving objects:  77% (7/9)   Receiving objects:  88% (8/9)   Receiving objects: 100% (9/9)   Receiving objects: 100% (9/9), done.
+Resolving deltas:   0% (0/2)   Resolving deltas: 100% (2/2)   Resolving deltas: 100% (2/2), done.
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo[00m$ ls
+[0m[01;34mrepo[0m
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo[00m$ c [Kd repo/
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ ls
+README.md
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ cd re[K[KREAD[K[K[K[K[K[K[Kcat r[KREADME.md 
+# Bandit Notes
+Some notes for level29 of bandit.
+
+## credentials
+
+- username: bandit29
+- password: xxxxxxxxxx
+
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ git[K[K[Kman git
+[?1049h[?1h=GIT(1)                                        Git Manual                                        GIT(1)[m
+[m
+[1mNAME[0m[m
+       git - the stupid content tracker[m
+[m
+[1mSYNOPSIS[0m[m
+       [4mgit[24m [--version] [--help] [-C <path>] [-c <name>=<value>][m
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path][m
+           [-p|--paginate|--no-pager] [--no-replace-objects] [--bare][m
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>][m
+           [--super-prefix=<path>][m
+           <command> [<args>][m
+[m
+[1mDESCRIPTION[0m[m
+       Git is a fast, scalable, distributed revision control system with an unusually rich command set[m
+       that provides both high-level operations and full access to internals.[m
+[m
+       See [1mgittutorial[0m(7) to get started, then see [1mgiteveryday[0m(7) for a useful minimum set of[m
+       commands. The [1mGit[0m [1mUser’s[0m [1mManual[0m[1] has a more in-depth introduction.[m
+[m
+       After you mastered the basic concepts, you can come back to this page to learn what commands[m
+       Git offers. You can learn more about individual Git commands with "git help command". [1mgitcli[0m(7)[m
+       manual page gives you an overview of the command-line command syntax.[m
+[m
+       A formatted and hyperlinked copy of the latest Git documentation can be viewed at[m
+       [1mhttps://git.github.io/htmldocs/git.html[0m.[m
+[m
+[1mOPTIONS[0m[m
+       --version[m
+           Prints the Git suite version that the [4mgit[24m program came from.[m
+[m
+       --help[m
+           Prints the synopsis and a list of the most commonly used commands. If the option [1m--all[0m or[m
+           [1m-a[0m is given then all available commands are printed. If a Git command is named this option[m
+           will bring up the manual page for that command.[m
+[m
+           Other options are available to control how the manual page is displayed. See [1mgit-help[0m(1)[m
+           for more information, because [1mgit[0m [1m--help[0m [1m...[0m  is converted internally into [1mgit[0m [1mhelp[0m [1m...[0m.[m
+[m
+       -C <path>[m
+           Run as if git was started in [4m<path>[24m instead of the current working directory. When multiple[m
+           [1m-C[0m options are given, each subsequent non-absolute [1m-C[0m [1m<path>[0m is interpreted relative to the[m
+           preceding [1m-C[0m [1m<path>[0m.[m
+[m
+           This option affects options that expect path name like [1m--git-dir[0m and [1m--work-tree[0m in that[m
+           their interpretations of the path names would be made relative to the working directory[m
+           caused by the [1m-C[0m option. For example the following invocations are equivalent:[m
+[m
+               git --git-dir=a.git --work-tree=b -C c status[m
+               git --git-dir=c/a.git --work-tree=c/b status[m
+[m
+       -c <name>=<value>[m
+           Pass a configuration parameter to the command. The value given will override values from[m
+           configuration files. The <name> is expected in the same format as listed by [4mgit[24m [4mconfig[24m[m
+           (subkeys separated by dots).[m
+[m
+           Note that omitting the [1m=[0m in [1mgit[0m [1m-c[0m [1mfoo.bar[0m [1m...[0m  is allowed and sets [1mfoo.bar[0m to the boolean[m
+           true value (just like [1m[foo]bar[0m would in a config file). Including the equals but with an[m
+           empty value (like [1mgit[0m [1m-c[0m [1mfoo.bar=[0m [1m...[0m) sets [1mfoo.bar[0m to the empty string.[m
+[m
+       --exec-path[=<path>][m
+[7m Manual page git(1) line 1 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Path to wherever your core Git programs are installed. This can also be controlled by[m
+[7m Manual page git(1) line 2 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           setting the GIT_EXEC_PATH environment variable. If no path is given, [4mgit[24m will print the[m
+[7m Manual page git(1) line 3 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           current setting and then exit.[m
+[7m Manual page git(1) line 4 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 5 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --html-path[m
+[7m Manual page git(1) line 6 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Print the path, without trailing slash, where Git’s HTML documentation is installed and[m
+[7m Manual page git(1) line 7 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           exit.[m
+[7m Manual page git(1) line 8 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 9 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --man-path[m
+[7m Manual page git(1) line 10 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Print the manpath (see [1mman(1)[0m) for the man pages for this version of Git and exit.[m
+[7m Manual page git(1) line 11 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 12 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --info-path[m
+[7m Manual page git(1) line 13 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Print the path where the Info files documenting this version of Git are installed and exit.[m
+[7m Manual page git(1) line 14 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 15 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       -p, --paginate[m
+[7m Manual page git(1) line 16 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Pipe all output into [4mless[24m (or if set, $PAGER) if standard output is a terminal. This[m
+[7m Manual page git(1) line 17 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           overrides the [1mpager.<cmd>[0m configuration options (see the "Configuration Mechanism" section[m
+[7m Manual page git(1) line 18 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           below).[m
+[7m Manual page git(1) line 19 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 20 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --no-pager[m
+[7m Manual page git(1) line 21 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Do not pipe Git output into a pager.[m
+[7m Manual page git(1) line 22 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 23 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --git-dir=<path>[m
+[7m Manual page git(1) line 24 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Set the path to the repository. This can also be controlled by setting the [1mGIT_DIR[0m[m
+[7m Manual page git(1) line 25 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           environment variable. It can be an absolute path or relative path to current working[m
+[7m Manual page git(1) line 26 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           directory.[m
+[7m Manual page git(1) line 27 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 28 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --work-tree=<path>[m
+[7m Manual page git(1) line 29 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Set the path to the working tree. It can be an absolute path or a path relative to the[m
+[7m Manual page git(1) line 30 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           current working directory. This can also be controlled by setting the GIT_WORK_TREE[m
+[7m Manual page git(1) line 31 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           environment variable and the core.worktree configuration variable (see core.worktree in[m
+[7m Manual page git(1) line 32 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           [1mgit-config[0m(1) for a more detailed discussion).[m
+[7m Manual page git(1) line 33 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 34 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --namespace=<path>[m
+[7m Manual page git(1) line 35 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Set the Git namespace. See [1mgitnamespaces[0m(7) for more details. Equivalent to setting the[m
+[7m Manual page git(1) line 36 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           [1mGIT_NAMESPACE[0m environment variable.[m
+[7m Manual page git(1) line 37 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 38 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --super-prefix=<path>[m
+[7m Manual page git(1) line 39 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Currently for internal use only. Set a prefix which gives a path from above a repository[m
+[7m Manual page git(1) line 40 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           down to its root. One use is to give submodules context about the superproject that invoked[m
+[7m Manual page git(1) line 41 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           it.[m
+[7m Manual page git(1) line 42 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 43 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --bare[m
+[7m Manual page git(1) line 44 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Treat the repository as a bare repository. If GIT_DIR environment is not set, it is set to[m
+[7m Manual page git(1) line 45 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           the current working directory.[m
+[7m Manual page git(1) line 46 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 47 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --no-replace-objects[m
+[7m Manual page git(1) line 48 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Do not use replacement refs to replace Git objects. See [1mgit-replace[0m(1) for more[m
+[7m Manual page git(1) line 49 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           information.[m
+[7m Manual page git(1) line 50 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 51 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --literal-pathspecs[m
+[7m Manual page git(1) line 52 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Treat pathspecs literally (i.e. no globbing, no pathspec magic). This is equivalent to[m
+[7m Manual page git(1) line 53 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           setting the [1mGIT_LITERAL_PATHSPECS[0m environment variable to [1m1[0m.[m
+[7m Manual page git(1) line 54 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 55 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --glob-pathspecs[m
+[7m Manual page git(1) line 56 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Add "glob" magic to all pathspec. This is equivalent to setting the [1mGIT_GLOB_PATHSPECS[0m[m
+[7m Manual page git(1) line 57 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           environment variable to [1m1[0m. Disabling globbing on individual pathspecs can be done using[m
+[7m Manual page git(1) line 58 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           pathspec magic ":(literal)"[m
+[7m Manual page git(1) line 59 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 60 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --noglob-pathspecs[m
+[7m Manual page git(1) line 61 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Add "literal" magic to all pathspec. This is equivalent to setting the [1mGIT_NOGLOB_PATHSPECS[0m[m
+[7m Manual page git(1) line 62 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           environment variable to [1m1[0m. Enabling globbing on individual pathspecs can be done using[m
+[7m Manual page git(1) line 63 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           pathspec magic ":(glob)"[m
+[7m Manual page git(1) line 64 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 65 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       --icase-pathspecs[m
+[7m Manual page git(1) line 66 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Add "icase" magic to all pathspec. This is equivalent to setting the [1mGIT_ICASE_PATHSPECS[0m[m
+[7m Manual page git(1) line 67 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           environment variable to [1m1[0m.[m
+[7m Manual page git(1) line 68 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 69 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[1mGIT[0m [1mCOMMANDS[0m[m
+[7m Manual page git(1) line 70 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       We divide Git into high level ("porcelain") commands and low level ("plumbing") commands.[m
+[7m Manual page git(1) line 71 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 72 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[1mHIGH-LEVEL[0m [1mCOMMANDS[0m [1m(PORCELAIN)[0m[m
+[7m Manual page git(1) line 73 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       We separate the porcelain commands into the main commands and some ancillary user utilities.[m
+[7m Manual page git(1) line 74 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 75 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K   [1mMain[0m [1mporcelain[0m [1mcommands[0m[m
+[7m Manual page git(1) line 76 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-add[0m(1)[m
+[7m Manual page git(1) line 77 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Add file contents to the index.[m
+[7m Manual page git(1) line 78 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 79 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-am[0m(1)[m
+[7m Manual page git(1) line 80 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Apply a series of patches from a mailbox.[m
+[7m Manual page git(1) line 81 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 82 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-archive[0m(1)[m
+[7m Manual page git(1) line 83 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Create an archive of files from a named tree.[m
+[7m Manual page git(1) line 84 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 85 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-bisect[0m(1)[m
+[7m Manual page git(1) line 86 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Use binary search to find the commit that introduced a bug.[m
+[7m Manual page git(1) line 87 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 88 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-branch[0m(1)[m
+[7m Manual page git(1) line 89 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           List, create, or delete branches.[m
+[7m Manual page git(1) line 90 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 91 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-bundle[0m(1)[m
+[7m Manual page git(1) line 92 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Move objects and refs by archive.[m
+[7m Manual page git(1) line 93 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 94 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-checkout[0m(1)[m
+[7m Manual page git(1) line 95 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Switch branches or restore working tree files.[m
+[7m Manual page git(1) line 96 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 97 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-cherry-pick[0m(1)[m
+[7m Manual page git(1) line 98 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Apply the changes introduced by some existing commits.[m
+[7m Manual page git(1) line 99 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 100 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-citool[0m(1)[m
+[7m Manual page git(1) line 101 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Graphical alternative to git-commit.[m
+[7m Manual page git(1) line 102 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 103 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-clean[0m(1)[m
+[7m Manual page git(1) line 104 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Remove untracked files from the working tree.[m
+[7m Manual page git(1) line 105 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 106 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-clone[0m(1)[m
+[7m Manual page git(1) line 107 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Clone a repository into a new directory.[m
+[7m Manual page git(1) line 108 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 109 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-commit[0m(1)[m
+[7m Manual page git(1) line 110 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Record changes to the repository.[m
+[7m Manual page git(1) line 111 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 112 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-describe[0m(1)[m
+[7m Manual page git(1) line 113 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Describe a commit using the most recent tag reachable from it.[m
+[7m Manual page git(1) line 114 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 115 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-diff[0m(1)[m
+[7m Manual page git(1) line 116 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Show changes between commits, commit and working tree, etc.[m
+[7m Manual page git(1) line 117 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 118 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-fetch[0m(1)[m
+[7m Manual page git(1) line 119 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Download objects and refs from another repository.[m
+[7m Manual page git(1) line 120 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 121 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-format-patch[0m(1)[m
+[7m Manual page git(1) line 122 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Prepare patches for e-mail submission.[m
+[7m Manual page git(1) line 123 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 124 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-gc[0m(1)[m
+[7m Manual page git(1) line 125 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Cleanup unnecessary files and optimize the local repository.[m
+[7m Manual page git(1) line 126 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 127 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-grep[0m(1)[m
+[7m Manual page git(1) line 128 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Print lines matching a pattern.[m
+[7m Manual page git(1) line 129 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 130 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-gui[0m(1)[m
+[7m Manual page git(1) line 131 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           A portable graphical interface to Git.[m
+[7m Manual page git(1) line 132 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 133 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-init[0m(1)[m
+[7m Manual page git(1) line 134 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Create an empty Git repository or reinitialize an existing one.[m
+[7m Manual page git(1) line 135 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 136 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-log[0m(1)[m
+[7m Manual page git(1) line 137 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Show commit logs.[m
+[7m Manual page git(1) line 138 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 139 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-merge[0m(1)[m
+[7m Manual page git(1) line 140 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Join two or more development histories together.[m
+[7m Manual page git(1) line 141 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 142 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-mv[0m(1)[m
+[7m Manual page git(1) line 143 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Move or rename a file, a directory, or a symlink.[m
+[7m Manual page git(1) line 144 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 145 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-notes[0m(1)[m
+[7m Manual page git(1) line 146 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Add or inspect object notes.[m
+[7m Manual page git(1) line 147 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 148 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-pull[0m(1)[m
+[7m Manual page git(1) line 149 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Fetch from and integrate with another repository or a local branch.[m
+[7m Manual page git(1) line 150 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 151 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-push[0m(1)[m
+[7m Manual page git(1) line 152 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Update remote refs along with associated objects.[m
+[7m Manual page git(1) line 153 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 154 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-rebase[0m(1)[m
+[7m Manual page git(1) line 155 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Reapply commits on top of another base tip.[m
+[7m Manual page git(1) line 156 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 157 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-reset[0m(1)[m
+[7m Manual page git(1) line 158 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Reset current HEAD to the specified state.[m
+[7m Manual page git(1) line 159 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 160 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-revert[0m(1)[m
+[7m Manual page git(1) line 161 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Revert some existing commits.[m
+[7m Manual page git(1) line 162 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 163 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-rm[0m(1)[m
+[7m Manual page git(1) line 164 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Remove files from the working tree and from the index.[m
+[7m Manual page git(1) line 165 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 166 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-shortlog[0m(1)[m
+[7m Manual page git(1) line 167 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Summarize [4mgit[24m [4mlog[24m output.[m
+[7m Manual page git(1) line 168 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 169 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-show[0m(1)[m
+[7m Manual page git(1) line 170 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Show various types of objects.[m
+[7m Manual page git(1) line 171 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 172 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-stash[0m(1)[m
+[7m Manual page git(1) line 173 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Stash the changes in a dirty working directory away.[m
+[7m Manual page git(1) line 174 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 175 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-status[0m(1)[m
+[7m Manual page git(1) line 176 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Show the working tree status.[m
+[7m Manual page git(1) line 177 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 178 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-submodule[0m(1)[m
+[7m Manual page git(1) line 179 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Initialize, update or inspect submodules.[m
+[7m Manual page git(1) line 180 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 181 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-tag[0m(1)[m
+[7m Manual page git(1) line 182 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Create, list, delete or verify a tag object signed with GPG.[m
+[7m Manual page git(1) line 183 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 184 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-worktree[0m(1)[m
+[7m Manual page git(1) line 185 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Manage multiple working trees.[m
+[7m Manual page git(1) line 186 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 187 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgitk[0m(1)[m
+[7m Manual page git(1) line 188 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           The Git repository browser.[m
+[7m Manual page git(1) line 189 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 190 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K   [1mAncillary[0m [1mCommands[0m[m
+[7m Manual page git(1) line 191 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Manipulators:[m
+[7m Manual page git(1) line 192 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 193 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-config[0m(1)[m
+[7m Manual page git(1) line 194 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Get and set repository or global options.[m
+[7m Manual page git(1) line 195 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 196 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-fast-export[0m(1)[m
+[7m Manual page git(1) line 197 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Git data exporter.[m
+[7m Manual page git(1) line 198 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 199 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-fast-import[0m(1)[m
+[7m Manual page git(1) line 200 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Backend for fast Git data importers.[m
+[7m Manual page git(1) line 201 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 202 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-filter-branch[0m(1)[m
+[7m Manual page git(1) line 203 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Rewrite branches.[m
+[7m Manual page git(1) line 204 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 205 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-mergetool[0m(1)[m
+[7m Manual page git(1) line 206 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Run merge conflict resolution tools to resolve merge conflicts.[m
+[7m Manual page git(1) line 207 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 208 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-pack-refs[0m(1)[m
+[7m Manual page git(1) line 209 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Pack heads and tags for efficient repository access.[m
+[7m Manual page git(1) line 210 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 211 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-prune[0m(1)[m
+[7m Manual page git(1) line 212 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Prune all unreachable objects from the object database.[m
+[7m Manual page git(1) line 213 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 214 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-reflog[0m(1)[m
+[7m Manual page git(1) line 215 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Manage reflog information.[m
+[7m Manual page git(1) line 216 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 217 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-relink[0m(1)[m
+[7m Manual page git(1) line 218 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Hardlink common objects in local repositories.[m
+[7m Manual page git(1) line 219 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 220 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-remote[0m(1)[m
+[7m Manual page git(1) line 221 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Manage set of tracked repositories.[m
+[7m Manual page git(1) line 222 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 223 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-repack[0m(1)[m
+[7m Manual page git(1) line 224 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Pack unpacked objects in a repository.[m
+[7m Manual page git(1) line 225 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 226 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-replace[0m(1)[m
+[7m Manual page git(1) line 227 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Create, list, delete refs to replace objects.[m
+[7m Manual page git(1) line 228 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 229 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Interrogators:[m
+[7m Manual page git(1) line 230 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 231 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-annotate[0m(1)[m
+[7m Manual page git(1) line 232 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Annotate file lines with commit information.[m
+[7m Manual page git(1) line 233 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 234 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-blame[0m(1)[m
+[7m Manual page git(1) line 235 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Show what revision and author last modified each line of a file.[m
+[7m Manual page git(1) line 236 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 237 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-cherry[0m(1)[m
+[7m Manual page git(1) line 238 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Find commits yet to be applied to upstream.[m
+[7m Manual page git(1) line 239 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 240 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-count-objects[0m(1)[m
+[7m Manual page git(1) line 241 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Count unpacked number of objects and their disk consumption.[m
+[7m Manual page git(1) line 242 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 243 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-difftool[0m(1)[m
+[7m Manual page git(1) line 244 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Show changes using common diff tools.[m
+[7m Manual page git(1) line 245 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 246 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-fsck[0m(1)[m
+[7m Manual page git(1) line 247 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Verifies the connectivity and validity of the objects in the database.[m
+[7m Manual page git(1) line 248 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 249 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-get-tar-commit-id[0m(1)[m
+[7m Manual page git(1) line 250 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Extract commit ID from an archive created using git-archive.[m
+[7m Manual page git(1) line 251 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 252 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-help[0m(1)[m
+[7m Manual page git(1) line 253 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Display help information about Git.[m
+[7m Manual page git(1) line 254 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 255 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-instaweb[0m(1)[m
+[7m Manual page git(1) line 256 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Instantly browse your working repository in gitweb.[m
+[7m Manual page git(1) line 257 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 258 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-merge-tree[0m(1)[m
+[7m Manual page git(1) line 259 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Show three-way merge without touching index.[m
+[7m Manual page git(1) line 260 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 261 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-rerere[0m(1)[m
+[7m Manual page git(1) line 262 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Reuse recorded resolution of conflicted merges.[m
+[7m Manual page git(1) line 263 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 264 (press h for help or q to quit)[27m[K[K/[Khh[Kii[Kss[Ktt[Krr[Koo[Ktt[Kyy[K[K[K[K[Koo[Krr[Kyy[K[1;1H           Rewrite branches.[m
+[2;1H[m
+[3;1H       [1mgit-mergetool[0m(1)[m
+[4;1H           Run merge conflict resolution tools to resolve merge conflicts.[m
+[5;1H[m
+[6;1H       [1mgit-pack-refs[0m(1)[m
+[7;1H           Pack heads and tags for efficient repository access.[m
+[8;1H[m
+[9;1H       [1mgit-prune[0m(1)[m
+[10;1H           Prune all unreachable objects from the object database.[m
+[11;1H[m
+[12;1H       [1mgit-reflog[0m(1)[m
+[13;1H           Manage reflog information.[m
+[14;1H[m
+[15;1H       [1mgit-relink[0m(1)[m
+[16;1H           Hardlink common objects in local repositories.[m
+[17;1H[m
+[18;1H       [1mgit-remote[0m(1)[m
+[19;1H           Manage set of tracked repositories.[m
+[20;1H[m
+[21;1H       [1mgit-repack[0m(1)[m
+[22;1H           Pack unpacked objects in a repository.[m
+[23;1H[m
+[24;1H       [1mgit-replace[0m(1)[m
+[25;1H           Create, list, delete refs to replace objects.[m
+[26;1H[m
+[27;1H       Interrogators:[m
+[28;1H[m
+[29;1H       [1mgit-annotate[0m(1)[m
+[30;1H           Annotate file lines with commit information.[m
+[31;1H[m
+[32;1H       [1mgit-blame[0m(1)[m
+[33;1H           Show what revision and author last modified each line of a file.[m
+[34;1H[m
+[35;1H       [1mgit-cherry[0m(1)[m
+[36;1H           Find commits yet to be applied to upstream.[m
+[37;1H[m
+[38;1H       [1mgit-count-objects[0m(1)[m
+[39;1H           Count unpacked number of objects and their disk consumption.[m
+[40;1H[m
+[41;1H       [1mgit-difftool[0m(1)[m
+[42;1H           Show changes using common diff tools.[m
+[43;1H[m
+[44;1H       [1mgit-fsck[0m(1)[m
+[45;1H           Verifies the connectivity and validity of the objects in the database.[m
+[46;1H[m
+[47;1H       [1mgit-get-tar-commit-id[0m(1)[m
+[48;1H           Extract commit ID from an archive created using git-archive.[m
+[49;1H[m
+[50;1H       [1mgit-help[0m(1)[m
+[51;1H           Display help information about Git.[m
+[52;1H[m
+[53;1H       [1mgit-instaweb[0m(1)[m
+[54;1H           Instantly browse your working repository in gitweb.[m
+[55;1H[m
+[56;1H       [1mgit-merge-tree[0m(1)[m
+[57;1H           Show three-way merge without touching index.[m
+[58;1H[m
+[59;1H       [1mgit-rerere[0m(1)[m
+[60;1H           Reuse recorded resolution of conflicted merges.[m
+[61;1H[m
+[62;1H[1;1H           Rewrite branches.[m
+[2;1H[m
+[3;1H       [1mgit-mergetool[0m(1)[m
+[4;1H           Run merge conflict resolution tools to resolve merge conflicts.[m
+[5;1H[m
+[6;1H       [1mgit-pack-refs[0m(1)[m
+[7;1H           Pack heads and tags for efficient repository access.[m
+[8;1H[m
+[9;1H       [1mgit-prune[0m(1)[m
+[10;1H           Prune all unreachable objects from the object database.[m
+[11;1H[m
+[12;1H       [1mgit-reflog[0m(1)[m
+[13;1H           Manage reflog information.[m
+[14;1H[m
+[15;1H       [1mgit-relink[0m(1)[m
+[16;1H           Hardlink common objects in local repositories.[m
+[17;1H[m
+[18;1H       [1mgit-remote[0m(1)[m
+[19;1H           Manage set of tracked repositories.[m
+[20;1H[m
+[21;1H       [1mgit-repack[0m(1)[m
+[22;1H           Pack unpacked objects in a repository.[m
+[23;1H[m
+[24;1H       [1mgit-replace[0m(1)[m
+[25;1H           Create, list, delete refs to replace objects.[m
+[26;1H[m
+[27;1H       Interrogators:[m
+[28;1H[m
+[29;1H       [1mgit-annotate[0m(1)[m
+[30;1H           Annotate file lines with commit information.[m
+[31;1H[m
+[32;1H       [1mgit-blame[0m(1)[m
+[33;1H           Show what revision and author last modified each line of a file.[m
+[34;1H[m
+[35;1H       [1mgit-cherry[0m(1)[m
+[36;1H           Find commits yet to be applied to upstream.[m
+[37;1H[m
+[38;1H       [1mgit-count-objects[0m(1)[m
+[39;1H           Count unpacked number of objects and their disk consumption.[m
+[40;1H[m
+[41;1H       [1mgit-difftool[0m(1)[m
+[42;1H           Show changes using common diff tools.[m
+[43;1H[m
+[44;1H       [1mgit-fsck[0m(1)[m
+[45;1H           Verifies the connectivity and validity of the objects in the database.[m
+[46;1H[m
+[47;1H       [1mgit-get-tar-commit-id[0m(1)[m
+[48;1H           Extract commit ID from an archive created using git-archive.[m
+[49;1H[m
+[50;1H       [1mgit-help[0m(1)[m
+[51;1H           Display help information about Git.[m
+[52;1H[m
+[53;1H       [1mgit-instaweb[0m(1)[m
+[54;1H           Instantly browse your working repository in gitweb.[m
+[55;1H[m
+[56;1H       [1mgit-merge-tree[0m(1)[m
+[57;1H           Show three-way merge without touching index.[m
+[58;1H[m
+[59;1H       [1mgit-rerere[0m(1)[m
+[60;1H           Reuse recorded resolution of conflicted merges.[m
+[61;1H[m
+[62;1H...skipping...
+       representing the complete [7mhistory[27m of the project, an "index" file which links that [7mhistory[27m to[m
+       the current contents of the working tree, and named pointers into that [7mhistory[27m such as tags and[m
+       branch heads.[m
+[m
+       The object database contains objects of three main types: blobs, which hold file data; trees,[m
+       which point to blobs and other trees to build up directory hierarchies; and commits, which each[m
+       reference a single tree and some number of parent commits.[m
+[m
+       The commit, equivalent to what other systems call a "changeset" or "version", represents a step[m
+       in the project’s [7mhistory[27m, and each parent represents an immediately preceding step. Commits[m
+       with more than one parent represent merges of independent lines of development.[m
+[m
+       All objects are named by the SHA-1 hash of their contents, normally written as a string of 40[m
+       hex digits. Such names are globally unique. The entire [7mhistory[27m leading up to a commit can be[m
+       vouched for by signing just that commit. A fourth object type, the tag, is provided for this[m
+       purpose.[m
+[m
+       When first created, objects are stored in individual files, but for efficiency may later be[m
+       compressed together into "pack files".[m
+[m
+       Named pointers called refs mark interesting points in [7mhistory[27m. A ref may contain the SHA-1 name[m
+       of an object or the name of another ref. Refs with names beginning [1mref/head/[0m contain the SHA-1[m
+       name of the most recent commit (or "head") of a branch under development. SHA-1 names of tags[m
+       of interest are stored under [1mref/tags/[0m. A special ref named [1mHEAD[0m contains the name of the[m
+       currently checked-out branch.[m
+[m
+       The index file is initialized with a list of all paths and, for each path, a blob object and a[m
+       set of attributes. The blob object represents the contents of the file as of the head of the[m
+       current branch. The attributes (last modified time, size, etc.) are taken from the[m
+       corresponding file in the working tree. Subsequent changes to the working tree can be found by[m
+       comparing these attributes. The index may be updated with new content, and new commits may be[m
+       created from the content stored in the index.[m
+[m
+       The index is also capable of storing multiple entries (called "stages") for a given pathname.[m
+       These stages are used to hold the various unmerged version of a file when a merge is in[m
+       progress.[m
+[m
+[1mFURTHER[0m [1mDOCUMENTATION[0m[m
+       See the references in the "description" section to get started using Git. The following is[m
+       probably more detail than necessary for a first-time user.[m
+[m
+       The [1mGit[0m [1mconcepts[0m [1mchapter[0m [1mof[0m [1mthe[0m [1muser-manual[0m[2] and [1mgitcore-tutorial[0m(7) both provide[m
+       introductions to the underlying Git architecture.[m
+[m
+       See [1mgitworkflows[0m(7) for an overview of recommended workflows.[m
+[m
+       See also the [1mhowto[0m[3] documents for some useful examples.[m
+[m
+       The internals are documented in the [1mGit[0m [1mAPI[0m [1mdocumentation[0m[4].[m
+[m
+       Users migrating from CVS may also want to read [1mgitcvs-migration[0m(7).[m
+[m
+[1mAUTHORS[0m[m
+       Git was started by Linus Torvalds, and is currently maintained by Junio C Hamano. Numerous[m
+       contributions have come from the Git mailing list <[1mgit@vger.kernel.org[0m[5]>.[m
+       [1mhttp://www.openhub.net/p/git/contributors/summary[0m gives you a more complete list of[m
+       contributors.[m
+[m
+       If you have a clone of git.git itself, the output of [1mgit-shortlog[0m(1) and [1mgit-blame[0m(1) can show[m
+       you the authors for specific parts of the project.[m
+[m
+[7m Manual page git(1) line 942/1031 97% (press h for help or q to quit)[27m[K[K/[K[1mREPORTING[0m [1mBUGS[0m[m
+[7m Manual page git(1) line 943/1031 97% (press h for help or q to quit)[27m[K[K/[K       Report bugs to the Git mailing list <[1mgit@vger.kernel.org[0m[5]> where the development and[m
+       maintenance is primarily done. You do not have to be subscribed to the list to send a message[m
+       there.[m
+[m
+[1mSEE[0m [1mALSO[0m[m
+       [1mgittutorial[0m(7), [1mgittutorial-2[0m(7), [1mgiteveryday[0m(7), [1mgitcvs-migration[0m(7), [1mgitglossary[0m(7), [1mgitcore-[0m[m
+       [1mtutorial[0m(7), [1mgitcli[0m(7), [1mThe[0m [1mGit[0m [1mUser’s[0m [1mManual[0m[1], [1mgitworkflows[0m(7)[m
+[m
+[7m Manual page git(1) line 951/1031 99% (press h for help or q to quit)[27m[K[K/[K[1mGIT[0m[m
+       Part of the [1mgit[0m(1) suite[m
+[m
+[1mNOTES[0m[m
+[7m Manual page git(1) line 955/1031 99% (press h for help or q to quit)[27m[K[K/[K        1. Git User’s Manual[m
+           file:///usr/share/doc/git/html/user-manual.html[m
+[m
+        2. Git concepts chapter of the user-manual[m
+           file:///usr/share/doc/git/html/user-manual.html#git-concepts[m
+[m
+        3. howto[m
+[7m Manual page git(1) line 962/1031 99% (press h for help or q to quit)[27m[K[K/[K[K[7mPattern not found  (press RETURN)[27m[62;1H[K[K/[K[K[7mPattern not found  (press RETURN)[27m[62;1H[K[K/[K[K[7mPattern not found  (press RETURN)[27m[62;1H[K[K/[K[K[7mPattern not found  (press RETURN)[27m[62;1H[K[K?[K[HM[m
+[HM       compressed together into "pack files".[m
+[HM       When first created, objects are stored in individual files, but for efficiency may later be[m
+[HM[m
+[HM       purpose.[m
+[HM       vouched for by signing just that commit. A fourth object type, the tag, is provided for this[m
+[HM       hex digits. Such names are globally unique. The entire [7mhistory[27m leading up to a commit can be[m
+[62;1H[K[7m Manual page git(1) line 955/1031 99% (press h for help or q to quit)[27m[K[K?[K[HM       All objects are named by the SHA-1 hash of their contents, normally written as a string of 40[m
+[HM[m
+[HM       with more than one parent represent merges of independent lines of development.[m
+[HM       in the project’s [7mhistory[27m, and each parent represents an immediately preceding step. Commits[m
+[62;1H[K[7m Manual page git(1) line 951/1031 99% (press h for help or q to quit)[27m[K[K?[K[HM       The commit, equivalent to what other systems call a "changeset" or "version", represents a step[m
+[HM[m
+[HM       reference a single tree and some number of parent commits.[m
+[HM       which point to blobs and other trees to build up directory hierarchies; and commits, which each[m
+[HM       The object database contains objects of three main types: blobs, which hold file data; trees,[m
+[HM[m
+[HM       branch heads.[m
+[HM       the current contents of the working tree, and named pointers into that [7mhistory[27m such as tags and[m
+[62;1H[K[7m Manual page git(1) line 943/1031 97% (press h for help or q to quit)[27m[K[K?[K[HM       representing the complete [7mhistory[27m of the project, an "index" file which links that [7mhistory[27m to[m
+[62;1H[K[7m Manual page git(1) line 942/1031 97% (press h for help or q to quit)[27m[K[K?[K[K[7mPattern not found  (press RETURN)[27m[62;1H[K[K?[K[K[7mPattern not found  (press RETURN)[27m[62;1H[K[K?[K[K[7mPattern not found  (press RETURN)[27m[62;1H[K[K/[K[1mREPORTING[0m [1mBUGS[0m[m
+[7m Manual page git(1) line 943/1031 97% (press h for help or q to quit)[27m[K[K/[K       Report bugs to the Git mailing list <[1mgit@vger.kernel.org[0m[5]> where the development and[m
+       maintenance is primarily done. You do not have to be subscribed to the list to send a message[m
+       there.[m
+[m
+[1mSEE[0m [1mALSO[0m[m
+       [1mgittutorial[0m(7), [1mgittutorial-2[0m(7), [1mgiteveryday[0m(7), [1mgitcvs-migration[0m(7), [1mgitglossary[0m(7), [1mgitcore-[0m[m
+       [1mtutorial[0m(7), [1mgitcli[0m(7), [1mThe[0m [1mGit[0m [1mUser’s[0m [1mManual[0m[1], [1mgitworkflows[0m(7)[m
+[m
+[7m Manual page git(1) line 951/1031 99% (press h for help or q to quit)[27m[K[K/[K[1mGIT[0m[m
+       Part of the [1mgit[0m(1) suite[m
+[m
+[1mNOTES[0m[m
+[7m Manual page git(1) line 955/1031 99% (press h for help or q to quit)[27m[K[K/[K        1. Git User’s Manual[m
+           file:///usr/share/doc/git/html/user-manual.html[m
+[m
+        2. Git concepts chapter of the user-manual[m
+           file:///usr/share/doc/git/html/user-manual.html#git-concepts[m
+[m
+        3. howto[m
+[7m Manual page git(1) line 962/1031 99% (press h for help or q to quit)[27m[K[K/[K[K[7mPattern not found  (press RETURN)[27m[62;1H[K[K [KESCESC[KOO[KBB[K           file:///usr/share/doc/git/html/howto-index.html[m
+[7m Manual page git(1) line 963/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 964/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K        4. Git API documentation[m
+[7m Manual page git(1) line 965/1031 100% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           file:///usr/share/doc/git/html/technical/api-index.html[m
+[7m Manual page git(1) line 966/1031 100% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 967/1031 100% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K        5. git@vger.kernel.org[m
+[7m Manual page git(1) line 968/1031 100% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           mailto:git@vger.kernel.org[m
+[7m Manual page git(1) line 969/1031 100% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page git(1) line 970/1031 100% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[KGit 2.11.0                                    04/20/2020                                        GIT(1)[m
+[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page git(1) line 971/1031 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       current branch. The attributes (last modified time, size, etc.) are taken from the[m
+[62;1H[K[7m Manual page git(1) line 970/1031 100% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       set of attributes. The blob object represents the contents of the file as of the head of the[m
+[62;1H[K[7m Manual page git(1) line 969/1031 100% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       The index file is initialized with a list of all paths and, for each path, a blob object and a[m
+[62;1H[K[7m Manual page git(1) line 968/1031 100% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 967/1031 100% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       currently checked-out branch.[m
+[62;1H[K[7m Manual page git(1) line 966/1031 100% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       of interest are stored under [1mref/tags/[0m. A special ref named [1mHEAD[0m contains the name of the[m
+[62;1H[K[7m Manual page git(1) line 965/1031 100% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       name of the most recent commit (or "head") of a branch under development. SHA-1 names of tags[m
+[62;1H[K[7m Manual page git(1) line 964/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       of an object or the name of another ref. Refs with names beginning [1mref/head/[0m contain the SHA-1[m
+[62;1H[K[7m Manual page git(1) line 963/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Named pointers called refs mark interesting points in [7mhistory[27m. A ref may contain the SHA-1 name[m
+[62;1H[K[7m Manual page git(1) line 962/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 961/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       compressed together into "pack files".[m
+[62;1H[K[7m Manual page git(1) line 960/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       When first created, objects are stored in individual files, but for efficiency may later be[m
+[62;1H[K[7m Manual page git(1) line 959/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 958/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       purpose.[m
+[62;1H[K[7m Manual page git(1) line 957/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       vouched for by signing just that commit. A fourth object type, the tag, is provided for this[m
+[62;1H[K[7m Manual page git(1) line 956/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       hex digits. Such names are globally unique. The entire [7mhistory[27m leading up to a commit can be[m
+[62;1H[K[7m Manual page git(1) line 955/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       All objects are named by the SHA-1 hash of their contents, normally written as a string of 40[m
+[62;1H[K[7m Manual page git(1) line 954/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 953/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       with more than one parent represent merges of independent lines of development.[m
+[62;1H[K[7m Manual page git(1) line 952/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       in the project’s [7mhistory[27m, and each parent represents an immediately preceding step. Commits[m
+[62;1H[K[7m Manual page git(1) line 951/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       The commit, equivalent to what other systems call a "changeset" or "version", represents a step[m
+[62;1H[K[7m Manual page git(1) line 950/1031 99% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 949/1031 98% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       reference a single tree and some number of parent commits.[m
+[62;1H[K[7m Manual page git(1) line 948/1031 98% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       which point to blobs and other trees to build up directory hierarchies; and commits, which each[m
+[62;1H[K[7m Manual page git(1) line 947/1031 98% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       The object database contains objects of three main types: blobs, which hold file data; trees,[m
+[62;1H[K[7m Manual page git(1) line 946/1031 98% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 945/1031 98% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       branch heads.[m
+[62;1H[K[7m Manual page git(1) line 944/1031 98% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       the current contents of the working tree, and named pointers into that [7mhistory[27m such as tags and[m
+[62;1H[K[7m Manual page git(1) line 943/1031 97% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       representing the complete [7mhistory[27m of the project, an "index" file which links that [7mhistory[27m to[m
+[62;1H[K[7m Manual page git(1) line 942/1031 97% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       level. The .git directory contains, among other things, a compressed object database[m
+[62;1H[K[7m Manual page git(1) line 941/1031 97% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       A Git project normally consists of a working directory with a ".git" subdirectory at the top[m
+[62;1H[K[7m Manual page git(1) line 940/1031 97% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 939/1031 97% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       and [1mgitcore-tutorial[0m(7).[m
+[62;1H[K[7m Manual page git(1) line 938/1031 97% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       More detail on the following is available from the [1mGit[0m [1mconcepts[0m [1mchapter[0m [1mof[0m [1mthe[0m [1muser-manual[0m[2][m
+[62;1H[K[7m Manual page git(1) line 937/1031 97% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mDISCUSSION[0m[m
+[62;1H[K[7m Manual page git(1) line 936/1031 97% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 935/1031 96% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM               [1mgit-remote-hg[0m helper)[m
+[62;1H[K[7m Manual page git(1) line 934/1031 96% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           ·   any external helpers are named by their protocol (e.g., use [1mhg[0m to allow the[m
+[62;1H[K[7m Manual page git(1) line 933/1031 96% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 932/1031 96% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM               [1mhttps[0m; if you want both, you should specify both as [1mhttp:https[0m.[m
+[62;1H[K[7m Manual page git(1) line 931/1031 96% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           ·   [1mhttp[0m: git over http, both "smart http" and "dumb http". Note that this does [4mnot[24m include[m
+[62;1H[K[7m Manual page git(1) line 930/1031 96% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 929/1031 96% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           ·   [1mssh[0m: git over ssh (including [1mhost:path[0m syntax, [1mssh://[0m, etc).[m
+[62;1H[K[7m Manual page git(1) line 928/1031 96% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 927/1031 96% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           ·   [1mgit[0m: the anonymous git protocol over a direct TCP connection (or proxy, if configured)[m
+[62;1H[K[7m Manual page git(1) line 926/1031 96% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 925/1031 95% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           ·   [1mfile[0m: any local file-based path (including [1mfile://[0m URLs, or local paths)[m
+[62;1H[K[7m Manual page git(1) line 924/1031 95% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 923/1031 95% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           The protocol names currently used by git are:[m
+[62;1H[K[7m Manual page git(1) line 922/1031 95% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           whitelist, not a blacklist). If the variable is not set at all, all protocols are enabled.[m
+[62;1H[K[7m Manual page git(1) line 921/1031 95% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           untrusted repository. Any protocol not mentioned will be disallowed (i.e., this is a[m
+[62;1H[K[7m Manual page git(1) line 920/1031 95% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           fetch/push/clone. This is useful to restrict recursive submodule initialization from an[m
+[62;1H[K[7m Manual page git(1) line 919/1031 95% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           If set, provide a colon-separated list of protocols which are allowed to be used with[m
+[62;1H[K[7m Manual page git(1) line 918/1031 94% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_ALLOW_PROTOCOL[0m[m
+[62;1H[K[7m Manual page git(1) line 917/1031 94% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 916/1031 94% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           touched every ref (e.g., because you are cloning a repository to make a backup).[m
+[62;1H[K[7m Manual page git(1) line 915/1031 94% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           to set it yourself unless you want to be paranoid about making sure an operation has[m
+[62;1H[K[7m Manual page git(1) line 914/1031 94% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           automatically when performing destructive operations like [1mgit-prune[0m(1). You should not need[m
+[62;1H[K[7m Manual page git(1) line 913/1031 94% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           detect and abort some operations in the presence of broken refs. Git sets this variable[m
+[62;1H[K[7m Manual page git(1) line 912/1031 94% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           normal, non-corrupted repository, this does nothing. However, enabling it may help git to[m
+[62;1H[K[7m Manual page git(1) line 911/1031 94% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           If set to [1m1[0m, include broken or badly named refs when iterating over lists of refs. In a[m
+[62;1H[K[7m Manual page git(1) line 910/1031 94% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_REF_PARANOIA[0m[m
+[62;1H[K[7m Manual page git(1) line 909/1031 93% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 908/1031 93% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           reflog.[m
+[62;1H[K[7m Manual page git(1) line 907/1031 93% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           is invoked as the top level command by the end user, to be recorded in the body of the[m
+[62;1H[K[7m Manual page git(1) line 906/1031 93% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           set_reflog_action helper function in [1mgit-sh-setup[0m to set its name to this variable when it[m
+[62;1H[K[7m Manual page git(1) line 905/1031 93% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           in addition to the old and new values of the ref. A scripted Porcelain command can use[m
+[62;1H[K[7m Manual page git(1) line 904/1031 93% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           was updated (which is typically the name of the high-level command that updated the ref),[m
+[62;1H[K[7m Manual page git(1) line 903/1031 92% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           When a ref is updated, reflog entries are created to keep track of the reason why the ref[m
+[62;1H[K[7m Manual page git(1) line 902/1031 92% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_REFLOG_ACTION[0m[m
+[62;1H[K[7m Manual page git(1) line 901/1031 92% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 900/1031 92% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Setting this variable to [1m1[0m will cause Git to treat all pathspecs as case-insensitive.[m
+[62;1H[K[7m Manual page git(1) line 899/1031 92% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_ICASE_PATHSPECS[0m[m
+[62;1H[K[7m Manual page git(1) line 898/1031 92% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 897/1031 92% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           magic).[m
+[62;1H[K[7m Manual page git(1) line 896/1031 92% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Setting this variable to [1m1[0m will cause Git to treat all pathspecs as literal (aka "literal"[m
+[62;1H[K[7m Manual page git(1) line 895/1031 92% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_NOGLOB_PATHSPECS[0m[m
+[62;1H[K[7m Manual page git(1) line 894/1031 91% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 893/1031 91% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           "glob" magic).[m
+[62;1H[K[7m Manual page git(1) line 892/1031 91% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Setting this variable to [1m1[0m will cause Git to treat all pathspecs as glob patterns (aka[m
+[62;1H[K[7m Manual page git(1) line 891/1031 91% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_GLOB_PATHSPECS[0m[m
+[62;1H[K[7m Manual page git(1) line 890/1031 91% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 889/1031 91% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           [1mgit[0m [1mls-tree[0m, [1m--raw[0m diff output, etc).[m
+[62;1H[K[7m Manual page git(1) line 888/1031 91% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           want this if you are feeding literal paths to Git (e.g., paths previously given to you by[m
+[62;1H[K[7m Manual page git(1) line 887/1031 90% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           for commits that touch the path [1m*.c[0m, not any paths that the glob [1m*.c[0m matches. You might[m
+[62;1H[K[7m Manual page git(1) line 886/1031 90% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           glob patterns. For example, running [1mGIT_LITERAL_PATHSPECS=1[0m [1mgit[0m [1mlog[0m [1m--[0m [1m'*.c'[0m will search[m
+[62;1H[K[7m Manual page git(1) line 885/1031 90% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Setting this variable to [1m1[0m will cause Git to treat all pathspecs literally, rather than as[m
+[62;1H[K[7m Manual page git(1) line 884/1031 90% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_LITERAL_PATHSPECS[0m[m
+[62;1H[K[7m Manual page git(1) line 883/1031 90% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 882/1031 90% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           See [1mGIT_TRACE[0m for available trace output options.[m
+[62;1H[K[7m Manual page git(1) line 881/1031 90% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           the command line. This option overrides setting the [1mGIT_CURL_VERBOSE[0m environment variable.[m
+[62;1H[K[7m Manual page git(1) line 880/1031 89% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           information, of the git transport protocol. This is similar to doing curl [1m--trace-ascii[0m on[m
+[62;1H[K[7m Manual page git(1) line 879/1031 89% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Enables a curl full trace dump of all incoming and outgoing data, including descriptive[m
+[62;1H[K[7m Manual page git(1) line 878/1031 89% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_TRACE_CURL[0m[m
+[62;1H[K[7m Manual page git(1) line 877/1031 89% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 876/1031 89% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           See [1mGIT_TRACE[0m for available trace output options.[m
+[62;1H[K[7m Manual page git(1) line 875/1031 89% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Enables trace messages that can help debugging fetching / cloning of shallow repositories.[m
+[62;1H[K[7m Manual page git(1) line 874/1031 89% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_TRACE_SHALLOW[0m[m
+[62;1H[K[7m Manual page git(1) line 873/1031 89% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 872/1031 88% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Git has completed its setup phase. See [1mGIT_TRACE[0m for available trace output options.[m
+[62;1H[K[7m Manual page git(1) line 871/1031 88% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Enables trace messages printing the .git, working tree and current working directory after[m
+[62;1H[K[7m Manual page git(1) line 870/1031 88% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_TRACE_SETUP[0m[m
+[62;1H[K[7m Manual page git(1) line 869/1031 88% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 868/1031 88% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           See [1mGIT_TRACE[0m for available trace output options.[m
+[62;1H[K[7m Manual page git(1) line 867/1031 88% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Enables performance related trace messages, e.g. total execution time of each Git command.[m
+[62;1H[K[7m Manual page git(1) line 866/1031 88% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_TRACE_PERFORMANCE[0m[m
+[62;1H[K[7m Manual page git(1) line 865/1031 88% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 864/1031 88% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Note that this is currently only implemented for the client side of clones and fetches.[m
+[62;1H[K[7m Manual page git(1) line 863/1031 87% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 862/1031 87% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           displaying it on the terminal or mixing it with other trace output.[m
+[62;1H[K[7m Manual page git(1) line 861/1031 87% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           certainly want to direct into a file (e.g., [1mGIT_TRACE_PACKFILE=/tmp/my.pack[0m) rather than[m
+[62;1H[K[7m Manual page git(1) line 860/1031 87% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           output, this trace is verbatim: no headers, and no quoting of binary data. You almost[m
+[62;1H[K[7m Manual page git(1) line 859/1031 87% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Enables tracing of packfiles sent or received by a given program. Unlike other trace[m
+[62;1H[K[7m Manual page git(1) line 858/1031 87% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_TRACE_PACKFILE[0m[m
+[62;1H[K[7m Manual page git(1) line 857/1031 86% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 856/1031 86% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           trace output options.[m
+[62;1H[K[7m Manual page git(1) line 855/1031 86% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           packet starting with "PACK" (but see [1mGIT_TRACE_PACKFILE[0m below). See [1mGIT_TRACE[0m for available[m
+[62;1H[K[7m Manual page git(1) line 854/1031 86% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           with debugging object negotiation or other protocol issues. Tracing is turned off at a[m
+[62;1H[K[7m Manual page git(1) line 853/1031 86% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Enables trace messages for all packets coming in or out of a given program. This can help[m
+[62;1H[K[7m Manual page git(1) line 852/1031 86% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_TRACE_PACKET[0m[m
+[62;1H[K[7m Manual page git(1) line 851/1031 86% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 850/1031 85% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           pack-related performance problems. See [1mGIT_TRACE[0m for available trace output options.[m
+[62;1H[K[7m Manual page git(1) line 849/1031 85% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           and an offset in the pack is recorded. This may be helpful for troubleshooting some[m
+[62;1H[K[7m Manual page git(1) line 848/1031 85% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Enables trace messages for all accesses to any packs. For each access, the pack file name[m
+[62;1H[K[7m Manual page git(1) line 847/1031 85% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_TRACE_PACK_ACCESS[0m[m
+[62;1H[K[7m Manual page git(1) line 846/1031 85% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 845/1031 85% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           trace messages.[m
+[62;1H[K[7m Manual page git(1) line 844/1031 85% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Unsetting the variable, or setting it to empty, "0" or "false" (case insensitive) disables[m
+[62;1H[K[7m Manual page git(1) line 843/1031 84% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 842/1031 84% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Git will interpret this as a file path and will try to write the trace messages into it.[m
+[62;1H[K[7m Manual page git(1) line 841/1031 84% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Alternatively, if the variable is set to an absolute path (starting with a [4m/[24m character),[m
+[62;1H[K[7m Manual page git(1) line 840/1031 84% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 839/1031 84% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           messages into this file descriptor.[m
+[62;1H[K[7m Manual page git(1) line 838/1031 84% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Git will interpret this value as an open file descriptor and will try to write the trace[m
+[62;1H[K[7m Manual page git(1) line 837/1031 84% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           If the variable is set to an integer value greater than 2 and lower than 10 (strictly) then[m
+[62;1H[K[7m Manual page git(1) line 836/1031 84% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 835/1031 83% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           messages will be printed to stderr.[m
+[62;1H[K[7m Manual page git(1) line 834/1031 83% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           If this variable is set to "1", "2" or "true" (comparison is case insensitive), trace[m
+[62;1H[K[7m Manual page git(1) line 833/1031 83% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 832/1031 83% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           external command execution.[m
+[62;1H[K[7m Manual page git(1) line 831/1031 83% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Enables general trace messages, e.g. alias expansion, built-in command execution and[m
+[62;1H[K[7m Manual page git(1) line 830/1031 83% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_TRACE[0m[m
+[62;1H[K[7m Manual page git(1) line 829/1031 83% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 828/1031 83% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           stdout appears to be redirected to a file or not.[m
+[62;1H[K[7m Manual page git(1) line 827/1031 83% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           variable is not set, Git will choose buffered or record-oriented flushing based on whether[m
+[62;1H[K[7m Manual page git(1) line 826/1031 82% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           output of these commands will be done using completely buffered I/O. If this environment[m
+[62;1H[K[7m Manual page git(1) line 825/1031 82% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           output stream after each record have been flushed. If this variable is set to "0", the[m
+[62;1H[K[7m Manual page git(1) line 824/1031 82% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           mode), [4mgit[24m [4mrev-list[24m, [4mgit[24m [4mlog[24m, [4mgit[24m [4mcheck-attr[24m and [4mgit[24m [4mcheck-ignore[24m will force a flush of the[m
+[62;1H[K[7m Manual page git(1) line 823/1031 82% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           If this environment variable is set to "1", then commands such as [4mgit[24m [4mblame[24m (in incremental[m
+[62;1H[K[7m Manual page git(1) line 822/1031 82% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_FLUSH[0m[m
+[62;1H[K[7m Manual page git(1) line 821/1031 82% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 820/1031 81% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           buggy [1m/etc/gitconfig[0m file while waiting for someone with sufficient permissions to fix it.[m
+[62;1H[K[7m Manual page git(1) line 819/1031 81% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           predictable environment for a picky script, or you can set it temporarily to avoid using a[m
+[62;1H[K[7m Manual page git(1) line 818/1031 81% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           environment variable can be used along with [1m$HOME[0m and [1m$XDG_CONFIG_HOME[0m to create a[m
+[62;1H[K[7m Manual page git(1) line 817/1031 81% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Whether to skip reading settings from the system-wide [1m$(prefix)/etc/gitconfig[0m file. This[m
+[62;1H[K[7m Manual page git(1) line 816/1031 81% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_CONFIG_NOSYSTEM[0m[m
+[62;1H[K[7m Manual page git(1) line 815/1031 81% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 814/1031 80% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           asking for HTTP authentication).[m
+[62;1H[K[7m Manual page git(1) line 813/1031 80% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           If this environment variable is set to [1m0[0m, git will not prompt on the terminal (e.g., when[m
+[62;1H[K[7m Manual page git(1) line 812/1031 80% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_TERMINAL_PROMPT[0m[m
+[62;1H[K[7m Manual page git(1) line 811/1031 80% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 810/1031 80% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           [1mcore.askPass[0m option in [1mgit-config[0m(1).[m
+[62;1H[K[7m Manual page git(1) line 809/1031 80% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           prompt as command-line argument and read the password from its STDOUT. See also the[m
+[62;1H[K[7m Manual page git(1) line 808/1031 80% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           passphrases (e.g. for HTTP or IMAP authentication) will call this program with a suitable[m
+[62;1H[K[7m Manual page git(1) line 807/1031 80% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           If this environment variable is set, then Git commands which need to acquire passwords or[m
+[62;1H[K[7m Manual page git(1) line 806/1031 79% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_ASKPASS[0m[m
+[62;1H[K[7m Manual page git(1) line 805/1031 79% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 804/1031 79% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           file. Please consult your ssh documentation for further details.[m
+[62;1H[K[7m Manual page git(1) line 803/1031 79% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Usually it is easier to configure any desired options through your personal [1m.ssh/config[0m[m
+[62;1H[K[7m Manual page git(1) line 802/1031 79% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 801/1031 79% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           needed).[m
+[62;1H[K[7m Manual page git(1) line 800/1031 79% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           path to a program (which can be a wrapper shell script, if additional arguments are[m
+[62;1H[K[7m Manual page git(1) line 799/1031 78% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           allows additional arguments to be included.  [1m$GIT_SSH[0m on the other hand must be just the[m
+[62;1H[K[7m Manual page git(1) line 798/1031 78% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           [1m$GIT_SSH_COMMAND[0m takes precedence over [1m$GIT_SSH[0m, and is interpreted by the shell, which[m
+[62;1H[K[7m Manual page git(1) line 797/1031 78% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 796/1031 78% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           SSH port.[m
+[62;1H[K[7m Manual page git(1) line 795/1031 78% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           (literally) and the [4mport[24m from the URL when it specifies something other than the default[m
+[62;1H[K[7m Manual page git(1) line 794/1031 78% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           and the shell command to execute on that remote system, optionally preceded by [1m-p[0m[m
+[62;1H[K[7m Manual page git(1) line 793/1031 78% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           will be given exactly two or four arguments: the [4musername@host[24m (or just [4mhost[24m) from the URL[m
+[62;1H[K[7m Manual page git(1) line 792/1031 77% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           specified command instead of [4mssh[24m when they need to connect to a remote system. The command[m
+[62;1H[K[7m Manual page git(1) line 791/1031 77% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           If either of these environment variables is set then [4mgit[24m [4mfetch[24m and [4mgit[24m [4mpush[24m will use the[m
+[62;1H[K[7m Manual page git(1) line 790/1031 77% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_SSH[0m, [1mGIT_SSH_COMMAND[0m[m
+[62;1H[K[7m Manual page git(1) line 789/1031 77% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 788/1031 77% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           [1mcore.editor[0m option in [1mgit-config[0m(1).[m
+[62;1H[K[7m Manual page git(1) line 787/1031 77% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           when, on interactive mode, an editor is to be launched. See also [1mgit-var[0m(1) and the[m
+[62;1H[K[7m Manual page git(1) line 786/1031 76% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           This environment variable overrides [1m$EDITOR[0m and [1m$VISUAL[0m. It is used by several Git commands[m
+[62;1H[K[7m Manual page git(1) line 785/1031 76% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_EDITOR[0m[m
+[62;1H[K[7m Manual page git(1) line 784/1031 76% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 783/1031 76% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           "cat", Git will not launch a pager. See also the [1mcore.pager[0m option in [1mgit-config[0m(1).[m
+[62;1H[K[7m Manual page git(1) line 782/1031 76% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           This environment variable overrides [1m$PAGER[0m. If it is set to an empty string or to the value[m
+[62;1H[K[7m Manual page git(1) line 781/1031 76% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_PAGER[0m[m
+[62;1H[K[7m Manual page git(1) line 780/1031 76% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 779/1031 76% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           merge.verbosity. See [1mgit-merge[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 778/1031 76% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           A number controlling the amount of output shown by the recursive merge strategy. Overrides[m
+[62;1H[K[7m Manual page git(1) line 777/1031 76% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_MERGE_VERBOSITY[0m[m
+[62;1H[K[7m Manual page git(1) line 776/1031 75% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM   [1mother[0m[m
+[62;1H[K[7m Manual page git(1) line 775/1031 75% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 774/1031 75% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           The total number of paths.[m
+[62;1H[K[7m Manual page git(1) line 773/1031 75% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_DIFF_PATH_TOTAL[0m[m
+[62;1H[K[7m Manual page git(1) line 772/1031 75% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 771/1031 75% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           A 1-based counter incremented by one for every path.[m
+[62;1H[K[7m Manual page git(1) line 770/1031 75% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_DIFF_PATH_COUNTER[0m[m
+[62;1H[K[7m Manual page git(1) line 769/1031 75% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 768/1031 75% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           and [1mGIT_DIFF_PATH_TOTAL[0m are set.[m
+[62;1H[K[7m Manual page git(1) line 767/1031 75% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           For each path [1mGIT_EXTERNAL_DIFF[0m is called, two environment variables, [1mGIT_DIFF_PATH_COUNTER[0m[m
+[62;1H[K[7m Manual page git(1) line 766/1031 74% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 765/1031 74% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           For a path that is unmerged, [1mGIT_EXTERNAL_DIFF[0m is called with 1 parameter, <path>.[m
+[62;1H[K[7m Manual page git(1) line 764/1031 74% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 763/1031 74% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           temporary file --- it is removed when [1mGIT_EXTERNAL_DIFF[0m exits.[m
+[62;1H[K[7m Manual page git(1) line 762/1031 74% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           (e.g.  [1mold-file[0m in the index).  [1mGIT_EXTERNAL_DIFF[0m should not worry about unlinking the[m
+[62;1H[K[7m Manual page git(1) line 761/1031 73% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           "git-diff-files"), [1m/dev/null[0m (e.g.  [1mold-file[0m when a new file is added), or a temporary file[m
+[62;1H[K[7m Manual page git(1) line 760/1031 73% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           The file parameters can point at the user’s working file (e.g.  [1mnew-file[0m in[m
+[62;1H[K[7m Manual page git(1) line 759/1031 73% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 758/1031 73% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           are the octal representation of the file modes.[m
+[62;1H[K[7m Manual page git(1) line 757/1031 73% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       <old|new>-mode[m
+[62;1H[K[7m Manual page git(1) line 756/1031 73% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 755/1031 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           are the 40-hexdigit SHA-1 hashes,[m
+[62;1H[K[7m Manual page git(1) line 754/1031 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       <old|new>-hex[m
+[62;1H[K[7m Manual page git(1) line 753/1031 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 752/1031 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           are files GIT_EXTERNAL_DIFF can use to read the contents of <old|new>,[m
+[62;1H[K[7m Manual page git(1) line 751/1031 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       <old|new>-file[m
+[62;1H[K[7m Manual page git(1) line 750/1031 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 749/1031 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           where:[m
+[62;1H[K[7m Manual page git(1) line 748/1031 71% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 747/1031 71% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM               path old-file old-hex old-mode new-file new-hex new-mode[m
+[62;1H[K[7m Manual page git(1) line 746/1031 71% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 745/1031 71% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           modified, [1mGIT_EXTERNAL_DIFF[0m is called with 7 parameters:[m
+[62;1H[K[7m Manual page git(1) line 744/1031 71% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           instead of the diff invocation described above. For a path that is added, removed, or[m
+[62;1H[K[7m Manual page git(1) line 743/1031 71% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           When the environment variable [1mGIT_EXTERNAL_DIFF[0m is set, the program named by it is called,[m
+[62;1H[K[7m Manual page git(1) line 742/1031 71% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_EXTERNAL_DIFF[0m[m
+[62;1H[K[7m Manual page git(1) line 741/1031 70% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 740/1031 70% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           value passed on the Git diff command line.[m
+[62;1H[K[7m Manual page git(1) line 739/1031 70% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           when a unified diff is created. This takes precedence over any "-U" or "--unified" option[m
+[62;1H[K[7m Manual page git(1) line 738/1031 70% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Only valid setting is "--unified=??" or "-u??" to set the number of context lines shown[m
+[62;1H[K[7m Manual page git(1) line 737/1031 70% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_DIFF_OPTS[0m[m
+[62;1H[K[7m Manual page git(1) line 736/1031 70% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM   [1mGit[0m [1mDiffs[0m[m
+[62;1H[K[7m Manual page git(1) line 735/1031 70% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 734/1031 70% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           see [1mgit-commit-tree[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 733/1031 69% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_COMMITTER_DATE[0m, [4mEMAIL[24m[m
+[62;1H[K[7m Manual page git(1) line 732/1031 69% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_AUTHOR_NAME[0m, [1mGIT_AUTHOR_EMAIL[0m, [1mGIT_AUTHOR_DATE[0m, [1mGIT_COMMITTER_NAME[0m, [1mGIT_COMMITTER_EMAIL[0m,[m
+[62;1H[K[7m Manual page git(1) line 731/1031 69% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM   [1mGit[0m [1mCommits[0m[m
+[62;1H[K[7m Manual page git(1) line 730/1031 69% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 729/1031 69% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           lower precedence than other path variables such as GIT_INDEX_FILE, GIT_OBJECT_DIRECTORY...[m
+[62;1H[K[7m Manual page git(1) line 728/1031 68% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           $GIT_DIR. See [1mgitrepository-layout[0m(5) and [1mgit-worktree[0m(1) for details. This variable has[m
+[62;1H[K[7m Manual page git(1) line 727/1031 68% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           taken from this path instead. Worktree-specific files such as HEAD or index are taken from[m
+[62;1H[K[7m Manual page git(1) line 726/1031 68% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           If this variable is set to a path, non-worktree files that are normally in $GIT_DIR will be[m
+[62;1H[K[7m Manual page git(1) line 725/1031 68% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_COMMON_DIR[0m[m
+[62;1H[K[7m Manual page git(1) line 724/1031 68% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 723/1031 68% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           will not affect an explicit repository directory set via [1mGIT_DIR[0m or on the command line.[m
+[62;1H[K[7m Manual page git(1) line 722/1031 68% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           true to tell Git not to stop at filesystem boundaries. Like [1mGIT_CEILING_DIRECTORIES[0m, this[m
+[62;1H[K[7m Manual page git(1) line 721/1031 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           default it does not cross filesystem boundaries. This environment variable can be set to[m
+[62;1H[K[7m Manual page git(1) line 720/1031 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           such a directory in the parent directories to find the top of the working tree, but by[m
+[62;1H[K[7m Manual page git(1) line 719/1031 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           When run in a directory that does not have ".git" repository directory, Git tries to find[m
+[62;1H[K[7m Manual page git(1) line 718/1031 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_DISCOVERY_ACROSS_FILESYSTEM[0m[m
+[62;1H[K[7m Manual page git(1) line 717/1031 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 716/1031 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           needn’t be resolved; e.g., [1mGIT_CEILING_DIRECTORIES=/maybe/symlink::/very/slow/non/symlink[0m.[m
+[62;1H[K[7m Manual page git(1) line 715/1031 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           add an empty entry to the list to tell Git that the subsequent entries are not symlinks and[m
+[62;1H[K[7m Manual page git(1) line 714/1031 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           to compare them with the current directory. However, if even this access is slow, you can[m
+[62;1H[K[7m Manual page git(1) line 713/1031 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           has to read the entries in this list and resolve any symlink that might be present in order[m
+[62;1H[K[7m Manual page git(1) line 712/1031 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           working directory or a GIT_DIR set on the command line or in the environment. Normally, Git[m
+[62;1H[K[7m Manual page git(1) line 711/1031 66% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           (useful for excluding slow-loading network directories). It will not exclude the current[m
+[62;1H[K[7m Manual page git(1) line 710/1031 66% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           directories that Git should not chdir up into while looking for a repository directory[m
+[62;1H[K[7m Manual page git(1) line 709/1031 66% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           This should be a colon-separated list of absolute paths. If set, it is a list of[m
+[62;1H[K[7m Manual page git(1) line 708/1031 66% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_CEILING_DIRECTORIES[0m[m
+[62;1H[K[7m Manual page git(1) line 707/1031 66% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 706/1031 66% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           option also sets this value.[m
+[62;1H[K[7m Manual page git(1) line 705/1031 66% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Set the Git namespace; see [1mgitnamespaces[0m(7) for details. The [1m--namespace[0m command-line[m
+[62;1H[K[7m Manual page git(1) line 704/1031 66% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_NAMESPACE[0m[m
+[62;1H[K[7m Manual page git(1) line 703/1031 65% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 702/1031 65% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           [1m--work-tree[0m command-line option and the core.worktree configuration variable.[m
+[62;1H[K[7m Manual page git(1) line 701/1031 65% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Set the path to the root of the working tree. This can also be controlled by the[m
+[62;1H[K[7m Manual page git(1) line 700/1031 65% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_WORK_TREE[0m[m
+[62;1H[K[7m Manual page git(1) line 699/1031 65% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 698/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           this value.[m
+[62;1H[K[7m Manual page git(1) line 697/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           default [1m.git[0m for the base of the repository. The [1m--git-dir[0m command-line option also sets[m
+[62;1H[K[7m Manual page git(1) line 696/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           If the [1mGIT_DIR[0m environment variable is set then it specifies a path to use instead of the[m
+[62;1H[K[7m Manual page git(1) line 695/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_DIR[0m[m
+[62;1H[K[7m Manual page git(1) line 694/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 693/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           will not be written to these directories.[m
+[62;1H[K[7m Manual page git(1) line 692/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           list of Git object directories which can be used to search for Git objects. New objects[m
+[62;1H[K[7m Manual page git(1) line 691/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           read-only directories. This variable specifies a ":" separated (on Windows ";" separated)[m
+[62;1H[K[7m Manual page git(1) line 690/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Due to the immutable nature of Git objects, old objects can be archived into shared,[m
+[62;1H[K[7m Manual page git(1) line 689/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_ALTERNATE_OBJECT_DIRECTORIES[0m[m
+[62;1H[K[7m Manual page git(1) line 688/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 687/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           used.[m
+[62;1H[K[7m Manual page git(1) line 686/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           directories are created underneath - otherwise the default [1m$GIT_DIR/objects[0m directory is[m
+[62;1H[K[7m Manual page git(1) line 685/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           If the object storage directory is specified via this environment variable then the sha1[m
+[62;1H[K[7m Manual page git(1) line 684/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_OBJECT_DIRECTORY[0m[m
+[62;1H[K[7m Manual page git(1) line 683/1031 64% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 682/1031 63% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           used. See [1mgit-update-index[0m(1) for more information.[m
+[62;1H[K[7m Manual page git(1) line 681/1031 63% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           repositories. It won’t affect existing index files. By default index file version 2 or 3 is[m
+[62;1H[K[7m Manual page git(1) line 680/1031 63% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           This environment variable allows the specification of an index version for new[m
+[62;1H[K[7m Manual page git(1) line 679/1031 63% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_INDEX_VERSION[0m[m
+[62;1H[K[7m Manual page git(1) line 678/1031 63% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 677/1031 63% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           default of [1m$GIT_DIR/index[0m is used.[m
+[62;1H[K[7m Manual page git(1) line 676/1031 63% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           This environment allows the specification of an alternate index file. If not specified, the[m
+[62;1H[K[7m Manual page git(1) line 675/1031 62% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mGIT_INDEX_FILE[0m[m
+[62;1H[K[7m Manual page git(1) line 674/1031 62% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 673/1031 62% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       may be used/overridden by SCMS sitting above Git so take care if using a foreign front-end.[m
+[62;1H[K[7m Manual page git(1) line 672/1031 62% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       These environment variables apply to [4mall[24m core Git commands. Nb: it is worth noting that they[m
+[62;1H[K[7m Manual page git(1) line 671/1031 62% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM   [1mThe[0m [1mGit[0m [1mRepository[0m[m
+[62;1H[K[7m Manual page git(1) line 670/1031 62% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 669/1031 62% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Various Git commands use the following environment variables:[m
+[62;1H[K[7m Manual page git(1) line 668/1031 62% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mENVIRONMENT[0m [1mVARIABLES[0m[m
+[62;1H[K[7m Manual page git(1) line 667/1031 61% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 666/1031 61% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Please see [1mgitglossary[0m(7).[m
+[62;1H[K[7m Manual page git(1) line 665/1031 61% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mTERMINOLOGY[0m[m
+[62;1H[K[7m Manual page git(1) line 664/1031 61% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 663/1031 61% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Higher level SCMs may provide and manage additional information in the [1m$GIT_DIR[0m.[m
+[62;1H[K[7m Manual page git(1) line 662/1031 61% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 661/1031 60% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Read [1mgithooks[0m(5) for more details about each hook.[m
+[62;1H[K[7m Manual page git(1) line 660/1031 60% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 659/1031 60% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Please see the [1mgitrepository-layout[0m(5) document.[m
+[62;1H[K[7m Manual page git(1) line 658/1031 60% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mFILE/DIRECTORY[0m [1mSTRUCTURE[0m[m
+[62;1H[K[7m Manual page git(1) line 657/1031 59% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 656/1031 59% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgitrevisions[0m(7).[m
+[62;1H[K[7m Manual page git(1) line 655/1031 59% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       For a more complete list of ways to spell object names, see "SPECIFYING REVISIONS" section in[m
+[62;1H[K[7m Manual page git(1) line 654/1031 59% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 653/1031 59% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           a valid head [4mname[24m (i.e. a [1mrefs/heads/<head>[0m reference).[m
+[62;1H[K[7m Manual page git(1) line 652/1031 58% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       <head>[m
+[62;1H[K[7m Manual page git(1) line 651/1031 58% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 650/1031 58% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           a valid tag [4mname[24m (i.e. a [1mrefs/tags/<tag>[0m reference).[m
+[62;1H[K[7m Manual page git(1) line 649/1031 58% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       <tag>[m
+[62;1H[K[7m Manual page git(1) line 648/1031 58% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 647/1031 57% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           indicates the head of the current branch.[m
+[62;1H[K[7m Manual page git(1) line 646/1031 57% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       HEAD[m
+[62;1H[K[7m Manual page git(1) line 645/1031 57% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 644/1031 57% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Any Git command accepting any <object> can also use the following symbolic notation:[m
+[62;1H[K[7m Manual page git(1) line 643/1031 57% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mSYMBOLIC[0m [1mIDENTIFIERS[0m[m
+[62;1H[K[7m Manual page git(1) line 642/1031 57% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 641/1031 57% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           [1mGIT_INDEX_FILE[0m describes.[m
+[62;1H[K[7m Manual page git(1) line 640/1031 57% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Indicates a filename - almost always relative to the root of the tree structure[m
+[62;1H[K[7m Manual page git(1) line 639/1031 56% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       <file>[m
+[62;1H[K[7m Manual page git(1) line 638/1031 56% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 637/1031 56% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Indicates that an object type is required. Currently one of: [1mblob[0m, [1mtree[0m, [1mcommit[0m, or [1mtag[0m.[m
+[62;1H[K[7m Manual page git(1) line 636/1031 56% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       <type>[m
+[62;1H[K[7m Manual page git(1) line 635/1031 56% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 634/1031 56% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           objects that point at a <commit>.[m
+[62;1H[K[7m Manual page git(1) line 633/1031 56% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           ultimately wants to operate on a <commit> object but automatically dereferences <tag>[m
+[62;1H[K[7m Manual page git(1) line 632/1031 56% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Indicates a commit or tag object name. A command that takes a <commit-ish> argument[m
+[62;1H[K[7m Manual page git(1) line 631/1031 56% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       <commit-ish>[m
+[62;1H[K[7m Manual page git(1) line 630/1031 55% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 629/1031 55% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           <tag> objects that point at a <tree>.[m
+[62;1H[K[7m Manual page git(1) line 628/1031 55% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           ultimately wants to operate on a <tree> object but automatically dereferences <commit> and[m
+[62;1H[K[7m Manual page git(1) line 627/1031 55% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Indicates a tree, commit or tag object name. A command that takes a <tree-ish> argument[m
+[62;1H[K[7m Manual page git(1) line 626/1031 55% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       <tree-ish>[m
+[62;1H[K[7m Manual page git(1) line 625/1031 55% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 624/1031 55% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Indicates a commit object name.[m
+[62;1H[K[7m Manual page git(1) line 623/1031 54% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       <commit>[m
+[62;1H[K[7m Manual page git(1) line 622/1031 54% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 621/1031 54% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Indicates a tree object name.[m
+[62;1H[K[7m Manual page git(1) line 620/1031 54% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       <tree>[m
+[62;1H[K[7m Manual page git(1) line 619/1031 54% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 618/1031 54% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Indicates a blob object name.[m
+[62;1H[K[7m Manual page git(1) line 617/1031 54% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       <blob>[m
+[62;1H[K[7m Manual page git(1) line 616/1031 54% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 615/1031 53% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Indicates the object name for any type of object.[m
+[62;1H[K[7m Manual page git(1) line 614/1031 53% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       <object>[m
+[62;1H[K[7m Manual page git(1) line 613/1031 53% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mIDENTIFIER[0m [1mTERMINOLOGY[0m[m
+[62;1H[K[7m Manual page git(1) line 612/1031 53% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 611/1031 53% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-config[0m(1) for a list and more details about the configuration mechanism.[m
+[62;1H[K[7m Manual page git(1) line 610/1031 53% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Various commands read from the configuration file and adjust their operation accordingly. See[m
+[62;1H[K[7m Manual page git(1) line 609/1031 53% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 608/1031 53% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM                   email = "gitster@pobox.com"[m
+[62;1H[K[7m Manual page git(1) line 607/1031 53% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM                   name = "Junio C Hamano"[m
+[62;1H[K[7m Manual page git(1) line 606/1031 52% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           [user][m
+[62;1H[K[7m Manual page git(1) line 605/1031 52% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           ; user identity[m
+[62;1H[K[7m Manual page git(1) line 604/1031 52% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 603/1031 52% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM                   filemode = false[m
+[62;1H[K[7m Manual page git(1) line 602/1031 52% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM                   ; Don't trust file modes[m
+[62;1H[K[7m Manual page git(1) line 601/1031 52% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           [core][m
+[62;1H[K[7m Manual page git(1) line 600/1031 52% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           ; core variables[m
+[62;1H[K[7m Manual page git(1) line 599/1031 52% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 598/1031 52% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           #[m
+[62;1H[K[7m Manual page git(1) line 597/1031 52% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           # A '#' or ';' character indicates a comment.[m
+[62;1H[K[7m Manual page git(1) line 596/1031 52% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           #[m
+[62;1H[K[7m Manual page git(1) line 595/1031 52% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 594/1031 51% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Such a configuration file may look like this:[m
+[62;1H[K[7m Manual page git(1) line 593/1031 51% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Git uses a simple text format to store customizations that are per repository and are per user.[m
+[62;1H[K[7m Manual page git(1) line 592/1031 51% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mCONFIGURATION[0m [1mMECHANISM[0m[m
+[62;1H[K[7m Manual page git(1) line 591/1031 51% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 590/1031 51% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Remove unnecessary whitespace.[m
+[62;1H[K[7m Manual page git(1) line 589/1031 51% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-stripspace[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 588/1031 51% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 587/1031 51% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Common Git shell script setup code.[m
+[62;1H[K[7m Manual page git(1) line 586/1031 51% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-sh-setup[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 585/1031 51% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 584/1031 51% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Git’s i18n setup code for shell scripts.[m
+[62;1H[K[7m Manual page git(1) line 583/1031 51% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-sh-i18n[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 582/1031 50% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 581/1031 50% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Compute unique ID for a patch.[m
+[62;1H[K[7m Manual page git(1) line 580/1031 50% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-patch-id[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 579/1031 50% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 578/1031 50% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           The standard helper program to use with git-merge-index.[m
+[62;1H[K[7m Manual page git(1) line 577/1031 50% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-merge-one-file[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 576/1031 50% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 575/1031 50% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Simple UNIX mbox splitter program.[m
+[62;1H[K[7m Manual page git(1) line 574/1031 50% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-mailsplit[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 573/1031 50% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 572/1031 50% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Extracts patch and authorship from a single e-mail message.[m
+[62;1H[K[7m Manual page git(1) line 571/1031 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-mailinfo[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 570/1031 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 569/1031 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           help add structured information into commit messages.[m
+[62;1H[K[7m Manual page git(1) line 568/1031 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-interpret-trailers[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 567/1031 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 566/1031 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Produce a merge commit message.[m
+[62;1H[K[7m Manual page git(1) line 565/1031 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-fmt-merge-msg[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 564/1031 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 563/1031 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Helper to store credentials on disk.[m
+[62;1H[K[7m Manual page git(1) line 562/1031 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-credential-store[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 561/1031 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 560/1031 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Helper to temporarily store passwords in memory.[m
+[62;1H[K[7m Manual page git(1) line 559/1031 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-credential-cache[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 558/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 557/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Retrieve and store user credentials.[m
+[62;1H[K[7m Manual page git(1) line 556/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-credential[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 555/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 554/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Display data in columns.[m
+[62;1H[K[7m Manual page git(1) line 553/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-column[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 552/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 551/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Ensures that a reference name is well formed.[m
+[62;1H[K[7m Manual page git(1) line 550/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-check-ref-format[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 549/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 548/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Show canonical names and email addresses of contacts.[m
+[62;1H[K[7m Manual page git(1) line 547/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-check-mailmap[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 546/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 545/1031 48% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Debug gitignore / exclude files.[m
+[62;1H[K[7m Manual page git(1) line 544/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-check-ignore[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 543/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 542/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Display gitattributes information.[m
+[62;1H[K[7m Manual page git(1) line 541/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-check-attr[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 540/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 539/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       directly.[m
+[62;1H[K[7m Manual page git(1) line 538/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       These are internal helper commands used by other commands; end users typically do not use them[m
+[62;1H[K[7m Manual page git(1) line 537/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM   [1mInternal[0m [1mhelper[0m [1mcommands[0m[m
+[62;1H[K[7m Manual page git(1) line 536/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 535/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Send objects packed back to git-fetch-pack.[m
+[62;1H[K[7m Manual page git(1) line 534/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-upload-pack[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 533/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 532/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Send archive back to git-archive.[m
+[62;1H[K[7m Manual page git(1) line 531/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-upload-archive[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 530/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 529/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Restricted login shell for Git-only SSH access.[m
+[62;1H[K[7m Manual page git(1) line 528/1031 47% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-shell[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 527/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 526/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Receive what is pushed into the repository.[m
+[62;1H[K[7m Manual page git(1) line 525/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-receive-pack[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 524/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 523/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Routines to help parsing remote repository access parameters.[m
+[62;1H[K[7m Manual page git(1) line 522/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-parse-remote[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 521/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 520/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Push objects over HTTP/DAV to another repository.[m
+[62;1H[K[7m Manual page git(1) line 519/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-http-push[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 518/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 517/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Download from a remote Git repository via HTTP.[m
+[62;1H[K[7m Manual page git(1) line 516/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-http-fetch[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 515/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 514/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       directly.[m
+[62;1H[K[7m Manual page git(1) line 513/1031 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       The following are helper commands used by the above; end users typically do not use them[m
+[62;1H[K[7m Manual page git(1) line 512/1031 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 511/1031 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Update auxiliary info file to help dumb servers.[m
+[62;1H[K[7m Manual page git(1) line 510/1031 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-update-server-info[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 509/1031 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 508/1031 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Push objects over Git protocol to another repository.[m
+[62;1H[K[7m Manual page git(1) line 507/1031 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-send-pack[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 506/1031 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 505/1031 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Server side implementation of Git over HTTP.[m
+[62;1H[K[7m Manual page git(1) line 504/1031 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-http-backend[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 503/1031 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 502/1031 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Receive missing objects from another repository.[m
+[62;1H[K[7m Manual page git(1) line 501/1031 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-fetch-pack[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 500/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 499/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           A really simple server for Git repositories.[m
+[62;1H[K[7m Manual page git(1) line 498/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-daemon[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 497/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM   [1mSynching[0m [1mrepositories[0m[m
+[62;1H[K[7m Manual page git(1) line 496/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 495/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       In general, the interrogate commands do not touch the files in the working tree.[m
+[62;1H[K[7m Manual page git(1) line 494/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 493/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Validate packed Git archive files.[m
+[62;1H[K[7m Manual page git(1) line 492/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-verify-pack[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 491/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 490/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Show a Git logical variable.[m
+[62;1H[K[7m Manual page git(1) line 489/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-var[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 488/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 487/1031 44% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Creates a temporary file with a blob’s contents.[m
+[62;1H[K[7m Manual page git(1) line 486/1031 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-unpack-file[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 485/1031 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 484/1031 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           List references in a local repository.[m
+[62;1H[K[7m Manual page git(1) line 483/1031 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-show-ref[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 482/1031 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 481/1031 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Show packed archive index.[m
+[62;1H[K[7m Manual page git(1) line 480/1031 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-show-index[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 479/1031 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 478/1031 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Lists commit objects in reverse chronological order.[m
+[62;1H[K[7m Manual page git(1) line 477/1031 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-rev-list[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 476/1031 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 475/1031 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Find redundant pack files.[m
+[62;1H[K[7m Manual page git(1) line 474/1031 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-pack-redundant[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 473/1031 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 472/1031 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Find symbolic names for given revs.[m
+[62;1H[K[7m Manual page git(1) line 471/1031 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-name-rev[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 470/1031 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 469/1031 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Find as good common ancestors as possible for a merge.[m
+[62;1H[K[7m Manual page git(1) line 468/1031 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-merge-base[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 467/1031 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 466/1031 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           List the contents of a tree object.[m
+[62;1H[K[7m Manual page git(1) line 465/1031 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-ls-tree[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 464/1031 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 463/1031 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           List references in a remote repository.[m
+[62;1H[K[7m Manual page git(1) line 462/1031 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-ls-remote[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 461/1031 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 460/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Show information about files in the index and the working tree.[m
+[62;1H[K[7m Manual page git(1) line 459/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-ls-files[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 458/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 457/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Output information on each ref.[m
+[62;1H[K[7m Manual page git(1) line 456/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-for-each-ref[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 455/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 454/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Compares the content and mode of blobs found via two tree objects.[m
+[62;1H[K[7m Manual page git(1) line 453/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-diff-tree[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 452/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 451/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Compare a tree to the working tree or index.[m
+[62;1H[K[7m Manual page git(1) line 450/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-diff-index[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 449/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 448/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Compares files in the working tree and the index.[m
+[62;1H[K[7m Manual page git(1) line 447/1031 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-diff-files[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 446/1031 40% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 445/1031 40% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Provide content or type and size information for repository objects.[m
+[62;1H[K[7m Manual page git(1) line 444/1031 40% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-cat-file[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 443/1031 40% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM   [1mInterrogation[0m [1mcommands[0m[m
+[62;1H[K[7m Manual page git(1) line 442/1031 40% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 441/1031 40% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Create a tree object from the current index.[m
+[62;1H[K[7m Manual page git(1) line 440/1031 40% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-write-tree[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 439/1031 40% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[62;1H[K[7m Manual page git(1) line 438/1031 40% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM           Update the object name stored in a ref safely.[m
+[62;1H[K[7m Manual page git(1) line 437/1031 40% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1mgit-update-ref[0m(1)[m
+[62;1H[K[7m Manual page git(1) line 436/1031 40% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1mgit-daemon[0m(1)[m
+[7m Manual page git(1) line 437/1031 40% (press h for help or q to quit)[27m[K[K[?1l>[?1049l[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ git-rev-list 
+.git/      README.md  
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ git-rev-list 
+.git/      README.md  
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ git-rev-list 
+-bash: git-rev-list: command not found
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ git rev list
+git: 'rev' is not a git command. See 'git --help'.
+
+Did you mean one of these?
+	grep
+	revert
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ n[Kq[Kcd ..
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo[00m$ cd ..git rev list[1Plist-list[C[1Prev-list-rev-list
+-bash: git-rev-list: command not found
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo[00m$ cd repo/re[K[K
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ cd repo/git-rev-list
+-bash: git-rev-list: command not found
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ gir [K[K[Kt r[K[K[Kt[Kit rev-list
+usage: git rev-list [OPTION] <commit-id>... [ -- paths... ]
+  limiting output:
+    --max-count=<n>
+    --max-age=<epoch>
+    --min-age=<epoch>
+    --sparse
+    --no-merges
+    --min-parents=<n>
+    --no-min-parents
+    --max-parents=<n>
+    --no-max-parents
+    --remove-empty
+    --all
+    --branches
+    --tags
+    --remotes
+    --stdin
+    --quiet
+  ordering output:
+    --topo-order
+    --date-order
+    --reverse
+  formatting output:
+    --parents
+    --children
+    --objects | --objects-edge
+    --unpacked
+    --header | --pretty
+    --abbrev=<n> | --no-abbrev
+    --abbrev-commit
+    --left-right
+    --count
+  special purpose:
+    --bisect
+    --bisect-vars
+    --bisect-all
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ git log
+[?1h=[33mcommit edd935d60906b33f0619605abd1689808ccdd5ee[m[m
+Author: Morla Porla <morla@overthewire.org>[m
+Date:   Thu May 7 20:14:49 2020 +0200[m
+[m
+    fix info leak[m
+[m
+[33mcommit c086d11a00c0648d095d04c089786efef5e01264[m[m
+Author: Morla Porla <morla@overthewire.org>[m
+Date:   Thu May 7 20:14:49 2020 +0200[m
+[m
+    add missing data[m
+[m
+[33mcommit de2ebe2d5fd1598cd547f4d56247e053be3fdc38[m[m
+Author: Ben Dover <noone@overthewire.org>[m
+Date:   Thu May 7 20:14:49 2020 +0200[m
+[m
+    initial commit of README.md[m
+[K[?1l>[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ git checkout c0[K[Kc086d11a00c0648d095d04c089786efef5e01264
+Note: checking out 'c086d11a00c0648d095d04c089786efef5e01264'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at c086d11... add missing data
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ ls
+README.md
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ cat README.md 
+# Bandit Notes
+Some notes for level29 of bandit.
+
+## credentials
+
+- username: bandit29
+- password: bbc96594b4e001778eee9975372716b2
+
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ echo bbc96594b4e001778eee9975372716b2
+bbc96594b4e001778eee9975372716b2
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ is pw
+-bash: is: command not found
+[01;32mbandit28@bandit[00m:[01;34m/tmp/repo/repo[00m$ exit
+logout
