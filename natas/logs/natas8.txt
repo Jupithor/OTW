@@ -1,0 +1,15 @@
+python                                                    
+Python 2.7.18 (default, Sep 24 2021, 09:39:51) 
+[gcc 10.3.0] on linux2
+type "help", "copyright", "credits" or "license" for more information.
+>>> import binascii
+>>> secret=binascii.unhexlify("3d3d516343746d4d6d6c315669563362")
+>>> secret
+'==QcCtmMml1ViV3b'
+>>> secret=secret[::-1]
+>>> secret
+'b3ViV1lmMmtCcQ=='
+>>> import base64
+>>> secret=base64.b64decode(secret)
+>>> secret
+'oubWYf2kBq'

